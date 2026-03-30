@@ -325,6 +325,7 @@ tr.jrow td{background:rgba(245,200,66,.05);}
   <div class="logo">exam<em>planning</em><small>VMBO-TL 2026</small></div>
   <div class="cd-strip" id="cd"></div>
   <button class="key-btn" onclick="openApiSettings()" title="API key instellen">🔑</button>
+  <span id="sync-icon" title="Cloud sync" style="font-size:1rem;cursor:default;user-select:none">☁️</span>
 </header>
 
 <nav>
@@ -553,6 +554,18 @@ tr.jrow td{background:rgba(245,200,66,.05);}
 <div id="toast"></div>
 
 <!-- API KEY OVERLAY -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<div class="overlay" id="login-overlay" style="display:none">
+  <div class="modal" style="max-width:340px;text-align:center">
+    <div style="font-size:2.5rem;margin-bottom:12px">👋</div>
+    <h3 style="margin-bottom:8px">Wie ben jij?</h3>
+    <p style="font-size:.8rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Vul je naam in zodat je voortgang in de cloud wordt opgeslagen en op elk apparaat beschikbaar is.</p>
+    <input type="text" id="login-naam" placeholder="Jouw naam..." style="width:100%;margin-bottom:14px;font-size:.9rem" onkeydown="if(event.key==='Enter')saveLogin()">
+    <button class="ok" style="width:100%;padding:11px" onclick="saveLogin()">Doorgaan →</button>
+  </div>
+</div>
+
 <div class="overlay" id="api-overlay" onclick="if(event.target===this)closeApiSettings()" style="display:none">
   <div class="modal" style="max-width:380px">
     <h3>🔑 API key instellen</h3>
@@ -733,11 +746,52 @@ const ROOSTER = [
 const MINE={'Wiskunde':'wisk','Nederlands':'nl','Economie':'eco','Natuur- en scheikunde I':'nask','Engels':'engels'};
 
 // ═══════════════════════════════════════════
+// SUPABASE (Examentraining — apart project)
+// ═══════════════════════════════════════════
+const SB_URL='https://ckqltenzqldjxlnseoyd.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNrcWx0ZW56cWxkanhsbnNlb3lkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4ODE3MjIsImV4cCI6MjA5MDQ1NzcyMn0.c00bHBesAsqxqvhsydyGKwIuQQPPuieYYUtFVx9HxrA';
+let sb=null;
+function initSupabase(){if(window.supabase&&!sb){sb=window.supabase.createClient(SB_URL,SB_KEY);}}
+
+async function syncToCloud(){
+  initSupabase();
+  const uid=localStorage.getItem('gebruiker_id');
+  if(!sb||!uid)return;
+  const icon=document.getElementById('sync-icon');
+  try{
+    const{error}=await sb.from('gebruiker_data').upsert({
+      gebruiker_id:uid,data:S,bijgewerkt_op:new Date().toISOString()
+    },{onConflict:'gebruiker_id'});
+    if(error)throw error;
+    if(icon){icon.textContent='✅';setTimeout(()=>{icon.textContent='☁️';},2000);}
+  }catch(e){
+    if(icon){icon.textContent='⚠️';setTimeout(()=>{icon.textContent='☁️';},3000);}
+  }
+}
+
+async function loadData(){
+  initSupabase();
+  const uid=localStorage.getItem('gebruiker_id');
+  if(!sb||!uid)return;
+  try{
+    const{data,error}=await sb.from('gebruiker_data').select('data,bijgewerkt_op').eq('gebruiker_id',uid).single();
+    if(error||!data)return;
+    const localTs=localStorage.getItem('expl_vmbo5_ts')||'0';
+    if(data.bijgewerkt_op>localTs){
+      S=data.data;
+      localStorage.setItem('expl_vmbo5',JSON.stringify(S));
+      localStorage.setItem('expl_vmbo5_ts',data.bijgewerkt_op);
+      renderVandaag();renderWeek();
+    }
+  }catch(e){}
+}
+
+// ═══════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════
 let S={done:{},sessions:{},logs:{},scores:{},chats:{}};
 try{S=JSON.parse(localStorage.getItem('expl_vmbo5'))||S;}catch(e){}
-function save(){localStorage.setItem('expl_vmbo5',JSON.stringify(S));}
+function save(){localStorage.setItem('expl_vmbo5',JSON.stringify(S));syncToCloud();}
 
 // ═══════════════════════════════════════════
 // UTILS
@@ -976,6 +1030,27 @@ function openApiSettings(){
   setTimeout(()=>inp.focus(),100);
 }
 function closeApiSettings(){document.getElementById('api-overlay').style.display='none';}
+
+// ═══════════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════════
+function checkLogin(){
+  const uid=localStorage.getItem('gebruiker_id');
+  if(!uid){
+    document.getElementById('login-overlay').style.display='flex';
+    setTimeout(()=>document.getElementById('login-naam').focus(),100);
+  } else {
+    loadData();
+  }
+}
+function saveLogin(){
+  const v=document.getElementById('login-naam').value.trim();
+  if(!v){document.getElementById('login-naam').focus();return;}
+  localStorage.setItem('gebruiker_id',v);
+  document.getElementById('login-overlay').style.display='none';
+  loadData();
+  toastMsg('Welkom, '+v+'! 👋');
+}
 function saveApiKey(){
   const v=document.getElementById('api-key-input').value.trim();
   if(!v){toastMsg('Voer een geldige API key in');return;}
@@ -1916,6 +1991,7 @@ function show(id){
 // ═══════════════════════════════════════════
 renderVandaag();
 renderWeek();
+checkLogin();
 </script>
 </body>
 </html>
