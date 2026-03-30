@@ -265,6 +265,17 @@ tr.jrow td{background:rgba(245,200,66,.05);}
 .u-restart{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;padding:10px 22px;border-radius:9px;cursor:pointer;transition:border-color .13s;}
 .u-restart:hover{border-color:var(--accent);}
 
+.fase-badge{display:inline-flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:7px 13px;font-size:.76rem;margin-bottom:12px;width:100%;box-sizing:border-box;}
+.fase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.fase-naam{font-weight:700;}
+.fase-sub{color:var(--muted);font-size:.7rem;margin-left:auto;}
+.prio-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:2px;}
+.tsub-reden{font-size:.67rem;opacity:.7;margin-left:4px;}
+.score-chart{display:block;margin-top:6px;}
+.prio-badge{display:inline-block;font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:10px;letter-spacing:.06em;margin-top:4px;}
+.prio-hoog{background:rgba(224,80,96,.12);color:var(--red);border:1px solid rgba(224,80,96,.3);}
+.prio-normaal{background:rgba(245,200,66,.1);color:var(--accent);border:1px solid rgba(245,200,66,.3);}
+.prio-laag{background:rgba(62,207,120,.1);color:var(--green);border:1px solid rgba(62,207,120,.3);}
 .ai-attach-row{display:flex;gap:6px;margin-top:5px;}
 .ai-attach-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-family:'Syne',sans-serif;font-size:.75rem;padding:5px 11px;border-radius:7px;cursor:pointer;transition:all .13s;}
 .ai-attach-btn:hover,.ai-attach-btn.active{border-color:var(--accent);color:var(--accent);}
@@ -659,6 +670,12 @@ Spreek de leerling aan als 'jij'.`,
    ]},
 ];
 
+const FASES = [
+  {naam:'Opbouw',    van:'2026-03-30',tot:'2026-04-15',kleur:'var(--green)', maxMinuten:120,maxBlokken:3},
+  {naam:'Intensief', van:'2026-04-16',tot:'2026-05-01',kleur:'var(--orange)',maxMinuten:180,maxBlokken:4},
+  {naam:'Eindspurt', van:'2026-05-02',tot:'2026-05-26',kleur:'var(--red)',   maxMinuten:210,maxBlokken:4},
+];
+
 const WEEK_PLAN = [
   {dow:0,tasks:[
     {id:'E',vak:'engels',  label:'Engels – 1 tekst uit examen 2024',    mins:30, tip:'Stap 1: lees de vragen. Stap 2: lees de tekst. Stap 3: beantwoord. Stap 4: nakijken.'},
@@ -738,6 +755,110 @@ function toastMsg(m){const t=document.getElementById('toast');t.textContent=m;t.
 function scoreColor(n){return n>=5.5?'score-good':n>=4.5?'score-mid':'score-bad';}
 
 // ═══════════════════════════════════════════
+// DYNAMISCHE PLANNING
+// ═══════════════════════════════════════════
+function getFase(datumStr){
+  for(const f of FASES)if(datumStr>=f.van&&datumStr<=f.tot)return f;
+  return FASES[FASES.length-1];
+}
+
+function dagsSindsGeoefend(vakId){
+  for(let i=0;i<14;i++){
+    const d=new Date(TODAY);d.setDate(TODAY.getDate()-i);
+    const dStr=ds(d);
+    const taken=getDayTasks(dStr).filter(t=>t.vak===vakId);
+    if(taken.some(t=>S.done[tkey(dStr,t.id)]))return i;
+  }
+  return 99;
+}
+
+function berekenPrioriteit(vakId){
+  const v=vak(vakId);if(!v)return 0;
+  if(daysUntil(v.examen)<0)return 0;
+  const scores=S.scores[vakId]||[];
+  const avg=scores.length?scores.reduce((a,s)=>a+(s.score||0),0)/scores.length:null;
+
+  // 1. SCORE FACTOR (0–40)
+  let sf=20;
+  if(avg!==null){
+    if(avg<=4.0)sf=40;
+    else if(avg<=5.0)sf=Math.round(40-(avg-4)*10);
+    else if(avg<=6.0)sf=Math.round(30-(avg-5)*10);
+    else if(avg<7.0)sf=Math.round(20-(avg-6)*15);
+    else sf=5;
+  }
+
+  // 2. TREND FACTOR (0–30)
+  let tf=15;
+  if(scores.length>=4){
+    const r=(scores.slice(-2).reduce((a,s)=>a+s.score,0))/2;
+    const o=(scores.slice(-4,-2).reduce((a,s)=>a+s.score,0))/2;
+    if(r<o-0.3)tf=30;else if(r>o+0.3)tf=5;else tf=15;
+  }
+
+  // 3. STREAK FACTOR (0–25)
+  const dsg=dagsSindsGeoefend(vakId);
+  let streak=dsg===0?5:dsg<=2?10:dsg<=4?20:25;
+
+  // 4. EXAMEN NABIJHEID (0–10)
+  const days=daysUntil(v.examen);
+  const nf=days>30?2:days>=15?5:days>=7?8:10;
+
+  let total=Math.min(100,sf+tf+streak+nf);
+  if(vakId==='wisk')total=Math.min(10,total);
+  if(vakId==='engels')total=Math.max(30,total);
+  return total;
+}
+
+function dynamischeTip(vakId,staticTip){
+  const scores=S.scores[vakId]||[];
+  const avg=scores.length?scores.reduce((a,s)=>a+s.score,0)/scores.length:null;
+  if(!scores.length)return{tip:'Eerste keer oefenen — ontdek waar je staat.',reden:'Nog niet geoefend'};
+  const dsg=dagsSindsGeoefend(vakId);
+  let dalend=false,stijgend=false;
+  if(scores.length>=4){
+    const r=scores.slice(-2).reduce((a,s)=>a+s.score,0)/2;
+    const o=scores.slice(-4,-2).reduce((a,s)=>a+s.score,0)/2;
+    if(r<o-0.3)dalend=true;else if(r>o+0.3)stijgend=true;
+  }
+  if(dalend)return{tip:'Score daalt — extra aandacht nakijken en fouten analyseren.',reden:'Score daalt ↓'};
+  if(stijgend)return{tip:'Goed bezig! Score stijgt — vasthouden.',reden:'Score stijgt ↑'};
+  if(dsg>4)return{tip:'Al een tijdje niet geoefend — kort maar krachtig vandaag.',reden:`${dsg}d niet geoefend`};
+  if(avg!==null&&avg<5)return{tip:'Focus op begrippen — leg elk fout antwoord uit in eigen woorden.',reden:`gem. ${avg.toFixed(1)} — aandacht`};
+  return{tip:staticTip,reden:avg!==null?`gem. ${avg.toFixed(1)}`:''};
+}
+
+function getDayTasksDynamic(datumStr){
+  const staticTasks=getDayTasks(datumStr);
+  if(!staticTasks.length)return[];
+  const fase=getFase(datumStr);
+
+  // Engels altijd eerst, rest op prioriteit
+  const engTasks=staticTasks.filter(t=>t.vak==='engels');
+  const otherTasks=staticTasks.filter(t=>t.vak!=='engels').sort((a,b)=>berekenPrioriteit(b.vak)-berekenPrioriteit(a.vak));
+  const ordered=[...engTasks,...otherTasks];
+
+  const result=[];let totalMins=0;
+  for(const task of ordered){
+    if(result.length>=fase.maxBlokken)break;
+    if(totalMins>=fase.maxMinuten)break;
+    const prio=berekenPrioriteit(task.vak);
+    if(prio===0)continue;
+    let mins=prio>70?60:prio>=50?45:prio>=30?30:20;
+    if(totalMins+mins>fase.maxMinuten)mins=fase.maxMinuten-totalMins;
+    if(mins<15)break;
+    const{tip,reden}=dynamischeTip(task.vak,task.tip);
+    result.push({...task,mins,tip,prioriteit:prio,reden});
+    totalMins+=mins;
+  }
+  return result;
+}
+
+function prioBulletColor(p){return p>70?'var(--red)':p>=40?'var(--orange)':'var(--green)';}
+function prioLabel(p){return p>70?'HOOG':p>=40?'NORMAAL':'LAAG';}
+function prioBadgeClass(p){return p>70?'prio-hoog':p>=40?'prio-normaal':'prio-laag';}
+
+// ═══════════════════════════════════════════
 // COUNTDOWN
 // ═══════════════════════════════════════════
 (function(){
@@ -755,18 +876,30 @@ function scoreColor(n){return n>=5.5?'score-good':n>=4.5?'score-mid':'score-bad'
 // ═══════════════════════════════════════════
 function renderVandaag(){
   document.getElementById('td-date').textContent=TODAY.toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'});
-  const tasks=getDayTasks(todayStr);
+  const tasks=getDayTasksDynamic(todayStr);
   const con=document.getElementById('tasks-today');
   con.innerHTML='';
-  if(!tasks.length){con.innerHTML='<div style="color:var(--muted);font-size:.82rem;padding:8px 0">Geen geplande taken vandaag — rustdag 😊</div>';setDBar(0,0);return;}
+
+  // Fase badge
+  const fase=getFase(todayStr);
+  const eersteExamen=daysUntil('2026-05-08');
+  const fb=document.createElement('div');
+  fb.className='fase-badge';
+  fb.innerHTML=`<span class="fase-dot" style="background:${fase.kleur}"></span><span class="fase-naam" style="color:${fase.kleur}">${fase.naam}</span><span style="color:var(--muted);font-size:.7rem">Planning past zich aan op jouw scores</span><span class="fase-sub">${eersteExamen>0?eersteExamen+'d tot examens':''}</span>`;
+  con.appendChild(fb);
+
+  if(!tasks.length){
+    const el=document.createElement('div');el.style.cssText='color:var(--muted);font-size:.82rem;padding:8px 0';el.textContent='Geen geplande taken vandaag — rustdag 😊';con.appendChild(el);setDBar(0,0);return;
+  }
   tasks.forEach(task=>{
     const key=tkey(todayStr,task.id);
     const done=!!S.done[key];
     const v=vak(task.vak);
+    const prio=task.prioriteit||berekenPrioriteit(task.vak);
     const div=document.createElement('div');
     div.className='task-row'+(done?' done celebrate':'');
     div.style.setProperty('--vc',v?v.color:'#888');
-    div.innerHTML=`<div class="chk">${done?'✓':''}</div><div class="tleft"><div class="tname">${task.label}</div><div class="tsub">${v?v.name:''} · ${task.tip}</div></div><div class="tmins">${task.mins} min</div>`;
+    div.innerHTML=`<div class="chk">${done?'✓':''}</div><div class="tleft"><div class="tname">${task.label}</div><div class="tsub">${v?v.name:''} · ${task.tip}${task.reden?`<span class="tsub-reden">— ${task.reden}</span>`:''}</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px"><div class="tmins">${task.mins} min</div><div class="prio-dot" style="background:${prioBulletColor(prio)}" title="Prioriteit: ${prioLabel(prio)}"></div></div>`;
     div.onclick=()=>toggle(key,task.vak,todayStr);
     con.appendChild(div);
   });
@@ -801,7 +934,7 @@ function renderWeek(){
   for(let i=0;i<7;i++){
     const d=new Date(ws);d.setDate(ws.getDate()+i);
     const dStr=ds(d);const isToday=dStr===todayStr;
-    const exams=examsOn(dStr);const tasks=getDayTasks(dStr);
+    const exams=examsOn(dStr);const tasks=getDayTasksDynamic(dStr);
     const col=document.createElement('div');
     col.className='day-col'+(isToday?' today-col':'')+(exams.length?' exam-day':'');
     let html=`<div class="day-dname">${DN[i]}</div><div class="day-ddate">${d.getDate()} ${d.toLocaleDateString('nl-NL',{month:'short'})}</div>`;
@@ -810,8 +943,9 @@ function renderWeek(){
     tasks.forEach(task=>{
       const key=tkey(dStr,task.id);const done=!!S.done[key];if(done)dc++;
       const v=vak(task.vak);
+      const pp=task.prioriteit||berekenPrioriteit(task.vak);
       html+=`<div class="mini-task ${done?'done':''}" style="--vc:${v?v.color:'#888'}" onclick="miniToggle('${key}','${task.vak}','${dStr}')">
-        <div class="mc">${done?'✓':''}</div><span class="ml">${task.label.split('–')[0].trim()}</span><span class="mm">${task.mins}m</span></div>`;
+        <div class="mc">${done?'✓':''}</div><span class="ml">${task.label.split('–')[0].trim()}</span><span style="width:6px;height:6px;border-radius:50%;background:${prioBulletColor(pp)};flex-shrink:0;display:inline-block;margin-right:1px"></span><span class="mm">${task.mins}m</span></div>`;
     });
     if(tasks.length){const p=Math.round(dc/tasks.length*100);html+=`<div class="day-prog"><div class="day-prog-fill" style="width:${p}%"></div></div>`;}
     col.innerHTML=html;grid.appendChild(col);
@@ -1639,6 +1773,20 @@ function renderVoortgang(){
     const avg=scores.length?Math.round(scores.reduce((a,s)=>a+(s.score||0),0)/scores.length*10)/10:null;
     const streak=streak14(v.id);
     const sessions=(S.sessions[v.id]||[]).filter(s=>!s.auto);
+    const prio=berekenPrioriteit(v.id);
+
+    // SVG score chart (last 5 scores)
+    const last5=scores.slice(-5);
+    let svgChart='';
+    if(last5.length>=2){
+      const W=180,H=40,pad=6;
+      const xs=last5.map((_,i)=>pad+i*(W-2*pad)/(last5.length-1));
+      const ys=last5.map(s=>H-pad-(s.score-1)/(10-1)*(H-2*pad));
+      const pts=xs.map((x,i)=>`${x},${ys[i]}`).join(' ');
+      const dots=last5.map((s,i)=>`<circle cx="${xs[i]}" cy="${ys[i]}" r="3" fill="${scoreColor(s.score)==='score-good'?'var(--green)':scoreColor(s.score)==='score-mid'?'var(--accent)':'var(--red)'}"/><text x="${xs[i]}" y="${ys[i]-5}" text-anchor="middle" font-size="8" fill="var(--muted)">${s.score}</text>`).join('');
+      svgChart=`<svg class="score-chart" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linejoin="round"/>${dots}</svg>`;
+    }
+
     const card=document.createElement('div');card.className='vak-card';
     card.innerHTML=`
       <div class="vc-top">
@@ -1652,7 +1800,9 @@ function renderVoortgang(){
       </div>
       <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:${v.color}"></div></div>
       <div class="bar-lbl"><span>${pct}% van geplande taken</span><span>examen ${new Date(v.examen+'T00:00:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short'})}</span></div>
-      <div style="font-size:.68rem;color:var(--muted);margin-top:5px;font-style:italic">💡 ${v.tip}</div>
+      ${prio>0?`<span class="prio-badge ${prioBadgeClass(prio)}">Prioriteit vandaag: ${prioLabel(prio)}</span>`:'<span class="prio-badge prio-laag">Examen voorbij</span>'}
+      ${svgChart?`<div style="font-size:.57rem;color:var(--muted);margin-top:8px;margin-bottom:2px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Laatste ${last5.length} scores</div>${svgChart}`:''}
+      <div style="font-size:.68rem;color:var(--muted);margin-top:7px;font-style:italic">💡 ${v.tip}</div>
       <div style="font-size:.57rem;color:var(--muted);margin-top:9px;margin-bottom:3px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Activiteit – laatste 14 dagen</div>
       <div class="streak-row">${streak.map(h=>h===null?`<div class="sdot skip">–</div>`:`<div class="sdot ${h?'hit':''}">${h?'✓':''}</div>`).join('')}</div>
       <textarea class="log-area" id="log-${v.id}" placeholder="Notities, fouten, verbeterpunten...">${S.logs[v.id]||''}</textarea>
