@@ -591,13 +591,38 @@ Spreek de leerling aan als 'jij'.`,
 ];
 
 const WEEK_PLAN = [
-  {dow:0,tasks:[{id:'E',vak:'engels',label:'Engels – oud examen (halve)',mins:30,tip:'Lees vragen eerst'},{id:'A',vak:'eco',label:'Eco – begrippen oefenen',mins:30,tip:'Hardop uitleggen'}]},
-  {dow:1,tasks:[{id:'E',vak:'engels',label:'Engels – leesvragen trainen',mins:30,tip:'Markeer kernwoorden'},{id:'A',vak:'nl',label:'NL – leesexamen + nakijken',mins:60,tip:'Signaalwoorden'},{id:'B',vak:'nask',label:'Nask – nakijken sessie',mins:45,tip:'Waar ging het fout?'}]},
-  {dow:2,tasks:[{id:'E',vak:'engels',label:'Engels – oud examen',mins:30,tip:'Niet te snel'},{id:'A',vak:'eco',label:'Eco – oud examen nakijken',mins:60,tip:'Welk begrip?'},{id:'B',vak:'wisk',label:'Wiskunde – paar opgaven',mins:30,tip:'Slordigheid check'}]},
-  {dow:3,tasks:[{id:'E',vak:'engels',label:'Engels – fouten analyseren',mins:30,tip:'Waarom fout?'},{id:'A',vak:'nask',label:'Nask – oud examen',mins:60,tip:'Formules herkennen'},{id:'B',vak:'nl',label:'NL – vraagtype oefenen',mins:45,tip:'Type A/B/C'}]},
-  {dow:4,tasks:[{id:'E',vak:'engels',label:'Engels – volledig examen',mins:30,tip:'Op tijd'},{id:'A',vak:'eco',label:'Eco – begrippen herhalen',mins:60,tip:'→ iemand uitleggen'},{id:'B',vak:'nask',label:'Nask – nakijken + fouten',mins:45,tip:'Groei meten'}]},
-  {dow:5,tasks:[{id:'E',vak:'engels',label:'Engels – examen volledig',mins:60,tip:'Alsof het echt is'},{id:'A',vak:'eco',label:'Eco – mix herhaling',mins:45,tip:'Zwakke punten'}]},
-  {dow:6,tasks:[{id:'A',vak:'nask',label:'Nask – nakijken sessie',mins:45,tip:'Inzicht opdoen'},{id:'B',vak:'wisk',label:'Wiskunde – check',mins:30,tip:'Bijhouden'}]},
+  {dow:0,tasks:[
+    {id:'E',vak:'engels', label:'Engels – 1 tekst uit examen 2024',  mins:30, tip:'Stap 1: lees de vragen. Stap 2: lees de tekst. Stap 3: beantwoord. Stap 4: nakijken + opschrijven wat fout was.'},
+    {id:'A',vak:'eco',    label:'Eco – 3 begrippen uitleggen',        mins:30, tip:'Kies 3 begrippen (bijv. inflatie, vraag, aanbod). Schrijf van elk op: wat betekent het? Geef een voorbeeld uit het dagelijks leven.'},
+  ]},
+  {dow:1,tasks:[
+    {id:'E',vak:'engels', label:'Engels – 1 tekst uit examen 2023',  mins:30, tip:'Zelfde aanpak: vragen eerst, dan tekst. Na nakijken: wat ging beter dan gisteren?'},
+    {id:'A',vak:'nl',     label:'NL – 1 leestekst + 3 vragen',       mins:60, tip:'Open NL examen 2024. Lees tekst 1. Beantwoord de vragen. Nakijken: welk vraagtype was het?'},
+    {id:'B',vak:'nask',   label:'Nask – 5 vragen uit examen 2024',   mins:45, tip:'Schrijf elke stap op. Niet gokken. Na nakijken: welke formule was je vergeten?'},
+  ]},
+  {dow:2,tasks:[
+    {id:'E',vak:'engels', label:'Engels – 1 tekst + fouten vergelijken', mins:30, tip:'Gebruik hetzelfde examen als maandag. Kijk terug naar je fouten. Snap je nu waarom het fout was?'},
+    {id:'A',vak:'eco',    label:'Eco – 5 vragen uit examen 2024',    mins:60, tip:'Open Eco examen 2024 tijdvak 1. Maak de eerste 5 vragen. Nakijken: schrijf per fout welk begrip je niet snapte.'},
+    {id:'B',vak:'wisk',   label:'Wiskunde – 4 opgaven mix',          mins:30, tip:'Open Wiskunde examen 2024. Maak 4 opgaven. Controleer elke stap na het uitwerken.'},
+  ]},
+  {dow:3,tasks:[
+    {id:'E',vak:'engels', label:'Engels – 1 tekst uit examen 2022',  mins:30, tip:'Nieuw examen, zelfde methode. Tel: hoeveel vragen goed? Vergelijk met maandag.'},
+    {id:'A',vak:'nask',   label:'Nask – formules herhalen + 3 sommen', mins:60, tip:'Schrijf eerst alle formules op die je kent. Dan 3 rekenvragen maken. Nakijken: klopten je eenheden?'},
+    {id:'B',vak:'nl',     label:'NL – teksttype oefenen',            mins:45, tip:'Open NL examen 2023. Lees 1 tekst. Vraag: wat is het doel van deze tekst? Informeren, overtuigen of vermaken?'},
+  ]},
+  {dow:4,tasks:[
+    {id:'E',vak:'engels', label:'Engels – 2 teksten uit examen 2023', mins:30, tip:'Iets meer dan eerder. Let op de tijd: max 15 min per tekst.'},
+    {id:'A',vak:'eco',    label:'Eco – begrippen hardop uitleggen',  mins:60, tip:'Pak 5 begrippen die je eerder fout had. Leg elk begrip hardop uit alsof je het aan een vriend uitlegt. Schrijf daarna een zin op.'},
+    {id:'B',vak:'nask',   label:'Nask – nakijken + foutenlijst',     mins:45, tip:'Pak je gemaakte Nask werk van deze week. Maak een lijstje: welke fouten komen steeds terug?'},
+  ]},
+  {dow:5,tasks:[
+    {id:'E',vak:'engels', label:'Engels – volledig examen (tijdvak 1, 2021)', mins:60, tip:'Doe alsof het echt is. Geen pauzes. Na afloop nakijken en score opschrijven in de app.'},
+    {id:'A',vak:'eco',    label:'Eco – 10 vragen mix oud examen',   mins:45, tip:'Open Eco 2023. Maak de eerste 10 vragen. Score noteren in de app na nakijken.'},
+  ]},
+  {dow:6,tasks:[
+    {id:'A',vak:'nask',   label:'Nask – 1 volledig oud examen nakijken', mins:45, tip:'Maak Nask 2023 tijdvak 1. Nakijken. Score noteren. Schrijf op: welk onderwerp was het moeilijkst?'},
+    {id:'B',vak:'wisk',   label:'Wiskunde – slordigheidscheck',     mins:30, tip:'Pak werk van deze week terug. Zoek slordigheidsfouten: rekenfout, eenheid vergeten, vraag verkeerd gelezen?'},
+  ]},
 ];
 
 const ROOSTER = [
