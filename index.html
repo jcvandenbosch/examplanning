@@ -1207,19 +1207,12 @@ async function startNakijkSessie(vakId){
 
   // Build system prompt
   const v=vak(vakId);
-  const sysPrompt=`Je bent een geduldige nakijkcoach voor VMBO-TL ${v.name}, tijdvak ${tv} van ${jaar}.
-Je beschikt over de echte examenbestanden als PDF (opgaven${nkState.pdfs.bijlage?', bijlage':''}${nkState.pdfs.uitwerking||nkState.pdfs.antwoorden?', uitwerking':''}).
-De leerling heeft dyslexie — wees geduldig, beoordeel inhoud niet spelling, schrijf kort en duidelijk.
-
-Jouw taak:
-1. Vraag welke vraag de leerling wil bespreken (of begin bij vraag 1 als hij dat aangeeft).
-2. Laat de leerling zijn antwoord geven.
-3. Vergelijk het antwoord met de uitwerking/antwoordsleutel in de PDF.
-4. Geef gerichte feedback: wat was goed, wat miste hij, wat is het correcte antwoord.
-5. Geef de score/punten als die in de uitwerking staan.
-6. Stel dan de volgende vraag voor.
-
-Spreek de leerling aan als 'jij'. Wees motiverend en concreet.`;
+  const sysPrompt=`Je bent een nakijkcoach voor VMBO-TL examens.
+Je hebt de opgaven, eventuele bijlagen en het antwoordmodel.
+De leerling heeft dyslexie — beoordeel alleen inhoud, nooit spelling.
+Geef een kort welkomstbericht: welk examen is geladen (${v.name} ${jaar} tijdvak ${tv}) en hoe de leerling het beste kan werken.
+Wacht daarna op de leerling. Als hij een vraagnummer noemt met zijn antwoord, geef concrete feedback op basis van het antwoordmodel: wat was goed, wat miste hij, wat is correct.
+Wees kort, duidelijk en motiverend.`;
 
   // Build first message with all PDFs
   const pdfContent=[];
@@ -1249,7 +1242,7 @@ Spreek de leerling aan als 'jij'. Wees motiverend en concreet.`;
     const resp=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,system:sysPrompt,messages:nkState.chatHistory})
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,system:sysPrompt,messages:nkState.chatHistory})
     });
     if(!resp.ok)throw new Error('API error '+resp.status);
     const data=await resp.json();
