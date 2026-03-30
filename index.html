@@ -202,37 +202,80 @@ tr.jrow td{background:rgba(245,200,66,.05);}
 .mbts button{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:.76rem;font-weight:600;padding:7px 14px;border-radius:6px;cursor:pointer;}
 .mbts .ok{background:var(--accent);color:#000;border-color:var(--accent);}
 
-/* TOAST */
+/* UITLEG */
+.uitleg-intro{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:11px;padding:16px 18px;margin-bottom:16px;}
+.uitleg-intro h2{font-size:.92rem;font-weight:800;margin-bottom:6px;}
+.uitleg-intro p{font-size:.82rem;color:var(--muted);line-height:1.7;}
+.uitleg-intro-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:14px;}
+.uic{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:13px;}
+.uic .ui-icon{font-size:1.2rem;margin-bottom:6px;}
+.uic .ui-lbl{font-size:.8rem;font-weight:700;margin-bottom:3px;}
+.uic .ui-sub{font-size:.7rem;color:var(--muted);line-height:1.5;}
+@media(max-width:480px){.uitleg-intro-cards{grid-template-columns:1fr;}}
+.uitleg-progress{height:4px;background:var(--surface2);border-radius:2px;margin-bottom:20px;overflow:hidden;}
+.uitleg-progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s;}
+.uitleg-counter{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.uitleg-step{display:none;background:var(--surface);border:1px solid var(--border);border-radius:13px;overflow:hidden;}
+.uitleg-step.active{display:block;}
+.uitleg-step-header{padding:20px 20px 0;}
+.uitleg-step-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:14px;}
+.uitleg-step-title{font-size:1.1rem;font-weight:800;line-height:1.3;margin-bottom:7px;}
+.uitleg-step-sub{font-size:.82rem;color:var(--muted);line-height:1.7;}
+.uitleg-step-body{padding:16px 20px 20px;display:flex;flex-direction:column;gap:9px;}
+.u-action{display:flex;align-items:flex-start;gap:11px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:11px 13px;}
+.u-num{width:24px;height:24px;border-radius:6px;background:var(--accent);color:#000;font-weight:800;font-size:.76rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.u-txt{font-size:.82rem;line-height:1.6;}
+.u-txt strong{color:var(--accent);font-weight:700;}
+.u-tip{background:rgba(62,207,120,.06);border:1px solid rgba(62,207,120,.2);border-radius:9px;padding:11px 13px;font-size:.78rem;color:var(--muted);line-height:1.6;display:flex;gap:9px;}
+.u-tip-icon{font-size:.95rem;flex-shrink:0;margin-top:1px;}
+.u-tip strong{color:var(--green);}
+.uitleg-mockup{background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:2px;}
+.uitleg-mockup-bar{background:var(--surface2);border-bottom:1px solid var(--border);padding:7px 11px;font-size:.62rem;color:var(--muted);font-family:'DM Mono',monospace;display:flex;align-items:center;gap:5px;}
+.um-dot{width:6px;height:6px;border-radius:50%;}
+.uitleg-mockup-body{padding:11px 13px;}
+.um-nav{display:flex;gap:3px;margin-bottom:9px;}
+.um-tab{font-size:.62rem;font-weight:700;padding:4px 9px;border-radius:5px;border:1px solid var(--border);color:var(--muted);}
+.um-tab.hl{background:rgba(245,200,66,.14);border-color:var(--accent);color:var(--accent);}
+.um-task{display:flex;align-items:center;gap:9px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:8px 10px;margin-bottom:5px;font-size:.7rem;cursor:pointer;user-select:none;}
+.um-chk{width:20px;height:20px;border-radius:5px;border:2px solid var(--vc,var(--muted));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.66rem;transition:all .15s;}
+.um-task.done .um-chk{background:var(--vc);border-color:var(--vc);}
+.um-task.done .um-lbl{text-decoration:line-through;opacity:.5;}
+.um-lbl{flex:1;font-weight:600;}
+.um-mins{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);}
+.um-bar{height:5px;background:var(--surface);border-radius:3px;margin-top:7px;overflow:hidden;}
+.um-bar-fill{height:100%;background:var(--green);border-radius:3px;transition:width .4s;}
+.um-bubble{padding:8px 11px;border-radius:0 8px 8px 8px;font-size:.7rem;line-height:1.6;max-width:88%;margin-bottom:6px;}
+.um-bubble.ai{background:var(--surface2);border:1px solid var(--border);}
+.um-bubble.user{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);border-radius:8px 0 8px 8px;margin-left:auto;}
+.um-score-row{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 9px;margin-bottom:4px;font-size:.7rem;}
+.um-score-val{font-family:'DM Mono',monospace;font-weight:700;font-size:.88rem;min-width:26px;}
+.sg{color:var(--green);}.sm{color:var(--orange);}.sb{color:var(--red);}
+.uitleg-nav{display:flex;gap:9px;margin-top:16px;align-items:center;}
+.u-prev{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;padding:10px 18px;border-radius:9px;cursor:pointer;transition:all .13s;}
+.u-prev:hover{border-color:var(--accent);}
+.u-next{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:800;font-size:.86rem;padding:11px 26px;border-radius:9px;cursor:pointer;flex:1;transition:opacity .13s;}
+.u-next:hover{opacity:.87;}
+.uitleg-done{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:28px 22px;text-align:center;display:none;}
+.uitleg-done-circle{width:70px;height:70px;border-radius:50%;background:rgba(62,207,120,.14);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 18px;}
+.uitleg-done h3{font-size:1.3rem;font-weight:800;margin-bottom:8px;}
+.uitleg-done h3 span{color:var(--accent);}
+.uitleg-done p{font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:18px;}
+.uitleg-done-list{display:flex;flex-direction:column;gap:7px;text-align:left;margin-bottom:18px;}
+.udl-item{display:flex;gap:10px;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:11px 13px;font-size:.8rem;}
+.u-restart{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;padding:10px 22px;border-radius:9px;cursor:pointer;transition:border-color .13s;}
+.u-restart:hover{border-color:var(--accent);}
+
 #toast{position:fixed;bottom:16px;right:16px;background:var(--surface);border:1px solid var(--accent);color:var(--text);font-size:.78rem;padding:10px 15px;border-radius:8px;z-index:400;opacity:0;transform:translateY(8px);transition:all .22s;pointer-events:none;}
 #toast.show{opacity:1;transform:translateY(0);}
 @keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
 .celebrate{animation:pop .3s ease;}
-
-/* API KEY SETTINGS */
-#api-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;align-items:center;justify-content:center;}
-#api-overlay.open{display:flex;}
-.api-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 24px;width:90%;max-width:420px;}
-.api-box h2{font-size:1rem;font-weight:800;margin-bottom:8px;}
-.api-box p{font-size:.75rem;color:var(--muted);line-height:1.6;margin-bottom:16px;}
-.api-box input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Mono',monospace;font-size:.76rem;padding:10px 12px;outline:none;transition:border-color .13s;margin-bottom:12px;}
-.api-box input:focus{border-color:var(--accent);}
-.api-box .api-btns{display:flex;gap:8px;align-items:center;}
-.api-box .api-save{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;padding:9px 20px;border-radius:7px;cursor:pointer;transition:opacity .13s;}
-.api-box .api-save:hover{opacity:.85;}
-.api-box .api-cancel{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Syne',sans-serif;font-size:.78rem;padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .13s;}
-.api-box .api-cancel:hover{border-color:var(--muted);color:var(--text);}
-.key-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Syne',sans-serif;font-size:.68rem;padding:4px 9px;border-radius:6px;cursor:pointer;transition:all .13s;white-space:nowrap;}
-.key-btn:hover{border-color:var(--accent);color:var(--accent);}
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">exam<em>planning</em><small>VMBO-TL 2026</small></div>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <div class="cd-strip" id="cd"></div>
-    <button class="key-btn" onclick="openApiSettings()" title="API key wijzigen">🔑 API key</button>
-  </div>
+  <div class="cd-strip" id="cd"></div>
 </header>
 
 <nav>
@@ -241,6 +284,7 @@ tr.jrow td{background:rgba(245,200,66,.05);}
   <button onclick="show('oefenen')">🧠 Oefenen</button>
   <button onclick="show('voortgang')">📈 Voortgang</button>
   <button onclick="show('rooster')">🗓️ Rooster</button>
+  <button onclick="show('uitleg')">📖 Uitleg</button>
 </nav>
 
 <main>
@@ -301,7 +345,153 @@ tr.jrow td{background:rgba(245,200,66,.05);}
 
 </main>
 
-<!-- modal -->
+<!-- ── UITLEG ── -->
+<div class="panel" id="panel-uitleg">
+  <div id="uitleg-intro-screen">
+    <div class="uitleg-intro">
+      <h2>👋 Hoe werkt de app?</h2>
+      <p>Alles wat je moet weten in 6 stappen. Duurt 3 minuten. Klik op "Start uitleg" om te beginnen.</p>
+      <div class="uitleg-intro-cards">
+        <div class="uic"><div class="ui-icon">✅</div><div class="ui-lbl">Taken afvinken</div><div class="ui-sub">Elke dag zie je wat je moet doen.</div></div>
+        <div class="uic"><div class="ui-icon">🧠</div><div class="ui-lbl">AI-tutor</div><div class="ui-sub">Oefen vragen per vak met de AI.</div></div>
+        <div class="uic"><div class="ui-icon">📊</div><div class="ui-lbl">Scores bijhouden</div><div class="ui-sub">Log je score na elk oud examen.</div></div>
+        <div class="uic"><div class="ui-icon">📅</div><div class="ui-lbl">Examendata</div><div class="ui-sub">Zie hoeveel dagen er nog zijn.</div></div>
+      </div>
+    </div>
+    <button class="addbtn" style="width:100%;padding:13px;font-size:.9rem;border-radius:10px;" onclick="startUitleg()">Start uitleg →</button>
+  </div>
+
+  <div id="uitleg-stepper" style="display:none">
+    <div class="uitleg-progress"><div class="uitleg-progress-fill" id="u-prog" style="width:0%"></div></div>
+    <div class="uitleg-counter" id="u-counter">Stap 1 van 6</div>
+
+    <!-- Stap 1 -->
+    <div class="uitleg-step active" id="ustep-1">
+      <div class="uitleg-step-header">
+        <div class="uitleg-step-icon" style="background:rgba(68,148,232,.15)">🔑</div>
+        <div class="uitleg-step-title">De eerste keer opstarten</div>
+        <div class="uitleg-step-sub">De eerste keer moet je één ding invullen: een API key. Dit is een soort wachtwoord voor de AI-tutor. Daarna hoef je dat nooit meer te doen.</div>
+      </div>
+      <div class="uitleg-step-body">
+        <div class="u-action"><div class="u-num">1</div><div class="u-txt">Open de app in Chrome via de link die je hebt gekregen.</div></div>
+        <div class="u-action"><div class="u-num">2</div><div class="u-txt">Je ziet een scherm dat vraagt om een <strong>Anthropic API key</strong>. Vraag je ouder om die key — die is al aangemaakt.</div></div>
+        <div class="u-action"><div class="u-num">3</div><div class="u-txt">Plak de key in het vakje en klik <strong>Opslaan</strong>. Hoef je maar één keer te doen op dit apparaat.</div></div>
+        <div class="u-tip"><span class="u-tip-icon">💡</span><span><strong>Tip:</strong> Gebruik je een andere computer? Dan moet je de key daar opnieuw invullen. Sla hem op in de Notes-app van je telefoon.</span></div>
+      </div>
+    </div>
+
+    <!-- Stap 2 -->
+    <div class="uitleg-step" id="ustep-2">
+      <div class="uitleg-step-header">
+        <div class="uitleg-step-icon" style="background:rgba(245,200,66,.15)">✅</div>
+        <div class="uitleg-step-title">Elke dag: taken afvinken</div>
+        <div class="uitleg-step-sub">Dit is het belangrijkste. Open de app elke dag, kijk wat er staat, en vink het af als je klaar bent.</div>
+      </div>
+      <div class="uitleg-step-body">
+        <div class="uitleg-mockup">
+          <div class="uitleg-mockup-bar"><div class="um-dot" style="background:#e05060"></div><div class="um-dot" style="background:#e07040"></div><div class="um-dot" style="background:#3ecf78"></div><span style="margin-left:4px">examplanning.vercel.app</span></div>
+          <div class="uitleg-mockup-body">
+            <div class="um-nav"><div class="um-tab hl">✅ Vandaag</div><div class="um-tab">📅 Week</div><div class="um-tab">🧠 Oefenen</div></div>
+            <div class="um-task" id="umt1" style="--vc:#e05060" onclick="uVink('umt1')"><div class="um-chk"></div><span class="um-lbl">Engels – oud examen</span><span class="um-mins">30 min</span></div>
+            <div class="um-task" id="umt2" style="--vc:#e07040" onclick="uVink('umt2')"><div class="um-chk"></div><span class="um-lbl">Eco – begrippen oefenen</span><span class="um-mins">30 min</span></div>
+            <div class="um-bar"><div class="um-bar-fill" id="u-bar-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div class="u-tip"><span class="u-tip-icon">👆</span><span><strong>Probeer het uit</strong> — klik op een taak hierboven om hem af te vinken!</span></div>
+        <div class="u-action"><div class="u-num">!</div><div class="u-txt">Als alles is afgevinkt zie je een groen <strong>🎉 Geweldig!</strong> scherm. Elke dag consistent = grote kans dat je slaagt.</div></div>
+      </div>
+    </div>
+
+    <!-- Stap 3 -->
+    <div class="uitleg-step" id="ustep-3">
+      <div class="uitleg-step-header">
+        <div class="uitleg-step-icon" style="background:rgba(158,96,224,.15)">🧠</div>
+        <div class="uitleg-step-title">Oefenen per vak</div>
+        <div class="uitleg-step-sub">Ga naar het tabblad Oefenen. Kies een vak. Je ziet drie dingen: oude examens, scores bijhouden, en de AI-tutor.</div>
+      </div>
+      <div class="uitleg-step-body">
+        <div class="u-action"><div class="u-num">1</div><div class="u-txt">Klik op <strong>🔗 Oude examens</strong> — open een examen van examenblad.nl en maak het op papier.</div></div>
+        <div class="u-action"><div class="u-num">2</div><div class="u-txt">Nakijken? Klik op <strong>Antwoordmodel</strong> op dezelfde pagina van examenblad.nl.</div></div>
+        <div class="u-action"><div class="u-num">3</div><div class="u-txt">Daarna: ga terug naar de app en log je score (volgende stap).</div></div>
+        <div class="u-tip"><span class="u-tip-icon">💡</span><span><strong>Begin met Engels</strong> — dat heeft de laagste score. Elke dag 30 minuten Engels is het plan.</span></div>
+      </div>
+    </div>
+
+    <!-- Stap 4 -->
+    <div class="uitleg-step" id="ustep-4">
+      <div class="uitleg-step-header">
+        <div class="uitleg-step-icon" style="background:rgba(62,207,120,.15)">📊</div>
+        <div class="uitleg-step-title">Score bijhouden</div>
+        <div class="uitleg-step-sub">Na elk oud examen log je je score. Zo zie je over tijd of je beter wordt.</div>
+      </div>
+      <div class="uitleg-step-body">
+        <div class="uitleg-mockup">
+          <div class="uitleg-mockup-bar"><div class="um-dot" style="background:#e05060"></div><div class="um-dot" style="background:#e07040"></div><div class="um-dot" style="background:#3ecf78"></div><span style="margin-left:4px">Oefenen → Engels → Score bijhouden</span></div>
+          <div class="uitleg-mockup-body">
+            <div class="um-score-row"><span class="um-score-val sb">4.0</span><div style="flex:1"><div style="font-weight:600;font-size:.72rem">Engels 2022</div><div style="font-size:.63rem;color:var(--muted)">vraag 3+7 fout, tekst niet goed gelezen</div></div></div>
+            <div class="um-score-row"><span class="um-score-val sm">4.5</span><div style="flex:1"><div style="font-weight:600;font-size:.72rem">Engels 2023</div><div style="font-size:.63rem;color:var(--muted)">beter! vragen eerst lezen werkt</div></div></div>
+            <div class="um-score-row"><span class="um-score-val sg">5.5</span><div style="flex:1"><div style="font-weight:600;font-size:.72rem">Engels 2024</div><div style="font-size:.63rem;color:var(--muted)">groei zichtbaar 💪</div></div></div>
+          </div>
+        </div>
+        <div class="u-action"><div class="u-num">!</div><div class="u-txt">Schrijf altijd een korte notitie: <strong>wat ging er fout?</strong> Niet welke vraag — maar waarom.</div></div>
+      </div>
+    </div>
+
+    <!-- Stap 5 -->
+    <div class="uitleg-step" id="ustep-5">
+      <div class="uitleg-step-header">
+        <div class="uitleg-step-icon" style="background:rgba(68,148,232,.15)">🤖</div>
+        <div class="uitleg-step-title">De AI-tutor gebruiken</div>
+        <div class="uitleg-step-sub">De AI stelt je vragen alsof het een echte leraar is. Per vak anders — Engels oefent leesvragen, Eco vraagt begrippen, Nask geeft rekenstappen.</div>
+      </div>
+      <div class="uitleg-step-body">
+        <div class="uitleg-mockup">
+          <div class="uitleg-mockup-bar"><div class="um-dot" style="background:#e05060"></div><div class="um-dot" style="background:#e07040"></div><div class="um-dot" style="background:#3ecf78"></div><span style="margin-left:4px">Oefenen → Economie → AI-tutor</span></div>
+          <div class="uitleg-mockup-body">
+            <div class="um-bubble ai">Welkom! Laten we Economie oefenen. Eerste vraag: wat is het verschil tussen vraag en aanbod? Geef een voorbeeld 👇</div>
+            <div style="display:flex;justify-content:flex-end"><div class="um-bubble user">als er meer mensen een ps5 willen maar er zijn er weinig is de vraag hoog en aanbod laag</div></div>
+            <div class="um-bubble ai">✅ Goed! Vraag = hoeveel mensen iets willen kopen. Aanbod = hoeveel er te koop is. PS5 is een perfect voorbeeld. Volgende vraag: wat gebeurt er met de prijs als de vraag stijgt maar het aanbod gelijk blijft?</div>
+          </div>
+        </div>
+        <div class="u-action"><div class="u-num">!</div><div class="u-txt">Spelling maakt de AI <strong>niet</strong> uit. Schrijf gewoon wat je bedoelt — de AI kijkt alleen of je het snapt.</div></div>
+      </div>
+    </div>
+
+    <!-- Stap 6 -->
+    <div class="uitleg-step" id="ustep-6">
+      <div class="uitleg-step-header">
+        <div class="uitleg-step-icon" style="background:rgba(245,200,66,.15)">📈</div>
+        <div class="uitleg-step-title">Je voortgang bekijken</div>
+        <div class="uitleg-step-sub">In het tabblad Voortgang zie je hoeveel taken je hebt gedaan per vak, je gemiddelde scores, en een activiteitsgrid van de laatste 14 dagen.</div>
+      </div>
+      <div class="uitleg-step-body">
+        <div class="u-action"><div class="u-num">1</div><div class="u-txt">De <strong>groene stipjes</strong> laten zien op welke dagen je iets hebt gedaan. Probeer elke dag een stip te halen.</div></div>
+        <div class="u-action"><div class="u-num">2</div><div class="u-txt">Elk vak heeft een <strong>notitieveld</strong>. Schrijf hier wekelijks wat je hebt geleerd en wat nog lastig is.</div></div>
+        <div class="u-action"><div class="u-num">3</div><div class="u-txt">Je ouder kan ook meekijken en de planning aanpassen als iets niet werkt.</div></div>
+        <div class="u-tip"><span class="u-tip-icon">🏁</span><span><strong>Onthoud:</strong> je hoeft niet perfect te zijn. Je moet <em>consistent</em> zijn. Elke dag een beetje is beter dan één keer per week veel.</span></div>
+      </div>
+    </div>
+
+    <div class="uitleg-nav">
+      <button class="u-prev" id="u-prev-btn" onclick="uPrev()" style="display:none">← Terug</button>
+      <button class="u-next" id="u-next-btn" onclick="uNext()">Volgende →</button>
+    </div>
+  </div>
+
+  <div class="uitleg-done" id="uitleg-done-screen">
+    <div class="uitleg-done-circle">🎉</div>
+    <h3>Je bent er <span>klaar voor!</span></h3>
+    <p>Je weet nu hoe de app werkt. Open hem elke dag, vink je taken af, en gebruik de AI-tutor als je iets niet snapt.</p>
+    <div class="uitleg-done-list">
+      <div class="udl-item"><span>📅</span><span>Eerste examen: <strong>Wiskunde op 8 mei</strong></span></div>
+      <div class="udl-item"><span>🔴</span><span>Focus op: <strong>Engels</strong> (elke dag 30 min)</span></div>
+      <div class="udl-item"><span>🟠</span><span>Dan: <strong>Economie</strong> (begrippen oefenen)</span></div>
+      <div class="udl-item"><span>🔵</span><span>En: <strong>Nask</strong> (oude examens nakijken)</span></div>
+    </div>
+    <button class="u-restart" onclick="uRestart()">↺ Opnieuw lezen</button>
+  </div>
+</div>
+
 <div class="overlay" id="modal">
   <div class="modal">
     <h3>Sessie toevoegen</h3>
@@ -312,20 +502,6 @@ tr.jrow td{background:rgba(245,200,66,.05);}
   </div>
 </div>
 <div id="toast"></div>
-
-<!-- API KEY OVERLAY -->
-<div id="api-overlay">
-  <div class="api-box">
-    <h2>🔑 Anthropic API key</h2>
-    <p>Vul je Anthropic API key in om de AI-tutor te gebruiken.<br>
-    De key wordt <strong>alleen lokaal opgeslagen</strong> in je browser en nooit naar een server verstuurd.</p>
-    <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." autocomplete="off" onkeydown="if(event.key==='Enter')saveApiKey()">
-    <div class="api-btns">
-      <button class="api-save" onclick="saveApiKey()">Opslaan</button>
-      <button class="api-cancel" id="api-cancel-btn" onclick="closeApiSettings()">Annuleer</button>
-    </div>
-  </div>
-</div>
 
 <script>
 // ═══════════════════════════════════════════
@@ -415,7 +591,7 @@ Spreek de leerling aan als 'jij'.`,
 ];
 
 const WEEK_PLAN = [
-  {dow:0,tasks:[{id:'E',vak:'engels',label:'Engels – oud examen (halve)',mins:30,tip:'Lees vragen eerst'},{id:'A',vak:'nask',label:'Nask – oud examen oefenen',mins:60,tip:'Stappen opschrijven'},{id:'B',vak:'eco',label:'Eco – begrippen oefenen',mins:60,tip:'Hardop uitleggen'}]},
+  {dow:0,tasks:[{id:'E',vak:'engels',label:'Engels – oud examen (halve)',mins:30,tip:'Lees vragen eerst'},{id:'A',vak:'eco',label:'Eco – begrippen oefenen',mins:30,tip:'Hardop uitleggen'}]},
   {dow:1,tasks:[{id:'E',vak:'engels',label:'Engels – leesvragen trainen',mins:30,tip:'Markeer kernwoorden'},{id:'A',vak:'nl',label:'NL – leesexamen + nakijken',mins:60,tip:'Signaalwoorden'},{id:'B',vak:'nask',label:'Nask – nakijken sessie',mins:45,tip:'Waar ging het fout?'}]},
   {dow:2,tasks:[{id:'E',vak:'engels',label:'Engels – oud examen',mins:30,tip:'Niet te snel'},{id:'A',vak:'eco',label:'Eco – oud examen nakijken',mins:60,tip:'Welk begrip?'},{id:'B',vak:'wisk',label:'Wiskunde – paar opgaven',mins:30,tip:'Slordigheid check'}]},
   {dow:3,tasks:[{id:'E',vak:'engels',label:'Engels – fouten analyseren',mins:30,tip:'Waarom fout?'},{id:'A',vak:'nask',label:'Nask – oud examen',mins:60,tip:'Formules herkennen'},{id:'B',vak:'nl',label:'NL – vraagtype oefenen',mins:45,tip:'Type A/B/C'}]},
@@ -783,65 +959,19 @@ function setSendDisabled(vakId,dis){
 }
 
 async function callClaude(systemPrompt, messages){
-  const key=localStorage.getItem('anthropic_api_key')||'';
-  if(!key){openApiSettings();throw new Error('Geen API key ingesteld');}
   const resp=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'x-api-key':key,
-      'anthropic-version':'2023-06-01',
-      'anthropic-dangerous-direct-browser-access':'true'
-    },
+    headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
-      model:'claude-sonnet-4-6',
+      model:'claude-sonnet-4-20250514',
       max_tokens:1000,
       system:systemPrompt,
       messages:messages.map(m=>({role:m.role,content:m.content}))
     })
   });
-  if(!resp.ok){
-    if(resp.status===401){openApiSettings();throw new Error('Ongeldige API key (401)');}
-    throw new Error('API error '+resp.status);
-  }
+  if(!resp.ok)throw new Error('API error '+resp.status);
   const data=await resp.json();
   return data.content.map(b=>b.type==='text'?b.text:'').join('');
-}
-
-// ═══════════════════════════════════════════
-// API KEY MANAGEMENT
-// ═══════════════════════════════════════════
-function openApiSettings(){
-  const existing=localStorage.getItem('anthropic_api_key')||'';
-  const inp=document.getElementById('api-key-input');
-  inp.value=existing?'sk-ant-…(opgeslagen)':'';
-  inp.placeholder=existing?'Laat leeg om huidige te bewaren':'sk-ant-api03-…';
-  // Only show cancel button if a key already exists
-  document.getElementById('api-cancel-btn').style.display=existing?'':'none';
-  document.getElementById('api-overlay').classList.add('open');
-  setTimeout(()=>inp.focus(),80);
-}
-function closeApiSettings(){
-  document.getElementById('api-overlay').classList.remove('open');
-}
-function saveApiKey(){
-  const val=document.getElementById('api-key-input').value.trim();
-  if(!val||val.startsWith('sk-ant-…')){
-    // Nothing changed — close if key already exists
-    if(localStorage.getItem('anthropic_api_key')){closeApiSettings();return;}
-    toastMsg('Voer een geldige API key in');return;
-  }
-  if(!val.startsWith('sk-')){toastMsg('Key moet beginnen met sk-…');return;}
-  localStorage.setItem('anthropic_api_key',val);
-  closeApiSettings();
-  toastMsg('🔑 API key opgeslagen!');
-}
-
-// Show settings on first visit (no key stored)
-if(!localStorage.getItem('anthropic_api_key')){
-  document.addEventListener('DOMContentLoaded',()=>openApiSettings(),{once:true});
-  // Also open immediately if DOM is already loaded
-  if(document.readyState!=='loading')openApiSettings();
 }
 
 // ═══════════════════════════════════════════
@@ -944,13 +1074,56 @@ function saveSession(){
 document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
 
 // ═══════════════════════════════════════════
-// NAV
+// UITLEG STEPPER
 // ═══════════════════════════════════════════
+const U_TOTAL=6;let uStep=1;let uDemoCount=0;
+function startUitleg(){
+  document.getElementById('uitleg-intro-screen').style.display='none';
+  document.getElementById('uitleg-stepper').style.display='block';
+  uUpdateStep();
+}
+function uUpdateStep(){
+  document.querySelectorAll('.uitleg-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('ustep-'+uStep).classList.add('active');
+  document.getElementById('u-counter').textContent='Stap '+uStep+' van '+U_TOTAL;
+  document.getElementById('u-prog').style.width=((uStep-1)/U_TOTAL*100)+'%';
+  document.getElementById('u-prev-btn').style.display=uStep>1?'block':'none';
+  document.getElementById('u-next-btn').textContent=uStep===U_TOTAL?'Klaar! 🎉':'Volgende →';
+}
+function uNext(){
+  if(uStep<U_TOTAL){uStep++;uUpdateStep();window.scrollTo({top:0,behavior:'smooth'});}
+  else{
+    document.getElementById('uitleg-stepper').style.display='none';
+    document.getElementById('uitleg-done-screen').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+function uPrev(){if(uStep>1){uStep--;uUpdateStep();window.scrollTo({top:0,behavior:'smooth'});}}
+function uRestart(){
+  uStep=1;uDemoCount=0;
+  document.getElementById('uitleg-done-screen').style.display='none';
+  document.getElementById('uitleg-intro-screen').style.display='block';
+  document.getElementById('uitleg-stepper').style.display='none';
+  ['umt1','umt2'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.classList.remove('done');el.querySelector('.um-chk').textContent='';
+  });
+  document.getElementById('u-bar-fill').style.width='0%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function uVink(id){
+  const el=document.getElementById(id);if(!el)return;
+  const chk=el.querySelector('.um-chk');
+  if(el.classList.contains('done')){el.classList.remove('done');chk.textContent='';uDemoCount=Math.max(0,uDemoCount-1);}
+  else{el.classList.add('done');chk.textContent='✓';uDemoCount++;}
+  document.getElementById('u-bar-fill').style.width=(uDemoCount/2*100)+'%';
+}
+
 function show(id){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+id).classList.add('active');
   document.querySelectorAll('nav button').forEach((b,i)=>{
-    b.classList.toggle('active',['vandaag','week','oefenen','voortgang','rooster'][i]===id);
+    b.classList.toggle('active',['vandaag','week','oefenen','voortgang','rooster','uitleg'][i]===id);
   });
   if(id==='week')renderWeek();
   if(id==='oefenen'){renderOefenTabs();renderOefenContent();}
