@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoe gebruik je de Examenplanning app?</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0d12;
+  --surface: #14141c;
+  --surface2: #1b1b26;
+  --border: #252535;
+  --accent: #f5c842;
+  --text: #e8e8f0;
+  --muted: #6b6b85;
+  --green: #3ecf78;
+  --red: #e05060;
+  --blue: #4494e8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px 80px;
+}
+
+/* ── INTRO SCREEN ── */
+#intro {
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+.intro-badge {
+  display: inline-block;
+  background: rgba(245,200,66,.12);
+  border: 1px solid rgba(245,200,66,.3);
+  color: var(--accent);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.intro-title {
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.intro-title span { color: var(--accent); }
+.intro-sub {
+  font-size: .92rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.start-btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 14px 36px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform .15s, opacity .15s;
+}
+.start-btn:hover { opacity: .88; transform: translateY(-1px); }
+.intro-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 32px;
+}
+.intro-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+}
+.intro-card .ic-icon { font-size: 1.4rem; margin-bottom: 8px; }
+.intro-card .ic-label { font-size: .82rem; font-weight: 700; margin-bottom: 4px; }
+.intro-card .ic-sub { font-size: .72rem; color: var(--muted); line-height: 1.5; }
+
+/* ── STEPPER ── */
+#stepper { display: none; max-width: 560px; width: 100%; }
+
+.progress-bar {
+  height: 4px;
+  background: var(--surface2);
+  border-radius: 2px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+
+.step-counter {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.step-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: none;
+}
+.step-card.active { display: block; }
+
+.step-header {
+  padding: 24px 24px 0;
+}
+.step-icon-wrap {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+}
+.step-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.step-sub {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.step-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* action items */
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.action-num {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  background: var(--accent);
+  color: #000;
+  font-weight: 800;
+  font-size: .8rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.action-text {
+  font-size: .84rem;
+  line-height: 1.6;
+}
+.action-text strong { color: var(--accent); font-weight: 700; }
+.action-text code {
+  background: rgba(245,200,66,.12);
+  border: 1px solid rgba(245,200,66,.2);
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  font-size: .78rem;
+  padding: 1px 7px;
+  border-radius: 5px;
+}
+
+/* tip box */
+.tip-box {
+  background: rgba(62,207,120,.06);
+  border: 1px solid rgba(62,207,120,.2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: .8rem;
+  color: var(--muted);
+  line-height: 1.6;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.tip-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.tip-box strong { color: var(--green); }
+
+/* screen mockup */
+.mockup {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.mockup-bar {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: .65rem;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mockup-dot { width: 7px; height: 7px; border-radius: 50%; }
+.mockup-body { padding: 12px 14px; }
+
+/* nav row */
+.mock-nav {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+.mock-tab {
+  font-size: .65rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.mock-tab.hl {
+  background: rgba(245,200,66,.14);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* task mockup */
+.mock-task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 11px;
+  margin-bottom: 6px;
+  font-size: .73rem;
+}
+.mock-chk {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--chk-color, var(--muted));
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem;
+  transition: all .2s;
+}
+.mock-task.done .mock-chk {
+  background: var(--chk-color);
+  border-color: var(--chk-color);
+}
+.mock-task.done .mock-label { text-decoration: line-through; opacity: .5; }
+.mock-label { flex: 1; font-weight: 600; }
+.mock-mins { font-family: 'DM Mono', monospace; font-size: .62rem; color: var(--muted); }
+.mock-bar-wrap { height: 5px; background: var(--surface); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+.mock-bar-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width .4s; }
+
+/* score mockup */
+.mock-score-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 8px 10px;
+  margin-bottom: 5px;
+  font-size: .72rem;
+}
+.mock-score-val {
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+  font-size: .95rem;
+  min-width: 28px;
+}
+.mock-score-name { flex: 1; font-weight: 600; }
+.mock-score-note { font-size: .63rem; color: var(--muted); }
+.s-good { color: var(--green); }
+.s-mid  { color: #e07040; }
+.s-bad  { color: var(--red); }
+
+/* ai mockup */
+.mock-bubble {
+  padding: 9px 12px;
+  border-radius: 0 9px 9px 9px;
+  font-size: .73rem;
+  line-height: 1.6;
+  max-width: 90%;
+  margin-bottom: 7px;
+}
+.mock-bubble.ai {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+.mock-bubble.user {
+  background: rgba(245,200,66,.1);
+  border: 1px solid rgba(245,200,66,.2);
+  border-radius: 9px 0 9px 9px;
+  margin-left: auto;
+}
+
+/* NAVIGATION BUTTONS */
+.step-nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  align-items: center;
+}
+.btn-prev {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: .84rem;
+  padding: 11px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .14s;
+}
+.btn-prev:hover { border-color: var(--accent); }
+.btn-next {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: .9rem;
+  padding: 12px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  flex: 1;
+  transition: all .14s;
+}
+.btn-next:hover { opacity: .88; }
+
+/* ── DONE SCREEN ── */
+#done {
+  display: none;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+}
+.done-circle {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(62,207,120,.15);
+  border: 2px solid var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem;
+  margin: 0 auto 24px;
+}
+.done-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.done-title span { color: var(--accent); }
+.done-sub {
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.done-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  margin-bottom: 28px;
+}
+.done-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: .84rem;
+}
+.done-item span:first-child { font-size: 1.1rem; }
+.restart-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: .84rem;
+  padding: 11px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.restart-btn:hover { border-color: var(--accent); }
+
+@media (max-width: 480px) {
+  .intro-cards { grid-template-columns: 1fr; }
+  body { padding: 24px 14px 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="intro-badge">Voor jou gemaakt</div>
+  <div class="intro-title">Zo werkt jouw<br><span>examenplanning app</span> 👋</div>
+  <div class="intro-sub">
+    Deze app helpt je elke dag bij te houden wat je moet oefenen voor je eindexamen. Lees deze uitleg — het duurt 3 minuten — dan snap je alles.
+  </div>
+  <button class="start-btn" onclick="startStepper()">Start uitleg →</button>
+
+  <div class="intro-cards">
+    <div class="intro-card">
+      <div class="ic-icon">✅</div>
+      <div class="ic-label">Taken afvinken</div>
+      <div class="ic-sub">Elke dag zie je wat je moet doen. Vink het af als je klaar bent.</div>
+    </div>
+    <div class="intro-card">
+      <div class="ic-icon">🧠</div>
+      <div class="ic-label">AI-tutor</div>
+      <div class="ic-sub">Oefen vragen per vak. De AI stelt vragen en geeft uitleg.</div>
+    </div>
+    <div class="intro-card">
+      <div class="ic-icon">📊</div>
+      <div class="ic-label">Scores bijhouden</div>
+      <div class="ic-sub">Log je score na elk oud examen. Je ziet hoe je groeit.</div>
+    </div>
+    <div class="intro-card">
+      <div class="ic-icon">📅</div>
+      <div class="ic-label">Examendata</div>
+      <div class="ic-sub">Je ziet precies hoeveel dagen er nog zijn tot elk examen.</div>
+    </div>
+  </div>
+</div>
+
+<!-- STEPPER -->
+<div id="stepper">
+  <div class="progress-bar">
+    <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+  </div>
+  <div class="step-counter" id="step-counter">Stap 1 van 6</div>
+
+  <!-- STAP 1 — Eerste bezoek / API key -->
+  <div class="step-card active" id="step-1">
+    <div class="step-header">
+      <div class="step-icon-wrap" style="background:rgba(68,148,232,.15)">🔑</div>
+      <div class="step-title">De eerste keer opstarten</div>
+      <div class="step-sub">De eerste keer dat je de app opent moet je één ding invullen: een API key. Dit is een soort wachtwoord voor de AI-tutor. Daarna hoef je dat nooit meer te doen.</div>
+    </div>
+    <div class="step-body">
+      <div class="action-item">
+        <div class="action-num">1</div>
+        <div class="action-text">Open de app in Chrome via de link die je hebt gekregen.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">2</div>
+        <div class="action-text">Je ziet een scherm dat vraagt om een <strong>Anthropic API key</strong>. Vraag je vader/moeder om die key — die is al aangemaakt.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">3</div>
+        <div class="action-text">Plak de key in het vakje en klik <strong>Opslaan</strong>. Klaar — je hoeft dit maar één keer te doen op dit apparaat.</div>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">💡</span>
+        <span><strong>Tip:</strong> Gebruik je een andere computer? Dan moet je de key daar opnieuw invullen. Sla hem op in de Notes-app van je telefoon zodat je hem altijd bij de hand hebt.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAP 2 — Vandaag tab -->
+  <div class="step-card" id="step-2">
+    <div class="step-header">
+      <div class="step-icon-wrap" style="background:rgba(245,200,66,.15)">✅</div>
+      <div class="step-title">Elke dag: taken afvinken</div>
+      <div class="step-sub">Dit is het belangrijkste. Open de app elke dag, kijk wat er staat en vink het af als je klaar bent. Zo simpel is het.</div>
+    </div>
+    <div class="step-body">
+      <!-- mockup -->
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="mockup-dot" style="background:#e05060"></div>
+          <div class="mockup-dot" style="background:#e07040"></div>
+          <div class="mockup-dot" style="background:#3ecf78"></div>
+          <span style="margin-left:4px">examplanning.vercel.app</span>
+        </div>
+        <div class="mockup-body">
+          <div class="mock-nav">
+            <div class="mock-tab hl">✅ Vandaag</div>
+            <div class="mock-tab">📅 Week</div>
+            <div class="mock-tab">🧠 Oefenen</div>
+          </div>
+          <div id="mock-tasks">
+            <div class="mock-task" id="mt1" style="--chk-color:#e05060" onclick="vinken('mt1')">
+              <div class="mock-chk"></div>
+              <span class="mock-label">Engels – oud examen</span>
+              <span class="mock-mins">30 min</span>
+            </div>
+            <div class="mock-task" id="mt2" style="--chk-color:#4494e8" onclick="vinken('mt2')">
+              <div class="mock-chk"></div>
+              <span class="mock-label">Nask – oud examen oefenen</span>
+              <span class="mock-mins">60 min</span>
+            </div>
+            <div class="mock-task" id="mt3" style="--chk-color:#e07040" onclick="vinken('mt3')">
+              <div class="mock-chk"></div>
+              <span class="mock-label">Eco – begrippen oefenen</span>
+              <span class="mock-mins">60 min</span>
+            </div>
+          </div>
+          <div class="mock-bar-wrap">
+            <div class="mock-bar-fill" id="mock-fill" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">👆</span>
+        <span><strong>Probeer het uit</strong> in het voorbeeld hierboven — klik op een taak om hem af te vinken! De groene balk vult mee.</span>
+      </div>
+      <div class="action-item">
+        <div class="action-num">!</div>
+        <div class="action-text">Als je alles hebt afgevinkt zie je een groen <strong>🎉 Geweldig!</strong> scherm. Elke dag consistent = grote kans dat je slaagt.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAP 3 — Oefenen -->
+  <div class="step-card" id="step-3">
+    <div class="step-header">
+      <div class="step-icon-wrap" style="background:rgba(158,96,224,.15)">🧠</div>
+      <div class="step-title">Oefenen per vak</div>
+      <div class="step-sub">Ga naar het tabblad <strong>Oefenen</strong>. Kies een vak. Je ziet drie dingen: oude examens, scores bijhouden, en de AI-tutor.</div>
+    </div>
+    <div class="step-body">
+      <div class="action-item">
+        <div class="action-num">1</div>
+        <div class="action-text">Klik op <strong>🔗 Oude examens</strong> — open een examen van examenblad.nl en maak het. Dit is de belangrijkste manier om te oefenen.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">2</div>
+        <div class="action-text">Nakijken? Klik op <strong>Antwoordmodel</strong> op dezelfde pagina van examenblad.nl.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">3</div>
+        <div class="action-text">Na het nakijken: ga terug naar de app en log je score (zie volgende stap).</div>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">💡</span>
+        <span><strong>Begin met Engels</strong> — dat heeft de laagste score en het meeste tijdswinst te halen. Elke dag 30 minuten Engels is het plan.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAP 4 — Score bijhouden -->
+  <div class="step-card" id="step-4">
+    <div class="step-header">
+      <div class="step-icon-wrap" style="background:rgba(62,207,120,.15)">📊</div>
+      <div class="step-title">Score bijhouden</div>
+      <div class="step-sub">Na elk oud examen log je je score. Zo zie je over tijd of je beter wordt. Dit is het bewijs dat het werkt.</div>
+    </div>
+    <div class="step-body">
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="mockup-dot" style="background:#e05060"></div>
+          <div class="mockup-dot" style="background:#e07040"></div>
+          <div class="mockup-dot" style="background:#3ecf78"></div>
+          <span style="margin-left:4px">Oefenen → Engels → Score bijhouden</span>
+        </div>
+        <div class="mockup-body">
+          <div class="mock-score-row">
+            <span class="mock-score-val s-bad">4.0</span>
+            <div style="flex:1"><div class="mock-score-name">Engels 2022</div><div class="mock-score-note">vraag 3+7 fout, tekst niet goed gelezen</div></div>
+          </div>
+          <div class="mock-score-row">
+            <span class="mock-score-val s-mid">4.5</span>
+            <div style="flex:1"><div class="mock-score-name">Engels 2023</div><div class="mock-score-note">beter! vragen eerst lezen werkt</div></div>
+          </div>
+          <div class="mock-score-row">
+            <span class="mock-score-val s-good">5.5</span>
+            <div style="flex:1"><div class="mock-score-name">Engels 2024</div><div class="mock-score-note">groei zichtbaar 💪</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">!</div>
+        <div class="action-text">Schrijf altijd een korte notitie: <strong>wat ging er fout?</strong> Niet welke vraag — maar waarom. "Tekst niet goed gelezen" is handiger dan "vraag 5".</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAP 5 — AI tutor -->
+  <div class="step-card" id="step-5">
+    <div class="step-header">
+      <div class="step-icon-wrap" style="background:rgba(68,148,232,.15)">🤖</div>
+      <div class="step-title">De AI-tutor gebruiken</div>
+      <div class="step-sub">De AI stelt je vragen alsof het een echte leraar is. Per vak is de AI anders ingesteld — Engels oefent leesvragen, Economie vraagt begrippen, Nask geeft rekenstappen.</div>
+    </div>
+    <div class="step-body">
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="mockup-dot" style="background:#e05060"></div>
+          <div class="mockup-dot" style="background:#e07040"></div>
+          <div class="mockup-dot" style="background:#3ecf78"></div>
+          <span style="margin-left:4px">Oefenen → Economie → AI-tutor</span>
+        </div>
+        <div class="mockup-body">
+          <div class="mock-bubble ai">Welkom! Laten we Economie oefenen. Eerste vraag: wat is het verschil tussen vraag en aanbod? Geef een voorbeeld uit het dagelijks leven 👇</div>
+          <div style="display:flex;justify-content:flex-end">
+            <div class="mock-bubble user">als er meer mensen een ps5 willen maar er zijn er weinig is de vraag hoog en het aanbod laag</div>
+          </div>
+          <div class="mock-bubble ai">✅ Goed! Dat klopt precies. Vraag = hoeveel mensen iets willen kopen. Aanbod = hoeveel er te koop is. PS5 is een perfect voorbeeld. Volgende vraag: wat gebeurt er met de prijs als de vraag stijgt maar het aanbod gelijk blijft?</div>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">!</div>
+        <div class="action-text">Spelling maakt de AI <strong>niet</strong> uit. Schrijf gewoon wat je bedoelt — de AI begrijpt het en kijkt alleen of je het <em>snapt</em>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAP 6 — Voortgang -->
+  <div class="step-card" id="step-6">
+    <div class="step-header">
+      <div class="step-icon-wrap" style="background:rgba(245,200,66,.15)">📈</div>
+      <div class="step-title">Je voortgang bekijken</div>
+      <div class="step-sub">In het tabblad <strong>Voortgang</strong> zie je hoeveel taken je hebt gedaan per vak, je gemiddelde scores, en een activiteitsgrid van de laatste 14 dagen.</div>
+    </div>
+    <div class="step-body">
+      <div class="action-item">
+        <div class="action-num">1</div>
+        <div class="action-text">De <strong>groene stipjes</strong> laten zien op welke dagen je iets hebt gedaan. Probeer elke dag een stip te halen.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">2</div>
+        <div class="action-text">Elke vak heeft een <strong>notitieveld</strong>. Schrijf hier wekelijks in wat je hebt geleerd en wat er nog lastig is. Dit helpt je focussen.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">3</div>
+        <div class="action-text">Je vader/moeder kan ook meekijken in de app en de planning aanpassen als iets niet werkt.</div>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">🏁</span>
+        <span><strong>Onthoud:</strong> je hoeft niet perfect te zijn. Je moet <em>consistent</em> zijn. Elke dag een beetje is beter dan één keer per week veel.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV BUTTONS -->
+  <div class="step-nav">
+    <button class="btn-prev" id="btn-prev" onclick="prevStep()" style="display:none">← Terug</button>
+    <button class="btn-next" id="btn-next" onclick="nextStep()">Volgende →</button>
+  </div>
+</div>
+
+<!-- DONE -->
+<div id="done">
+  <div class="done-circle">🎉</div>
+  <div class="done-title">Je bent er<span> klaar voor!</span></div>
+  <div class="done-sub">Je weet nu hoe de app werkt. Open hem elke dag, vink je taken af, en gebruik de AI-tutor als je iets niet snapt. Succes met de examens!</div>
+  <div class="done-list">
+    <div class="done-item"><span>📅</span><span>Eerste examen: <strong>Wiskunde op 8 mei</strong></span></div>
+    <div class="done-item"><span>🔴</span><span>Focus op: <strong>Engels</strong> (elke dag 30 min)</span></div>
+    <div class="done-item"><span>🟠</span><span>Dan: <strong>Economie</strong> (begrippen oefenen)</span></div>
+    <div class="done-item"><span>🔵</span><span>En: <strong>Nask</strong> (oude examens nakijken)</span></div>
+  </div>
+  <button class="restart-btn" onclick="restart()">↺ Opnieuw lezen</button>
+</div>
+
+<script>
+const TOTAL = 6;
+let current = 1;
+
+function startStepper() {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('stepper').style.display = 'block';
+  updateStep();
+}
+
+function updateStep() {
+  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('step-' + current).classList.add('active');
+  document.getElementById('step-counter').textContent = 'Stap ' + current + ' van ' + TOTAL;
+  document.getElementById('prog-fill').style.width = ((current - 1) / TOTAL * 100) + '%';
+  document.getElementById('btn-prev').style.display = current > 1 ? 'block' : 'none';
+  document.getElementById('btn-next').textContent = current === TOTAL ? 'Klaar! 🎉' : 'Volgende →';
+}
+
+function nextStep() {
+  if (current < TOTAL) {
+    current++;
+    updateStep();
+    document.getElementById('stepper').scrollTop = 0;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    document.getElementById('stepper').style.display = 'none';
+    document.getElementById('done').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function prevStep() {
+  if (current > 1) {
+    current--;
+    updateStep();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function restart() {
+  current = 1;
+  document.getElementById('done').style.display = 'none';
+  document.getElementById('intro').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // reset mock tasks
+  ['mt1','mt2','mt3'].forEach(id => {
+    document.getElementById(id).classList.remove('done');
+    document.querySelector('#'+id+' .mock-chk').textContent = '';
+  });
+  document.getElementById('mock-fill').style.width = '0%';
+}
+
+// interactive mock tasks
+let doneCount = 0;
+function vinken(id) {
+  const el = document.getElementById(id);
+  const chk = el.querySelector('.mock-chk');
+  if (el.classList.contains('done')) {
+    el.classList.remove('done');
+    chk.textContent = '';
+    doneCount = Math.max(0, doneCount - 1);
+  } else {
+    el.classList.add('done');
+    chk.textContent = '✓';
+    doneCount++;
+  }
+  document.getElementById('mock-fill').style.width = (doneCount / 3 * 100) + '%';
+}
+</script>
+</body>
+</html>
