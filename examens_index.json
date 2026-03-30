@@ -1,0 +1,470 @@
+{
+  "files": {
+    "Economie Examen-Bijlage-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2021-2.pdf",
+    "Economie Examen-Bijlage-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2021.pdf",
+    "Economie Examen-Opgaven-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2021-2.pdf",
+    "Economie Examen-Opgaven-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2021.pdf",
+    "Economie Examen-Uitwerking-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2021-2.pdf",
+    "Economie Examen-Uitwerking-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2021.pdf",
+    "Economie Examen-Bijlage-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2022-2.pdf",
+    "Economie Examen-Bijlage-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2022.pdf",
+    "Economie Examen-Opgaven-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2022-2.pdf",
+    "Economie Examen-Opgaven-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2022.pdf",
+    "Economie Examen-Uitwerking-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2022-2.pdf",
+    "Economie Examen-Uitwerking-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2022.pdf",
+    "Economie Examen-Bijlage-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2023-2.pdf",
+    "Economie Examen-Bijlage-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2023.pdf",
+    "Economie Examen-Opgaven-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2023-2.pdf",
+    "Economie Examen-Opgaven-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2023.pdf",
+    "Economie Examen-Uitwerking-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2023-2.pdf",
+    "Economie Examen-Uitwerking-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2023.pdf",
+    "Economie Examen-Bijlage-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2024-2.pdf",
+    "Economie Examen-Bijlage-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2024.pdf",
+    "Economie Examen-Opgaven-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2024-2.pdf",
+    "Economie Examen-Opgaven-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2024.pdf",
+    "Economie Examen-Uitwerking-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2024-2.pdf",
+    "Economie Examen-Uitwerking-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2024.pdf",
+    "Economie Examen-Bijlage-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2025-2.pdf",
+    "Economie Examen-Bijlage-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2025.pdf",
+    "Economie Examen-Opgaven-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2025-2.pdf",
+    "Economie Examen-Opgaven-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2025.pdf",
+    "Economie Examen-Uitwerking-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2025-2.pdf",
+    "Economie Examen-Uitwerking-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2025.pdf",
+    "Engels Examen-Opgaven-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2022-2.pdf",
+    "Engels Examen-Opgaven-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2022.pdf",
+    "Engels Examen-Opgaven-Text-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2022-2.pdf",
+    "Engels Examen-Opgaven-Text-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2022.pdf",
+    "Engels Examen-Uitwerking-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2022-2.pdf",
+    "Engels Examen-Uitwerking-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2022.pdf",
+    "Engels Examen-Opgaven-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2023-2.pdf",
+    "Engels Examen-Opgaven-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2023.pdf",
+    "Engels Examen-Opgaven-Text-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2023-2.pdf",
+    "Engels Examen-Opgaven-Text-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2023.pdf",
+    "Engels Examen-Uitwerking-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2023-2.pdf",
+    "Engels Examen-Uitwerking-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2023.pdf",
+    "Engels Examen-Opgaven-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2024-2.pdf",
+    "Engels Examen-Opgaven-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2024.pdf",
+    "Engels Examen-Opgaven-Text-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2024-2.pdf",
+    "Engels Examen-Opgaven-Text-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2024.pdf",
+    "Engels Examen-Uitwerking-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2024-2.pdf",
+    "Engels Examen-Uitwerking-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2024.pdf",
+    "Engels Examen-Opgaven-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2025-2.pdf",
+    "Engels Examen-Opgaven-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2025.pdf",
+    "Engels Examen-Opgaven-Text-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2025-2.pdf",
+    "Engels Examen-Opgaven-Text-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2025.pdf",
+    "Engels Examen-Uitwerking-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2025-2.pdf",
+    "Engels Examen-Uitwerking-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2025.pdf",
+    "Engels Examen-correctie-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-correctie-2025.pdf",
+    "NAS1 Examen-Bijlage-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2021-2.pdf",
+    "NAS1 Examen-Bijlage-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2021.pdf",
+    "NAS1 Examen-Opgaven-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2021-2.pdf",
+    "NAS1 Examen-Opgaven-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2021.pdf",
+    "NAS1 Examen-Uitwerking-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2021-2.pdf",
+    "NAS1 Examen-Uitwerking-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2021.pdf",
+    "NAS1 Examen-Bijlage-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2022-2.pdf",
+    "NAS1 Examen-Bijlage-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2022.pdf",
+    "NAS1 Examen-Opgaven-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2022-2.pdf",
+    "NAS1 Examen-Opgaven-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2022.pdf",
+    "NAS1 Examen-Uitwerking-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2022-2.pdf",
+    "NAS1 Examen-Uitwerking-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2022.pdf",
+    "NAS1 Examen-Bijlage-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2023-2.pdf",
+    "NAS1 Examen-Bijlage-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2023.pdf",
+    "NAS1 Examen-Opgaven-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2023-2.pdf",
+    "NAS1 Examen-Opgaven-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2023.pdf",
+    "NAS1 Examen-Uitwerking-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2023-2.pdf",
+    "NAS1 Examen-Uitwerking-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2023.pdf",
+    "NAS1 Examen-Bijlage-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2024-2.pdf",
+    "NAS1 Examen-Bijlage-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2024.pdf",
+    "NAS1 Examen-Opgaven-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2024-2.pdf",
+    "NAS1 Examen-Opgaven-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2024.pdf",
+    "NAS1 Examen-Uitwerking-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2024-2.pdf",
+    "NAS1 Examen-Uitwerking-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2024.pdf",
+    "NAS1 Examen-Bijlage-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2025-2.pdf",
+    "NAS1 Examen-Bijlage-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2025.pdf",
+    "NAS1 Examen-Opgaven-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2025-2.pdf",
+    "NAS1 Examen-Opgaven-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2025.pdf",
+    "NAS1 Examen-Uitwerking-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2025-2.pdf",
+    "NAS1 Examen-Uitwerking-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2025.pdf",
+    "NAS2 Examen-Opgaven-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2021-2.pdf",
+    "NAS2 Examen-Opgaven-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2021.pdf",
+    "NAS2 Examen-Uitwerking-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2021-2.pdf",
+    "NAS2 Examen-Uitwerking-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2021.pdf",
+    "NAS2 Examen-Opgaven-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2022-2.pdf",
+    "NAS2 Examen-Opgaven-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2022.pdf",
+    "NAS2 Examen-Uitwerking-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2022-2.pdf",
+    "NAS2 Examen-Uitwerking-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2022.pdf",
+    "NAS2 Examen-Opgaven-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2023-2.pdf",
+    "NAS2 Examen-Opgaven-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2023.pdf",
+    "NAS2 Examen-Uitwerking-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2023-2.pdf",
+    "NAS2 Examen-Uitwerking-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2023.pdf",
+    "NAS2 Examen-Opgaven-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2024-2.pdf",
+    "NAS2 Examen-Opgaven-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2024.pdf",
+    "NAS2 Examen-Uitwerking-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2024-2.pdf",
+    "NAS2 Examen-Uitwerking-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2024.pdf",
+    "NAS2 Examen-Opgaven-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2025-2.pdf",
+    "NAS2 Examen-Opgaven-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2025.pdf",
+    "NAS2 Examen-Uitwerking-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2025-2.pdf",
+    "NAS2 Examen-Uitwerking-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2025.pdf",
+    "Nederlands Examen-Antwoorden-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2021-2.pdf",
+    "Nederlands Examen-Antwoorden-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2021.pdf",
+    "Nederlands Examen-Bijlage-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2021-2.pdf",
+    "Nederlands Examen-Bijlage-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2021.pdf",
+    "Nederlands Examen-Opgaven-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2021-2.pdf",
+    "Nederlands Examen-Opgaven-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2021.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2021-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2021-2.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2021.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2021.pdf",
+    "Nederlands Examen-Antwoorden-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2022-2.pdf",
+    "Nederlands Examen-Antwoorden-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2022.pdf",
+    "Nederlands Examen-Bijlage-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2022-2.pdf",
+    "Nederlands Examen-Bijlage-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2022.pdf",
+    "Nederlands Examen-Opgaven-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2022-2.pdf",
+    "Nederlands Examen-Opgaven-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2022.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2022-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2022-2.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2022.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2022.pdf",
+    "Nederlands Examen-Antwoorden-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2023-2.pdf",
+    "Nederlands Examen-Antwoorden-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2023.pdf",
+    "Nederlands Examen-Bijlage-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2023-2.pdf",
+    "Nederlands Examen-Bijlage-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2023.pdf",
+    "Nederlands Examen-Opgaven-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2023-2.pdf",
+    "Nederlands Examen-Opgaven-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2023.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2023-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2023-2.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2023.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2023.pdf",
+    "Nederlands Examen-Antwoorden-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2024-2.pdf",
+    "Nederlands Examen-Antwoorden-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2024.pdf",
+    "Nederlands Examen-Bijlage-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2024-2.pdf",
+    "Nederlands Examen-Bijlage-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2024.pdf",
+    "Nederlands Examen-Opgaven-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2024-2.pdf",
+    "Nederlands Examen-Opgaven-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2024.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2024-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2024-2.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2024.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2024.pdf",
+    "Nederlands Examen-Antwoorden-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2025-2.pdf",
+    "Nederlands Examen-Antwoorden-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2025.pdf",
+    "Nederlands Examen-Bijlage-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2025-2.pdf",
+    "Nederlands Examen-Bijlage-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2025.pdf",
+    "Nederlands Examen-Opgaven-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2025-2.pdf",
+    "Nederlands Examen-Opgaven-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2025.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2025-2.pdf",
+    "Nederlands Examen-Uitwerkbijlage-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2025.pdf",
+    "Wiskunde Examen-Antwoorden-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Antwoorden-2025-2.pdf",
+    "Wiskunde Examen-Antwoorden-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Antwoorden-2025.pdf",
+    "Wiskunde Examen-Bijlage-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Bijlage-2025-2.pdf",
+    "Wiskunde Examen-Bijlage-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Bijlage-2025.pdf",
+    "Wiskunde Examen-Opgaven-2025-2.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Opgaven-2025-2.pdf",
+    "Wiskunde Examen-Opgaven-2025.pdf": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Opgaven-2025.pdf"
+  },
+  "lookup": {
+    "Economie": {
+      "2021": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2021-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2021-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2021-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2021.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2021.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2021.pdf"
+        }
+      },
+      "2022": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2022-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2022-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2022-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2022.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2022.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2022.pdf"
+        }
+      },
+      "2023": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2023-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2023-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2023-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2023.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2023.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2023.pdf"
+        }
+      },
+      "2024": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2024-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2024-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2024-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2024.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2024.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2024.pdf"
+        }
+      },
+      "2025": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2025-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2025-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2025-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2025.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2025.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2025.pdf"
+        }
+      }
+    },
+    "Engels": {
+      "2022": {
+        "2": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2022-2.pdf",
+          "opgaven_text": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2022-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2022-2.pdf"
+        },
+        "1": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2022.pdf",
+          "opgaven_text": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2022.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2022.pdf"
+        }
+      },
+      "2023": {
+        "2": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2023-2.pdf",
+          "opgaven_text": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2023-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2023-2.pdf"
+        },
+        "1": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2023.pdf",
+          "opgaven_text": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2023.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2023.pdf"
+        }
+      },
+      "2024": {
+        "2": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2024-2.pdf",
+          "opgaven_text": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2024-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2024-2.pdf"
+        },
+        "1": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2024.pdf",
+          "opgaven_text": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2024.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2024.pdf"
+        }
+      },
+      "2025": {
+        "2": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2025-2.pdf",
+          "opgaven_text": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2025-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2025-2.pdf"
+        },
+        "1": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2025.pdf",
+          "opgaven_text": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2025.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2025.pdf",
+          "correctie": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-correctie-2025.pdf"
+        }
+      }
+    },
+    "NAS1": {
+      "2021": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2021-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2021-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2021-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2021.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2021.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2021.pdf"
+        }
+      },
+      "2022": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2022-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2022-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2022-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2022.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2022.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2022.pdf"
+        }
+      },
+      "2023": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2023-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2023-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2023-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2023.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2023.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2023.pdf"
+        }
+      },
+      "2024": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2024-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2024-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2024-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2024.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2024.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2024.pdf"
+        }
+      },
+      "2025": {
+        "2": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2025-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2025-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2025-2.pdf"
+        },
+        "1": {
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2025.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2025.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2025.pdf"
+        }
+      }
+    },
+    "NAS2": {
+      "2021": {
+        "2": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2021-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2021-2.pdf"
+        },
+        "1": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2021.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2021.pdf"
+        }
+      },
+      "2022": {
+        "2": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2022-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2022-2.pdf"
+        },
+        "1": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2022.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2022.pdf"
+        }
+      },
+      "2023": {
+        "2": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2023-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2023-2.pdf"
+        },
+        "1": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2023.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2023.pdf"
+        }
+      },
+      "2024": {
+        "2": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2024-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2024-2.pdf"
+        },
+        "1": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2024.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2024.pdf"
+        }
+      },
+      "2025": {
+        "2": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2025-2.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2025-2.pdf"
+        },
+        "1": {
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Opgaven-2025.pdf",
+          "uitwerking": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS2%20Examen-Uitwerking-2025.pdf"
+        }
+      }
+    },
+    "Nederlands": {
+      "2021": {
+        "2": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2021-2.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2021-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2021-2.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2021-2.pdf"
+        },
+        "1": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2021.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2021.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2021.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2021.pdf"
+        }
+      },
+      "2022": {
+        "2": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2022-2.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2022-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2022-2.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2022-2.pdf"
+        },
+        "1": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2022.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2022.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2022.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2022.pdf"
+        }
+      },
+      "2023": {
+        "2": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2023-2.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2023-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2023-2.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2023-2.pdf"
+        },
+        "1": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2023.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2023.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2023.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2023.pdf"
+        }
+      },
+      "2024": {
+        "2": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2024-2.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2024-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2024-2.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2024-2.pdf"
+        },
+        "1": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2024.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2024.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2024.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2024.pdf"
+        }
+      },
+      "2025": {
+        "2": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2025-2.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2025-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2025-2.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2025-2.pdf"
+        },
+        "1": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2025.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2025.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2025.pdf",
+          "uitwerkbijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2025.pdf"
+        }
+      }
+    },
+    "Wiskunde": {
+      "2025": {
+        "2": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Antwoorden-2025-2.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Bijlage-2025-2.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Opgaven-2025-2.pdf"
+        },
+        "1": {
+          "antwoorden": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Antwoorden-2025.pdf",
+          "bijlage": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Bijlage-2025.pdf",
+          "opgaven": "https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Opgaven-2025.pdf"
+        }
+      }
+    }
+  }
+}

@@ -265,6 +265,19 @@ tr.jrow td{background:rgba(245,200,66,.05);}
 .u-restart{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;padding:10px 22px;border-radius:9px;cursor:pointer;transition:border-color .13s;}
 .u-restart:hover{border-color:var(--accent);}
 
+.key-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-size:.82rem;padding:5px 10px;border-radius:7px;cursor:pointer;margin-left:auto;}
+.key-btn:hover{border-color:var(--accent);color:var(--text);}
+.nk-section{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:16px 18px;margin-bottom:12px;}
+.nk-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;}
+.nk-select{background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'Syne',sans-serif;font-size:.78rem;padding:7px 10px;outline:none;cursor:pointer;}
+.nk-start{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;padding:8px 18px;border-radius:7px;cursor:pointer;}
+.nk-start:disabled{opacity:.5;cursor:default;}
+.nk-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.nk-badge{font-family:'DM Mono',monospace;font-size:.66rem;padding:3px 8px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);}
+.nk-badge.ok{background:rgba(62,207,120,.1);border-color:var(--green);color:var(--green);}
+.nk-badge.loading{background:rgba(245,200,66,.08);border-color:var(--accent);color:var(--accent);animation:pulse 1s infinite;}
+.nk-badge.err{background:rgba(224,80,96,.1);border-color:var(--red);color:var(--red);}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 #toast{position:fixed;bottom:16px;right:16px;background:var(--surface);border:1px solid var(--accent);color:var(--text);font-size:.78rem;padding:10px 15px;border-radius:8px;z-index:400;opacity:0;transform:translateY(8px);transition:all .22s;pointer-events:none;}
 #toast.show{opacity:1;transform:translateY(0);}
 @keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
@@ -276,6 +289,7 @@ tr.jrow td{background:rgba(245,200,66,.05);}
 <header>
   <div class="logo">exam<em>planning</em><small>VMBO-TL 2026</small></div>
   <div class="cd-strip" id="cd"></div>
+  <button class="key-btn" onclick="openApiSettings()" title="API key instellen">🔑</button>
 </header>
 
 <nav>
@@ -502,6 +516,19 @@ tr.jrow td{background:rgba(245,200,66,.05);}
   </div>
 </div>
 <div id="toast"></div>
+
+<!-- API KEY OVERLAY -->
+<div class="overlay" id="api-overlay" onclick="if(event.target===this)closeApiSettings()" style="display:none">
+  <div class="modal" style="max-width:380px">
+    <h3>🔑 API key instellen</h3>
+    <p style="font-size:.8rem;color:var(--muted);margin-bottom:12px;line-height:1.6">Je Anthropic API key wordt alleen lokaal opgeslagen in je browser. Haal hem op via <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent)">console.anthropic.com</a>.</p>
+    <input type="password" id="api-key-input" placeholder="sk-ant-..." style="width:100%;margin-bottom:10px;font-family:'DM Mono',monospace;font-size:.82rem">
+    <div class="mbts">
+      <button onclick="closeApiSettings()">Annuleer</button>
+      <button class="ok" onclick="saveApiKey()">Opslaan</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ═══════════════════════════════════════════
@@ -761,6 +788,280 @@ function miniToggle(key,vakId,dStr){
 // ═══════════════════════════════════════════
 // OEFENEN
 // ═══════════════════════════════════════════
+// ═══════════════════════════════════════════
+// API KEY SETTINGS
+// ═══════════════════════════════════════════
+function openApiSettings(){
+  const ov=document.getElementById('api-overlay');
+  const inp=document.getElementById('api-key-input');
+  const cur=localStorage.getItem('anthropic_api_key')||'';
+  if(cur)inp.value=cur;
+  ov.style.display='flex';
+  setTimeout(()=>inp.focus(),100);
+}
+function closeApiSettings(){document.getElementById('api-overlay').style.display='none';}
+function saveApiKey(){
+  const v=document.getElementById('api-key-input').value.trim();
+  if(!v){toastMsg('Voer een geldige API key in');return;}
+  localStorage.setItem('anthropic_api_key',v);
+  closeApiSettings();
+  toastMsg('🔑 API key opgeslagen!');
+}
+
+// ═══════════════════════════════════════════
+// NAKIJKCOACH — EXAMEN INDEX
+// ═══════════════════════════════════════════
+// Mapping: app vak id → examen index vak name
+const NK_VAK_MAP={engels:'Engels',eco:'Economie',nask:'NAS1',nl:'Nederlands',wisk:'Wiskunde'};
+
+// Structured index: {vak: {jaar: {tijdvak: {rol: url}}}}
+// Tijdvak: "1" = tijdvak 1, "2" = tijdvak 2
+const EXAMEN_INDEX={
+  "Engels":{
+    "2022":{"1":{"opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2022.pdf","opgaven_text":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2022.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2022.pdf"},"2":{"opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2022-2.pdf","opgaven_text":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2022-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2022-2.pdf"}},
+    "2023":{"1":{"opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2023.pdf","opgaven_text":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2023.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2023.pdf"},"2":{"opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2023-2.pdf","opgaven_text":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2023-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2023-2.pdf"}},
+    "2024":{"1":{"opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2024.pdf","opgaven_text":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2024.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2024.pdf"},"2":{"opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2024-2.pdf","opgaven_text":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2024-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2024-2.pdf"}},
+    "2025":{"1":{"opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2025.pdf","opgaven_text":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2025.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2025.pdf","correctie":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-correctie-2025.pdf"},"2":{"opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-2025-2.pdf","opgaven_text":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Opgaven-Text-2025-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Engels%20Examen-Uitwerking-2025-2.pdf"}}
+  },
+  "Economie":{
+    "2021":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2021.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2021.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2021.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2021-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2021-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2021-2.pdf"}},
+    "2022":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2022.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2022.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2022.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2022-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2022-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2022-2.pdf"}},
+    "2023":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2023.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2023.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2023.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2023-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2023-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2023-2.pdf"}},
+    "2024":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2024.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2024.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2024.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2024-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2024-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2024-2.pdf"}},
+    "2025":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2025.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2025.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2025.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Bijlage-2025-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Opgaven-2025-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Economie%20Examen-Uitwerking-2025-2.pdf"}}
+  },
+  "NAS1":{
+    "2021":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2021.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2021.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2021.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2021-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2021-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2021-2.pdf"}},
+    "2022":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2022.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2022.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2022.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2022-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2022-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2022-2.pdf"}},
+    "2023":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2023.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2023.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2023.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2023-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2023-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2023-2.pdf"}},
+    "2024":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2024.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2024.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2024.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2024-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2024-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2024-2.pdf"}},
+    "2025":{"1":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2025.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2025.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2025.pdf"},"2":{"bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Bijlage-2025-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Opgaven-2025-2.pdf","uitwerking":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/NAS1%20Examen-Uitwerking-2025-2.pdf"}}
+  },
+  "Nederlands":{
+    "2021":{"1":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2021.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2021.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2021.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2021.pdf"},"2":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2021-2.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2021-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2021-2.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2021-2.pdf"}},
+    "2022":{"1":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2022.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2022.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2022.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2022.pdf"},"2":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2022-2.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2022-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2022-2.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2022-2.pdf"}},
+    "2023":{"1":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2023.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2023.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2023.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2023.pdf"},"2":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2023-2.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2023-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2023-2.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2023-2.pdf"}},
+    "2024":{"1":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2024.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2024.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2024.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2024.pdf"},"2":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2024-2.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2024-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2024-2.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2024-2.pdf"}},
+    "2025":{"1":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2025.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2025.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2025.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2025.pdf"},"2":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Antwoorden-2025-2.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Bijlage-2025-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Opgaven-2025-2.pdf","uitwerkbijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Nederlands%20Examen-Uitwerkbijlage-2025-2.pdf"}}
+  },
+  "Wiskunde":{
+    "2025":{"1":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Antwoorden-2025.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Bijlage-2025.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Opgaven-2025.pdf"},"2":{"antwoorden":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Antwoorden-2025-2.pdf","bijlage":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Bijlage-2025-2.pdf","opgaven":"https://dwnpmhmiefjggsokwvpy.supabase.co/storage/v1/object/public/examens/Wiskunde%20Examen-Opgaven-2025-2.pdf"}}
+  }
+};
+
+// Active nakijksessie state
+let nkState={vakId:null,jaar:null,tijdvak:null,pdfs:{},chatHistory:[]};
+
+function nkJaren(vakId){
+  const nm=NK_VAK_MAP[vakId];
+  if(!nm||!EXAMEN_INDEX[nm])return[];
+  return Object.keys(EXAMEN_INDEX[nm]).sort((a,b)=>b-a);
+}
+
+function renderNakijkControls(vakId){
+  const jaren=nkJaren(vakId);
+  if(!jaren.length)return'';
+  const jaarOpts=jaren.map(j=>`<option value="${j}">${j}</option>`).join('');
+  return `
+  <div class="nk-section">
+    <h3>📄 Oefenen met echt examen — ${vak(vakId).name}</h3>
+    <div class="nk-controls">
+      <select class="nk-select" id="nk-jaar-${vakId}">${jaarOpts}</select>
+      <select class="nk-select" id="nk-tv-${vakId}">
+        <option value="1">Tijdvak 1</option>
+        <option value="2">Tijdvak 2</option>
+      </select>
+      <button class="nk-start" onclick="startNakijkSessie('${vakId}')">▶ Start nakijksessie</button>
+    </div>
+    <div class="nk-badges" id="nk-badges-${vakId}"></div>
+    <div class="chat-container" id="nk-chat-${vakId}" style="display:none"></div>
+    <div class="ai-input-row" id="nk-input-row-${vakId}" style="display:none">
+      <textarea id="nk-input-${vakId}" placeholder="Typ je antwoord of vraag..." onkeydown="nkEnter(event,'${vakId}')"></textarea>
+      <button id="nk-send-${vakId}" onclick="sendNakijk('${vakId}')">Stuur →</button>
+    </div>
+  </div>`;
+}
+
+async function fetchPdfBase64(url){
+  const resp=await fetch(url);
+  if(!resp.ok)throw new Error('Kon PDF niet laden: '+url);
+  const buf=await resp.arrayBuffer();
+  let bin='';
+  const bytes=new Uint8Array(buf);
+  for(let i=0;i<bytes.byteLength;i++)bin+=String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+
+async function startNakijkSessie(vakId){
+  const jaar=document.getElementById('nk-jaar-'+vakId).value;
+  const tv=document.getElementById('nk-tv-'+vakId).value;
+  const nm=NK_VAK_MAP[vakId];
+  const tvData=EXAMEN_INDEX[nm]?.[jaar]?.[tv];
+  if(!tvData){toastMsg('Geen examen gevonden voor deze combinatie');return;}
+
+  const badgesEl=document.getElementById('nk-badges-'+vakId);
+  const chatEl=document.getElementById('nk-chat-'+vakId);
+  const inputRow=document.getElementById('nk-input-row-'+vakId);
+  const btn=document.querySelector(`#nk-badges-${vakId}`);
+
+  badgesEl.innerHTML='';
+  chatEl.innerHTML='';
+  chatEl.style.display='none';
+  inputRow.style.display='none';
+
+  nkState={vakId,jaar,tijdvak:tv,pdfs:{},chatHistory:[]};
+
+  // Fetch all PDFs concurrently and show badges
+  const rollen=Object.keys(tvData);
+  const rolLabels={opgaven:'📝 Opgaven',bijlage:'📎 Bijlage',opgaven_text:'📖 Teksten',uitwerking:'✅ Uitwerking',antwoorden:'✅ Antwoorden',uitwerkbijlage:'📋 Uitwerkbijlage',correctie:'📋 Correctiemodel'};
+
+  // Create loading badges
+  rollen.forEach(rol=>{
+    const b=document.createElement('span');
+    b.className='nk-badge loading';
+    b.id=`nk-badge-${vakId}-${rol}`;
+    b.textContent=(rolLabels[rol]||rol)+' ⏳';
+    badgesEl.appendChild(b);
+  });
+
+  // Fetch PDFs
+  const fetchResults=await Promise.allSettled(rollen.map(async rol=>{
+    const b64=await fetchPdfBase64(tvData[rol]);
+    nkState.pdfs[rol]=b64;
+    const badge=document.getElementById(`nk-badge-${vakId}-${rol}`);
+    if(badge){badge.className='nk-badge ok';badge.textContent=(rolLabels[rol]||rol)+' ✓';}
+    return rol;
+  }));
+
+  // Mark failed ones
+  fetchResults.forEach((r,i)=>{
+    if(r.status==='rejected'){
+      const rol=rollen[i];
+      const badge=document.getElementById(`nk-badge-${vakId}-${rol}`);
+      if(badge){badge.className='nk-badge err';badge.textContent=(rolLabels[rol]||rol)+' ✗';}
+    }
+  });
+
+  const loaded=Object.keys(nkState.pdfs);
+  if(!loaded.includes('opgaven')&&!loaded.includes('antwoorden')){
+    toastMsg('⚠️ Kon opgaven niet laden');return;
+  }
+
+  // Build system prompt
+  const v=vak(vakId);
+  const sysPrompt=`Je bent een geduldige nakijkcoach voor VMBO-TL ${v.name}, tijdvak ${tv} van ${jaar}.
+Je beschikt over de echte examenbestanden als PDF (opgaven${nkState.pdfs.bijlage?', bijlage':''}${nkState.pdfs.uitwerking||nkState.pdfs.antwoorden?', uitwerking':''}).
+De leerling heeft dyslexie — wees geduldig, beoordeel inhoud niet spelling, schrijf kort en duidelijk.
+
+Jouw taak:
+1. Vraag welke vraag de leerling wil bespreken (of begin bij vraag 1 als hij dat aangeeft).
+2. Laat de leerling zijn antwoord geven.
+3. Vergelijk het antwoord met de uitwerking/antwoordsleutel in de PDF.
+4. Geef gerichte feedback: wat was goed, wat miste hij, wat is het correcte antwoord.
+5. Geef de score/punten als die in de uitwerking staan.
+6. Stel dan de volgende vraag voor.
+
+Spreek de leerling aan als 'jij'. Wees motiverend en concreet.`;
+
+  // Build first message with all PDFs
+  const pdfContent=[];
+  const pdfRollen=['bijlage','opgaven_text','opgaven','antwoorden','uitwerking','uitwerkbijlage','correctie'];
+  for(const rol of pdfRollen){
+    if(nkState.pdfs[rol]){
+      pdfContent.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:nkState.pdfs[rol]},title:`${nm} ${jaar} TV${tv} — ${rolLabels[rol]||rol}`});
+    }
+  }
+  pdfContent.push({type:'text',text:`Ik wil het examen ${nm} ${jaar} tijdvak ${tv} nakijken. Welke vraag wil je als eerste bespreken, of zal ik beginnen bij vraag 1?`});
+
+  const firstMsg={role:'user',content:pdfContent};
+  nkState.chatHistory=[firstMsg];
+
+  chatEl.style.display='block';
+  inputRow.style.display='flex';
+
+  // Show typing
+  const typEl=document.createElement('div');
+  typEl.className='bubble assistant';typEl.id='nk-typing-'+vakId;typEl.textContent='⏳ Examens laden…';
+  chatEl.appendChild(typEl);
+
+  try{
+    const key=localStorage.getItem('anthropic_api_key')||'';
+    if(!key){openApiSettings();return;}
+    // Send directly (PDFs are in content array)
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,system:sysPrompt,messages:nkState.chatHistory})
+    });
+    if(!resp.ok)throw new Error('API error '+resp.status);
+    const data=await resp.json();
+    const reply=data.content.map(b=>b.type==='text'?b.text:'').join('');
+    typEl.remove();
+    nkState.chatHistory.push({role:'assistant',content:reply});
+    appendNkBubble(vakId,'assistant',reply);
+    nkState.sysPrompt=sysPrompt;
+  }catch(e){
+    typEl.remove();
+    appendNkBubble(vakId,'assistant','⚠️ Fout bij starten: '+e.message);
+  }
+}
+
+function appendNkBubble(vakId,role,text){
+  const chat=document.getElementById('nk-chat-'+vakId);
+  if(!chat)return;
+  const el=document.createElement('div');
+  el.className='bubble '+role;
+  el.textContent=text;
+  chat.appendChild(el);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+async function sendNakijk(vakId){
+  const inp=document.getElementById('nk-input-'+vakId);
+  const text=inp.value.trim();
+  if(!text)return;
+  if(nkState.vakId!==vakId){toastMsg('Start eerst een nakijksessie');return;}
+
+  inp.value='';
+  nkState.chatHistory.push({role:'user',content:text});
+  appendNkBubble(vakId,'user',text);
+
+  const sendBtn=document.getElementById('nk-send-'+vakId);
+  if(sendBtn)sendBtn.disabled=true;
+
+  const typEl=document.createElement('div');
+  typEl.className='bubble assistant';typEl.textContent='⏳…';
+  document.getElementById('nk-chat-'+vakId).appendChild(typEl);
+
+  try{
+    const key=localStorage.getItem('anthropic_api_key')||'';
+    if(!key){openApiSettings();typEl.remove();return;}
+    const msgs=nkState.chatHistory.slice(-20);
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,system:nkState.sysPrompt,messages:msgs})
+    });
+    if(!resp.ok)throw new Error('API error '+resp.status);
+    const data=await resp.json();
+    const reply=data.content.map(b=>b.type==='text'?b.text:'').join('');
+    typEl.remove();
+    nkState.chatHistory.push({role:'assistant',content:reply});
+    appendNkBubble(vakId,'assistant',reply);
+  }catch(e){
+    typEl.remove();
+    appendNkBubble(vakId,'assistant','⚠️ Fout: '+e.message);
+  }
+  if(sendBtn)sendBtn.disabled=false;
+}
+
+function nkEnter(e,vakId){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendNakijk(vakId);}
+}
+
+// ═══════════════════════════════════════════
+// OEFENEN
+// ═══════════════════════════════════════════
 let activeVakId = VAKKEN[0].id;
 let chatHistory = {}; // per vak
 
@@ -823,6 +1124,9 @@ function renderOefenContent(){
     </div>
     <div class="score-history" id="score-hist-${v.id}"></div>
   </div>
+
+  <!-- NAKIJKCOACH -->
+  ${renderNakijkControls(v.id)}
 
   <!-- AI TUTOR -->
   <div class="oef-section">
@@ -983,18 +1287,28 @@ function setSendDisabled(vakId,dis){
   if(inp)inp.disabled=dis;
 }
 
-async function callClaude(systemPrompt, messages){
+async function callClaude(systemPrompt, messages, opts={}){
+  const key=localStorage.getItem('anthropic_api_key')||'';
+  if(!key){openApiSettings();throw new Error('Geen API key ingesteld');}
+  const maxTok=opts.maxTokens||1000;
+  // Build messages array — support content arrays (for PDFs)
+  const builtMsgs=messages.map(m=>({role:m.role,content:m.content}));
   const resp=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':key,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
     body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',
-      max_tokens:1000,
+      model:'claude-sonnet-4-6',
+      max_tokens:maxTok,
       system:systemPrompt,
-      messages:messages.map(m=>({role:m.role,content:m.content}))
+      messages:builtMsgs
     })
   });
-  if(!resp.ok)throw new Error('API error '+resp.status);
+  if(!resp.ok){const e=await resp.text();throw new Error('API error '+resp.status+': '+e);}
   const data=await resp.json();
   return data.content.map(b=>b.type==='text'?b.text:'').join('');
 }
