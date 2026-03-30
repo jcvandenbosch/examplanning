@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examenplanning VMBO-TL 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0d12;--surface:#14141c;--surface2:#1b1b26;--border:#252535;
+  --accent:#f5c842;--text:#e8e8f0;--muted:#5a5a72;
+  --green:#3ecf78;--red:#e05060;--blue:#4494e8;--purple:#9060e0;--orange:#e07040;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* HEADER */
+header{padding:13px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;background:var(--bg);z-index:100;}
+.logo{font-size:.9rem;font-weight:800;letter-spacing:-.02em;}
+.logo em{color:var(--accent);font-style:normal;}
+.logo small{color:var(--muted);font-size:.6rem;font-weight:600;margin-left:6px;}
+.cd-strip{display:flex;gap:7px;flex-wrap:wrap;}
+.cd-pill{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:.67rem;text-align:center;}
+.cd-pill .n{font-size:.98rem;font-weight:700;color:var(--accent);display:block;}
+.cd-pill .l{color:var(--muted);font-size:.55rem;text-transform:uppercase;letter-spacing:.07em;}
+
+/* NAV */
+nav{display:flex;gap:1px;padding:10px 22px 0;border-bottom:1px solid var(--border);overflow-x:auto;}
+nav button{background:none;border:none;color:var(--muted);font-family:'Syne',sans-serif;font-size:.76rem;font-weight:600;padding:8px 14px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .14s;}
+nav button:hover{color:var(--text);}
+nav button.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+main{padding:18px 22px;max-width:1060px;margin:0 auto;}
+.panel{display:none;}.panel.active{display:block;}
+.slabel{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:20px 0 9px;}
+.slabel:first-child{margin-top:0;}
+
+/* VANDAAG */
+.today-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:11px;padding:15px 18px;margin-bottom:15px;}
+.today-card h2{font-size:.9rem;font-weight:800;margin-bottom:12px;}
+.today-card h2 span{color:var(--accent);}
+.tasks-list{display:flex;flex-direction:column;gap:6px;}
+.task-row{display:flex;align-items:center;gap:12px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:11px 13px;cursor:pointer;transition:all .13s;user-select:none;}
+.task-row:hover{border-color:var(--vc,var(--muted));}
+.task-row.done{opacity:.4;}
+.task-row.done .tname{text-decoration:line-through;}
+.chk{width:28px;height:28px;border-radius:7px;flex-shrink:0;border:2px solid var(--vc,var(--muted));display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .13s;background:transparent;}
+.task-row.done .chk{background:var(--vc);border-color:var(--vc);}
+.tleft{flex:1;}
+.tname{font-weight:700;font-size:.85rem;}
+.tsub{font-size:.68rem;color:var(--muted);margin-top:2px;}
+.tmins{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--muted);flex-shrink:0;}
+.dbar-wrap{margin-top:13px;display:flex;align-items:center;gap:9px;}
+.dbar-bg{flex:1;height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;}
+.dbar-fill{height:100%;background:var(--green);border-radius:4px;transition:width .4s;}
+.dbar-pct{font-family:'DM Mono',monospace;font-size:.76rem;color:var(--green);min-width:34px;text-align:right;font-weight:700;}
+.motivatie{text-align:center;padding:18px;font-size:1.2rem;display:none;background:rgba(62,207,120,.07);border:1px solid rgba(62,207,120,.2);border-radius:11px;margin-top:13px;}
+.addbtn{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;padding:7px 14px;border-radius:7px;cursor:pointer;margin-top:9px;transition:opacity .13s;}
+.addbtn:hover{opacity:.85;}
+
+/* WEEK */
+.week-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+.week-nav{display:flex;gap:6px;align-items:center;}
+.week-nav button{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:.76rem;padding:5px 12px;border-radius:6px;cursor:pointer;transition:all .12s;}
+.week-nav button:hover{border-color:var(--accent);}
+.wk-lbl{font-weight:700;font-size:.84rem;min-width:148px;text-align:center;}
+.today-btn2{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;padding:6px 13px;border-radius:6px;cursor:pointer;}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+@media(max-width:720px){.week-grid{grid-template-columns:repeat(3,1fr);}nav{padding:10px 14px 0;}main{padding:14px;}header{padding:12px;}}
+@media(max-width:420px){.week-grid{grid-template-columns:repeat(2,1fr);}}
+.day-col{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:8px;min-height:125px;}
+.day-col.today-col{border-color:var(--accent);}
+.day-col.exam-day{border-color:var(--red);}
+.day-dname{font-size:.56rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700;margin-bottom:2px;}
+.day-ddate{font-family:'DM Mono',monospace;font-size:.78rem;font-weight:600;margin-bottom:6px;}
+.day-col.today-col .day-ddate{color:var(--accent);}
+.mini-task{display:flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 6px;margin-bottom:4px;font-size:.66rem;cursor:pointer;transition:all .1s;}
+.mini-task:hover{background:var(--bg);}
+.mini-task.done{opacity:.35;}
+.mc{width:13px;height:13px;border-radius:3px;flex-shrink:0;border:1.5px solid var(--vc,var(--muted));display:flex;align-items:center;justify-content:center;font-size:.52rem;}
+.mini-task.done .mc{background:var(--vc);}
+.ml{flex:1;line-height:1.3;}
+.mm{font-family:'DM Mono',monospace;font-size:.56rem;color:var(--muted);flex-shrink:0;}
+.exam-badge{background:rgba(224,80,96,.1);border:1px solid var(--red);border-radius:5px;padding:3px 5px;margin-bottom:3px;font-size:.6rem;color:var(--red);font-weight:700;}
+.day-prog{height:3px;background:var(--surface2);border-radius:2px;margin-top:6px;overflow:hidden;}
+.day-prog-fill{height:100%;background:var(--green);border-radius:2px;transition:width .3s;}
+
+/* VOORTGANG */
+.global-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:16px 18px;margin-bottom:16px;}
+.gc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+.gc-title{font-weight:800;font-size:.96rem;}
+.gc-pct{font-family:'DM Mono',monospace;font-size:1.4rem;color:var(--green);font-weight:700;}
+.bar-wrap{height:9px;background:var(--surface2);border-radius:5px;overflow:hidden;margin-bottom:5px;}
+.bar-fill{height:100%;border-radius:5px;transition:width .5s;}
+.bar-lbl{font-size:.65rem;color:var(--muted);display:flex;justify-content:space-between;}
+.vak-card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px 17px;margin-bottom:9px;}
+.vc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.vc-name{font-weight:800;font-size:.92rem;}
+.vc-badges{display:flex;gap:6px;}
+.badge{font-family:'DM Mono',monospace;font-size:.67rem;background:var(--surface2);border:1px solid var(--border);padding:2px 8px;border-radius:20px;}
+.streak-row{display:flex;gap:4px;margin-top:9px;flex-wrap:wrap;}
+.sdot{width:20px;height:20px;border-radius:4px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.54rem;transition:background .15s;}
+.sdot.hit{background:var(--green);border-color:var(--green);}
+.sdot.skip{background:var(--surface2);opacity:.35;}
+.log-area{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Mono',monospace;font-size:.72rem;padding:8px 10px;resize:vertical;min-height:48px;outline:none;margin-top:9px;transition:border-color .15s;}
+.log-area:focus{border-color:var(--accent);}
+.log-area::placeholder{color:var(--muted);}
+.save-btn{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.73rem;padding:6px 14px;border-radius:6px;cursor:pointer;margin-top:6px;transition:opacity .12s;}
+.save-btn:hover{opacity:.85;}
+
+/* ROOSTER */
+.rooster-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:.77rem;}
+th{text-align:left;padding:6px 10px;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border);}
+td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--surface2);}
+tr.jrow td{background:rgba(245,200,66,.05);}
+.dcell{font-family:'DM Mono',monospace;font-weight:600;white-space:nowrap;}
+.vpill{display:inline-block;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:2px 8px;margin:2px;font-size:.69rem;}
+.vpill.mine{background:rgba(245,200,66,.14);border-color:var(--accent);color:var(--accent);font-weight:700;}
+.dl{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted);white-space:nowrap;}
+.dl.hot{color:var(--red);font-weight:700;}.dl.warm{color:var(--orange);font-weight:700;}.dl.ok{color:var(--green);}
+.tipbox{background:rgba(245,200,66,.04);border:1px solid rgba(245,200,66,.15);border-radius:8px;padding:9px 12px;font-size:.74rem;color:var(--muted);margin-bottom:13px;line-height:1.6;}
+.tipbox strong{color:var(--accent);}
+
+/* ── OEFENEN ── */
+.vak-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
+.vak-tab{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 16px;cursor:pointer;transition:all .14s;font-size:.8rem;font-weight:700;}
+.vak-tab:hover{border-color:var(--vt-color,var(--muted));}
+.vak-tab.active{background:rgba(245,200,66,.1);border-color:var(--accent);color:var(--accent);}
+.vak-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;background:var(--vt-color,var(--muted));}
+
+.oef-section{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:16px 18px;margin-bottom:12px;}
+.oef-section h3{font-size:.82rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+
+/* exam links */
+.exam-links{display:flex;flex-direction:column;gap:7px;}
+.exam-link-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 13px;}
+.exam-link-row .el-info{flex:1;}
+.exam-link-row .el-year{font-weight:700;font-size:.82rem;}
+.exam-link-row .el-sub{font-size:.68rem;color:var(--muted);margin-top:1px;}
+.exam-link-row a{background:var(--accent);color:#000;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.7rem;padding:6px 12px;border-radius:6px;white-space:nowrap;transition:opacity .12s;}
+.exam-link-row a:hover{opacity:.85;}
+
+/* score logger */
+.score-form{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-top:10px;}
+.score-form label{font-size:.68rem;color:var(--muted);display:block;margin-bottom:3px;}
+.score-form input,.score-form select,.score-form textarea{background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Syne',sans-serif;font-size:.78rem;padding:7px 10px;outline:none;transition:border-color .13s;}
+.score-form input:focus,.score-form select:focus,.score-form textarea:focus{border-color:var(--accent);}
+.score-form input[type=number]{width:70px;}
+.score-form textarea{width:100%;resize:vertical;min-height:44px;}
+.score-form .grow{flex:1;min-width:160px;}
+.score-form button{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;padding:8px 15px;border-radius:6px;cursor:pointer;white-space:nowrap;}
+
+/* score history */
+.score-history{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+.score-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:8px 12px;}
+.score-row .sr-date{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--muted);flex-shrink:0;}
+.score-row .sr-name{flex:1;font-size:.78rem;font-weight:600;}
+.score-row .sr-score{font-family:'DM Mono',monospace;font-size:.9rem;font-weight:700;}
+.score-row .sr-notes{font-size:.67rem;color:var(--muted);margin-top:2px;}
+.score-row .sr-del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem;padding:2px 6px;border-radius:4px;transition:color .12s;}
+.score-row .sr-del:hover{color:var(--red);}
+.score-good{color:var(--green);}
+.score-mid{color:var(--orange);}
+.score-bad{color:var(--red);}
+
+/* AI PRACTICE */
+.ai-chat{display:flex;flex-direction:column;gap:10px;}
+.ai-msg{display:flex;gap:10px;align-items:flex-start;}
+.ai-msg.ai .bubble{background:var(--surface2);border:1px solid var(--border);border-radius:0 10px 10px 10px;padding:11px 14px;font-size:.8rem;line-height:1.6;max-width:90%;}
+.ai-msg.user .bubble{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.25);border-radius:10px 0 10px 10px;padding:11px 14px;font-size:.8rem;line-height:1.6;max-width:90%;margin-left:auto;}
+.ai-msg.ai{justify-content:flex-start;}
+.ai-msg.user{justify-content:flex-end;}
+.avatar{width:28px;height:28px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;}
+.ai-input-row{display:flex;gap:8px;margin-top:4px;}
+.ai-input-row textarea{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Syne',sans-serif;font-size:.8rem;padding:10px 12px;resize:none;height:60px;outline:none;transition:border-color .13s;}
+.ai-input-row textarea:focus{border-color:var(--accent);}
+.ai-input-row button{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.76rem;padding:0 16px;border-radius:8px;cursor:pointer;flex-shrink:0;transition:opacity .12s;}
+.ai-input-row button:hover{opacity:.85;}
+.ai-input-row button:disabled{opacity:.4;cursor:not-allowed;}
+.ai-controls{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;}
+.ai-controls button{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:.72rem;font-weight:600;padding:6px 13px;border-radius:7px;cursor:pointer;transition:all .12s;}
+.ai-controls button:hover{border-color:var(--accent);color:var(--accent);}
+.ai-controls button.active-mode{background:rgba(245,200,66,.12);border-color:var(--accent);color:var(--accent);}
+.typing{display:flex;gap:4px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:0 10px 10px 10px;width:fit-content;}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:bounce 1.2s ease infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}
+.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes bounce{0%,80%,100%{transform:scale(.8);opacity:.4}40%{transform:scale(1.2);opacity:1;}}
+.chat-container{max-height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px 0;scroll-behavior:smooth;}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;align-items:center;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;width:90%;max-width:380px;}
+.modal h3{font-size:.9rem;margin-bottom:12px;}
+.modal select,.modal input,.modal textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Syne',sans-serif;font-size:.78rem;padding:8px 10px;margin-bottom:7px;outline:none;}
+.modal select:focus,.modal input:focus{border-color:var(--accent);}
+.mbts{display:flex;gap:7px;justify-content:flex-end;}
+.mbts button{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:.76rem;font-weight:600;padding:7px 14px;border-radius:6px;cursor:pointer;}
+.mbts .ok{background:var(--accent);color:#000;border-color:var(--accent);}
+
+/* TOAST */
+#toast{position:fixed;bottom:16px;right:16px;background:var(--surface);border:1px solid var(--accent);color:var(--text);font-size:.78rem;padding:10px 15px;border-radius:8px;z-index:400;opacity:0;transform:translateY(8px);transition:all .22s;pointer-events:none;}
+#toast.show{opacity:1;transform:translateY(0);}
+@keyframes pop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+.celebrate{animation:pop .3s ease;}
+
+/* API KEY SETTINGS */
+#api-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;align-items:center;justify-content:center;}
+#api-overlay.open{display:flex;}
+.api-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 24px;width:90%;max-width:420px;}
+.api-box h2{font-size:1rem;font-weight:800;margin-bottom:8px;}
+.api-box p{font-size:.75rem;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+.api-box input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Mono',monospace;font-size:.76rem;padding:10px 12px;outline:none;transition:border-color .13s;margin-bottom:12px;}
+.api-box input:focus{border-color:var(--accent);}
+.api-box .api-btns{display:flex;gap:8px;align-items:center;}
+.api-box .api-save{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;padding:9px 20px;border-radius:7px;cursor:pointer;transition:opacity .13s;}
+.api-box .api-save:hover{opacity:.85;}
+.api-box .api-cancel{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Syne',sans-serif;font-size:.78rem;padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .13s;}
+.api-box .api-cancel:hover{border-color:var(--muted);color:var(--text);}
+.key-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Syne',sans-serif;font-size:.68rem;padding:4px 9px;border-radius:6px;cursor:pointer;transition:all .13s;white-space:nowrap;}
+.key-btn:hover{border-color:var(--accent);color:var(--accent);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">exam<em>planning</em><small>VMBO-TL 2026</small></div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="cd-strip" id="cd"></div>
+    <button class="key-btn" onclick="openApiSettings()" title="API key wijzigen">🔑 API key</button>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="show('vandaag')">✅ Vandaag</button>
+  <button onclick="show('week')">📅 Week</button>
+  <button onclick="show('oefenen')">🧠 Oefenen</button>
+  <button onclick="show('voortgang')">📈 Voortgang</button>
+  <button onclick="show('rooster')">🗓️ Rooster</button>
+</nav>
+
+<main>
+
+<!-- ── VANDAAG ── -->
+<div class="panel active" id="panel-vandaag">
+  <div class="today-card">
+    <h2>Vandaag — <span id="td-date"></span></h2>
+    <div class="tasks-list" id="tasks-today"></div>
+    <div class="dbar-wrap">
+      <div class="dbar-bg"><div class="dbar-fill" id="d-fill" style="width:0%"></div></div>
+      <div class="dbar-pct" id="d-pct">0%</div>
+    </div>
+  </div>
+  <div class="motivatie" id="mot">🎉 Alles gedaan vandaag! Geweldig! 💪</div>
+  <button class="addbtn" onclick="openModal(todayStr)">+ Extra sessie toevoegen</button>
+</div>
+
+<!-- ── WEEK ── -->
+<div class="panel" id="panel-week">
+  <div class="week-header">
+    <div class="week-nav">
+      <button onclick="wk(-1)">←</button>
+      <div class="wk-lbl" id="wk-lbl"></div>
+      <button onclick="wk(1)">→</button>
+    </div>
+    <button class="today-btn2" onclick="wkOff=0;renderWeek()">Vandaag</button>
+  </div>
+  <div class="week-grid" id="week-grid"></div>
+</div>
+
+<!-- ── OEFENEN ── -->
+<div class="panel" id="panel-oefenen">
+  <div class="tipbox"><strong>Oefenmappen per vak</strong> — Selecteer een vak, open een oud examen, log je score, en oefen met de AI-tutor die vragen stelt en feedback geeft.</div>
+  <div class="vak-tabs" id="vak-tabs"></div>
+  <div id="oef-content"></div>
+</div>
+
+<!-- ── VOORTGANG ── -->
+<div class="panel" id="panel-voortgang">
+  <div class="global-card">
+    <div class="gc-top"><div class="gc-title">Totale voortgang 🏁</div><div class="gc-pct" id="g-pct">0%</div></div>
+    <div class="bar-wrap"><div class="bar-fill" id="g-bar" style="width:0%;background:var(--green)"></div></div>
+    <div class="bar-lbl"><span id="g-done">0 taken</span><span id="g-tot"></span></div>
+  </div>
+  <div class="slabel">Per vak</div>
+  <div id="vak-cards"></div>
+</div>
+
+<!-- ── ROOSTER ── -->
+<div class="panel" id="panel-rooster">
+  <div class="tipbox"><strong>VMBO-TL examenrooster 2026</strong> — Tijdvak 1: 8–26 mei. Uitslag: 11 juni. Jouw vakken zijn <strong>geel</strong> gemarkeerd.</div>
+  <div class="rooster-wrap">
+    <table><thead><tr><th>Datum</th><th>Tijd</th><th>Vak</th><th>Nog</th></tr></thead>
+    <tbody id="r-body"></tbody></table>
+  </div>
+</div>
+
+</main>
+
+<!-- modal -->
+<div class="overlay" id="modal">
+  <div class="modal">
+    <h3>Sessie toevoegen</h3>
+    <select id="m-vak"></select>
+    <input type="number" id="m-mins" value="45" min="5" max="240" placeholder="Minuten">
+    <textarea id="m-notes" rows="3" placeholder="Wat deed je? Wat ging goed/fout?"></textarea>
+    <div class="mbts"><button onclick="closeModal()">Annuleer</button><button class="ok" onclick="saveSession()">Opslaan</button></div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<!-- API KEY OVERLAY -->
+<div id="api-overlay">
+  <div class="api-box">
+    <h2>🔑 Anthropic API key</h2>
+    <p>Vul je Anthropic API key in om de AI-tutor te gebruiken.<br>
+    De key wordt <strong>alleen lokaal opgeslagen</strong> in je browser en nooit naar een server verstuurd.</p>
+    <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." autocomplete="off" onkeydown="if(event.key==='Enter')saveApiKey()">
+    <div class="api-btns">
+      <button class="api-save" onclick="saveApiKey()">Opslaan</button>
+      <button class="api-cancel" id="api-cancel-btn" onclick="closeApiSettings()">Annuleer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════
+const VAKKEN = [
+  {id:'engels',  name:'Engels',    cijfer:4.8,  color:'#e05060', examen:'2026-05-19', etijd:'13:30–15:30',
+   tip:'Lees eerst de vragen, dan de tekst. Elke dag 30 min.',
+   aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Engels. 
+De leerling heeft dyslexie — wees geduldig en schrijf duidelijk.
+Doel: minimaal een 5,0 halen op het centraal examen.
+Oefen ALLEEN op basis van VMBO-TL stijl: begrijpend lezen (teksten met vragen), woordbegrip in context.
+Geef na elk antwoord kort feedback: wat was goed, wat kon beter, en waarom.
+Stel één vraag tegelijk. Begin met een korte, toegankelijke tekst (max 100 woorden) en stel daar 2 vragen over.
+Spreek de leerling aan als 'jij'. Wees motiverend.`,
+   examLinks:[
+     {year:'2024',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/engels-vmbo-gl-tl/2024/'},
+     {year:'2023',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/engels-vmbo-gl-tl/2023/'},
+     {year:'2022',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/engels-vmbo-gl-tl/2022/'},
+     {year:'2021',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/engels-vmbo-gl-tl/2021/'},
+     {year:'2019',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/engels-vmbo-gl-tl/2019/'},
+   ]},
+  {id:'eco',     name:'Economie',  cijfer:5.5,  color:'#e07040', examen:'2026-05-13', etijd:'13:30–15:30',
+   tip:'Begrippen hardop uitleggen = leren.',
+   aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Economie.
+De leerling heeft dyslexie — schrijf helder en beknopt.
+Focus op: begrippen uitleggen, vraag en aanbod, kosten/opbrengsten, inflatie, arbeidsmarkt, overheid.
+Oefen zoals het VMBO-TL examen: begrip uitleggen, grafieken interpreteren, situaties analyseren.
+Stel één vraag tegelijk. Geef na elk antwoord feedback: goed/fout en waarom, plus de juiste uitleg.
+Begin met: "Noem een oud examen dat je wilt oefenen, of zeg 'willekeurig' dan kies ik een begrip."
+Spreek de leerling aan als 'jij'. Wees motiverend.`,
+   examLinks:[
+     {year:'2024',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/economie-vmbo-gl-tl/2024/'},
+     {year:'2023',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/economie-vmbo-gl-tl/2023/'},
+     {year:'2022',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/economie-vmbo-gl-tl/2022/'},
+     {year:'2021',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/economie-vmbo-gl-tl/2021/'},
+     {year:'2019',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/economie-vmbo-gl-tl/2019/'},
+   ]},
+  {id:'nask',    name:'Nask',      cijfer:6.35, color:'#4494e8', examen:'2026-05-18', etijd:'13:30–15:30',
+   tip:'Alleen oude examens. Stappen opschrijven, niet gokken.',
+   aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Natuur- en Scheikunde 1 (NaSk1).
+De leerling heeft dyslexie — schrijf formules en stappen heel duidelijk.
+Focus op: formules (v=s/t, F=m·a, P=F/A, E=P·t, etc.), eenheden, rekenstappen, begrippen.
+Oefen zoals het examen: geef een situatie of rekenvraag, laat de leerling stap voor stap redeneren.
+Stel één vraag tegelijk. Na het antwoord: corrigeer stap voor stap, leg uit wat er mis ging.
+Gebruik emoji's om formules duidelijk te maken (bv. ⚡ voor elektra, 🔧 voor kracht).
+Begin met vragen over recente examens. Spreek de leerling aan als 'jij'. Wees positief.`,
+   examLinks:[
+     {year:'2024',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nask-1-vmbo-gl-tl/2024/'},
+     {year:'2023',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nask-1-vmbo-gl-tl/2023/'},
+     {year:'2022',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nask-1-vmbo-gl-tl/2022/'},
+     {year:'2021',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nask-1-vmbo-gl-tl/2021/'},
+     {year:'2019',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nask-1-vmbo-gl-tl/2019/'},
+   ]},
+  {id:'nl',      name:'Nederlands',cijfer:6.7,  color:'#3ecf78', examen:'2026-05-11', etijd:'13:30–15:30',
+   tip:'Signaalwoorden + vraagtype herkennen.',
+   aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Nederlands.
+De leerling heeft dyslexie — wees extra geduldig met spelling, beoordeel inhoud niet spelling.
+Focus op: begrijpend lezen, signaalwoorden, samenvatten, tekstdoel, schrijfstijl, argumentatie.
+Oefen zoals het examen: korte tekst + vragen over tekstbegrip en structuur.
+Stel één vraag tegelijk. Geef na elk antwoord feedback over de inhoud (niet spelling).
+Begin met een korte tekst (max 80 woorden) en één vraag over het teksttype of de hoofdgedachte.
+Spreek de leerling aan als 'jij'. Wees bemoedigend.`,
+   examLinks:[
+     {year:'2024',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nederlands-vmbo-gl-tl/2024/'},
+     {year:'2023',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nederlands-vmbo-gl-tl/2023/'},
+     {year:'2022',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nederlands-vmbo-gl-tl/2022/'},
+     {year:'2021',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nederlands-vmbo-gl-tl/2021/'},
+     {year:'2019',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/nederlands-vmbo-gl-tl/2019/'},
+   ]},
+  {id:'wisk',    name:'Wiskunde',  cijfer:8.2,  color:'#9060e0', examen:'2026-05-08', etijd:'13:30–15:30',
+   tip:'Bijhouden. Slordigheidsfouten voorkomen.',
+   aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Wiskunde.
+De leerling is goed in wiskunde (8,2) — doel is bijhouden en slordigheidsfouten elimineren.
+Stel gerichte rekenvragen op VMBO-TL niveau: algebra, meetkunde, statistiek, verbanden.
+Focus extra op stappen netjes opschrijven, eenheden vermelden, antwoord controleren.
+Stel één opgave tegelijk. Na het antwoord: check elke stap, geef aan waar eventuele slordigheidsfouten zitten.
+Begin met: "Wil je algebra, meetkunde, statistiek of een mix oefenen?"
+Spreek de leerling aan als 'jij'.`,
+   examLinks:[
+     {year:'2024',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/wiskunde-vmbo-gl-tl/2024/'},
+     {year:'2023',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/wiskunde-vmbo-gl-tl/2023/'},
+     {year:'2022',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/wiskunde-vmbo-gl-tl/2022/'},
+     {year:'2021',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/wiskunde-vmbo-gl-tl/2021/'},
+     {year:'2019',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/examen/wiskunde-vmbo-gl-tl/2019/'},
+   ]},
+];
+
+const WEEK_PLAN = [
+  {dow:0,tasks:[{id:'E',vak:'engels',label:'Engels – oud examen (halve)',mins:30,tip:'Lees vragen eerst'},{id:'A',vak:'nask',label:'Nask – oud examen oefenen',mins:60,tip:'Stappen opschrijven'},{id:'B',vak:'eco',label:'Eco – begrippen oefenen',mins:60,tip:'Hardop uitleggen'}]},
+  {dow:1,tasks:[{id:'E',vak:'engels',label:'Engels – leesvragen trainen',mins:30,tip:'Markeer kernwoorden'},{id:'A',vak:'nl',label:'NL – leesexamen + nakijken',mins:60,tip:'Signaalwoorden'},{id:'B',vak:'nask',label:'Nask – nakijken sessie',mins:45,tip:'Waar ging het fout?'}]},
+  {dow:2,tasks:[{id:'E',vak:'engels',label:'Engels – oud examen',mins:30,tip:'Niet te snel'},{id:'A',vak:'eco',label:'Eco – oud examen nakijken',mins:60,tip:'Welk begrip?'},{id:'B',vak:'wisk',label:'Wiskunde – paar opgaven',mins:30,tip:'Slordigheid check'}]},
+  {dow:3,tasks:[{id:'E',vak:'engels',label:'Engels – fouten analyseren',mins:30,tip:'Waarom fout?'},{id:'A',vak:'nask',label:'Nask – oud examen',mins:60,tip:'Formules herkennen'},{id:'B',vak:'nl',label:'NL – vraagtype oefenen',mins:45,tip:'Type A/B/C'}]},
+  {dow:4,tasks:[{id:'E',vak:'engels',label:'Engels – volledig examen',mins:30,tip:'Op tijd'},{id:'A',vak:'eco',label:'Eco – begrippen herhalen',mins:60,tip:'→ iemand uitleggen'},{id:'B',vak:'nask',label:'Nask – nakijken + fouten',mins:45,tip:'Groei meten'}]},
+  {dow:5,tasks:[{id:'E',vak:'engels',label:'Engels – examen volledig',mins:60,tip:'Alsof het echt is'},{id:'A',vak:'eco',label:'Eco – mix herhaling',mins:45,tip:'Zwakke punten'}]},
+  {dow:6,tasks:[{id:'A',vak:'nask',label:'Nask – nakijken sessie',mins:45,tip:'Inzicht opdoen'},{id:'B',vak:'wisk',label:'Wiskunde – check',mins:30,tip:'Bijhouden'}]},
+];
+
+const ROOSTER = [
+  {date:'2026-05-08',dag:'vr 8 mei',  tijd:'13:30–15:30',vakken:['Wiskunde']},
+  {date:'2026-05-11',dag:'ma 11 mei', tijd:'09:00–11:00',vakken:['Muziek']},
+  {date:'2026-05-11',dag:'ma 11 mei', tijd:'13:30–15:30',vakken:['Nederlands']},
+  {date:'2026-05-12',dag:'di 12 mei', tijd:'09:00–11:00',vakken:['Aardrijkskunde']},
+  {date:'2026-05-12',dag:'di 12 mei', tijd:'13:30–15:30',vakken:['Frans']},
+  {date:'2026-05-13',dag:'wo 13 mei', tijd:'09:00–11:00',vakken:['Beeldende vorming']},
+  {date:'2026-05-13',dag:'wo 13 mei', tijd:'13:30–15:30',vakken:['Economie']},
+  {date:'2026-05-18',dag:'ma 18 mei', tijd:'09:00–11:00',vakken:['Duits']},
+  {date:'2026-05-18',dag:'ma 18 mei', tijd:'13:30–15:30',vakken:['Natuur- en scheikunde I']},
+  {date:'2026-05-19',dag:'di 19 mei', tijd:'09:00–11:00',vakken:['Maatschappijkunde']},
+  {date:'2026-05-19',dag:'di 19 mei', tijd:'13:30–15:30',vakken:['Engels']},
+  {date:'2026-05-20',dag:'wo 20 mei', tijd:'09:00–11:00',vakken:['Dans / Drama']},
+  {date:'2026-05-20',dag:'wo 20 mei', tijd:'13:30–15:30',vakken:['Biologie']},
+  {date:'2026-05-21',dag:'do 21 mei', tijd:'13:30–15:30',vakken:['Natuur- en scheikunde II']},
+  {date:'2026-05-22',dag:'vr 22 mei', tijd:'09:00–11:00',vakken:['Fries']},
+  {date:'2026-05-22',dag:'vr 22 mei', tijd:'13:30–15:30',vakken:['Geschiedenis en staatsinrichting']},
+  {date:'2026-05-26',dag:'di 26 mei', tijd:'13:30–15:30',vakken:['Arabisch / Spaans / Turks']},
+];
+const MINE={'Wiskunde':'wisk','Nederlands':'nl','Economie':'eco','Natuur- en scheikunde I':'nask','Engels':'engels'};
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let S={done:{},sessions:{},logs:{},scores:{},chats:{}};
+try{S=JSON.parse(localStorage.getItem('expl_vmbo5'))||S;}catch(e){}
+function save(){localStorage.setItem('expl_vmbo5',JSON.stringify(S));}
+
+// ═══════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════
+const TODAY=new Date();TODAY.setHours(0,0,0,0);
+function ds(d){return d.toISOString().split('T')[0];}
+const todayStr=ds(TODAY);
+function dow(d){return(d.getDay()+6)%7;}
+function daysUntil(s){return Math.round((new Date(s+'T00:00:00')-TODAY)/86400000);}
+function fdate(d){return d.toLocaleDateString('nl-NL',{day:'numeric',month:'short'});}
+function vak(id){return VAKKEN.find(v=>v.id===id);}
+function tkey(dStr,tid){const d=new Date(dStr+'T00:00:00');return dStr+'_'+dow(d)+'_'+tid;}
+function getDayTasks(dStr){const d=new Date(dStr+'T00:00:00');const p=WEEK_PLAN.find(x=>x.dow===dow(d));return p?p.tasks:[];}
+function toastMsg(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2100);}
+function scoreColor(n){return n>=5.5?'score-good':n>=4.5?'score-mid':'score-bad';}
+
+// ═══════════════════════════════════════════
+// COUNTDOWN
+// ═══════════════════════════════════════════
+(function(){
+  const s=document.getElementById('cd');
+  const d=daysUntil('2026-05-08');
+  let h=`<div class="cd-pill"><span class="n">${d}</span><span class="l">tot examens</span></div>`;
+  VAKKEN.filter(v=>v.cijfer<7).forEach(v=>{
+    h+=`<div class="cd-pill"><span class="n" style="color:${v.color}">${daysUntil(v.examen)}</span><span class="l">${v.name}</span></div>`;
+  });
+  s.innerHTML=h;
+})();
+
+// ═══════════════════════════════════════════
+// VANDAAG
+// ═══════════════════════════════════════════
+function renderVandaag(){
+  document.getElementById('td-date').textContent=TODAY.toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'});
+  const tasks=getDayTasks(todayStr);
+  const con=document.getElementById('tasks-today');
+  con.innerHTML='';
+  if(!tasks.length){con.innerHTML='<div style="color:var(--muted);font-size:.82rem;padding:8px 0">Geen geplande taken vandaag — rustdag 😊</div>';setDBar(0,0);return;}
+  tasks.forEach(task=>{
+    const key=tkey(todayStr,task.id);
+    const done=!!S.done[key];
+    const v=vak(task.vak);
+    const div=document.createElement('div');
+    div.className='task-row'+(done?' done celebrate':'');
+    div.style.setProperty('--vc',v?v.color:'#888');
+    div.innerHTML=`<div class="chk">${done?'✓':''}</div><div class="tleft"><div class="tname">${task.label}</div><div class="tsub">${v?v.name:''} · ${task.tip}</div></div><div class="tmins">${task.mins} min</div>`;
+    div.onclick=()=>toggle(key,task.vak,todayStr);
+    con.appendChild(div);
+  });
+  const done=tasks.filter(t=>S.done[tkey(todayStr,t.id)]).length;
+  setDBar(done,tasks.length);
+  document.getElementById('mot').style.display=(tasks.length&&done===tasks.length)?'block':'none';
+}
+function setDBar(done,total){const p=total?Math.round(done/total*100):0;document.getElementById('d-fill').style.width=p+'%';document.getElementById('d-pct').textContent=p+'%';}
+function toggle(key,vakId,dStr){
+  S.done[key]=!S.done[key];
+  if(S.done[key]){
+    if(!S.sessions[vakId])S.sessions[vakId]=[];
+    if(!S.sessions[vakId].find(s=>s.date===dStr&&s.auto))S.sessions[vakId].push({date:dStr,mins:0,notes:'',auto:true});
+    toastMsg('✅ Afgevinkt! Goed bezig! 💪');
+  }else toastMsg('Teruggezet');
+  save();renderVandaag();
+  if(document.getElementById('panel-voortgang').classList.contains('active'))renderVoortgang();
+}
+
+// ═══════════════════════════════════════════
+// WEEK
+// ═══════════════════════════════════════════
+let wkOff=0;
+function wk(d){wkOff+=d;renderWeek();}
+function wkStart(){const d=new Date(TODAY);d.setDate(d.getDate()-dow(TODAY)+wkOff*7);return d;}
+function examsOn(dStr){return ROOSTER.filter(r=>r.date===dStr);}
+function renderWeek(){
+  const ws=wkStart();const we=new Date(ws);we.setDate(ws.getDate()+6);
+  document.getElementById('wk-lbl').textContent=fdate(ws)+' – '+fdate(we);
+  const grid=document.getElementById('week-grid');grid.innerHTML='';
+  const DN=['Ma','Di','Wo','Do','Vr','Za','Zo'];
+  for(let i=0;i<7;i++){
+    const d=new Date(ws);d.setDate(ws.getDate()+i);
+    const dStr=ds(d);const isToday=dStr===todayStr;
+    const exams=examsOn(dStr);const tasks=getDayTasks(dStr);
+    const col=document.createElement('div');
+    col.className='day-col'+(isToday?' today-col':'')+(exams.length?' exam-day':'');
+    let html=`<div class="day-dname">${DN[i]}</div><div class="day-ddate">${d.getDate()} ${d.toLocaleDateString('nl-NL',{month:'short'})}</div>`;
+    exams.forEach(ex=>{html+=`<div class="exam-badge">📝 ${ex.vakken.join(', ')}</div>`;});
+    let dc=0;
+    tasks.forEach(task=>{
+      const key=tkey(dStr,task.id);const done=!!S.done[key];if(done)dc++;
+      const v=vak(task.vak);
+      html+=`<div class="mini-task ${done?'done':''}" style="--vc:${v?v.color:'#888'}" onclick="miniToggle('${key}','${task.vak}','${dStr}')">
+        <div class="mc">${done?'✓':''}</div><span class="ml">${task.label.split('–')[0].trim()}</span><span class="mm">${task.mins}m</span></div>`;
+    });
+    if(tasks.length){const p=Math.round(dc/tasks.length*100);html+=`<div class="day-prog"><div class="day-prog-fill" style="width:${p}%"></div></div>`;}
+    col.innerHTML=html;grid.appendChild(col);
+  }
+}
+function miniToggle(key,vakId,dStr){
+  S.done[key]=!S.done[key];
+  if(S.done[key]){
+    if(!S.sessions[vakId])S.sessions[vakId]=[];
+    if(!S.sessions[vakId].find(s=>s.date===dStr&&s.auto))S.sessions[vakId].push({date:dStr,mins:0,notes:'',auto:true});
+    toastMsg('✅ Afgevinkt!');
+  }else toastMsg('Teruggezet');
+  save();renderWeek();if(dStr===todayStr)renderVandaag();
+}
+
+// ═══════════════════════════════════════════
+// OEFENEN
+// ═══════════════════════════════════════════
+let activeVakId = VAKKEN[0].id;
+let chatHistory = {}; // per vak
+
+function renderOefenTabs(){
+  const tabs=document.getElementById('vak-tabs');
+  tabs.innerHTML='';
+  VAKKEN.forEach(v=>{
+    const btn=document.createElement('button');
+    btn.className='vak-tab'+(v.id===activeVakId?' active':'');
+    btn.style.setProperty('--vt-color',v.color);
+    btn.innerHTML=`<span class="vak-dot" style="background:${v.color}"></span>${v.name}`;
+    btn.onclick=()=>{activeVakId=v.id;renderOefenTabs();renderOefenContent();};
+    tabs.appendChild(btn);
+  });
+}
+
+function renderOefenContent(){
+  const v=vak(activeVakId);
+  if(!v)return;
+  if(!S.scores[v.id])S.scores[v.id]=[];
+  if(!chatHistory[v.id])chatHistory[v.id]=[];
+
+  const scores=S.scores[v.id];
+  const avg=scores.length?Math.round(scores.reduce((a,s)=>a+(s.score||0),0)/scores.length*10)/10:null;
+
+  const con=document.getElementById('oef-content');
+  con.innerHTML=`
+  <!-- LINKS -->
+  <div class="oef-section">
+    <h3>🔗 Oude examens — ${v.name}</h3>
+    <div class="exam-links">
+      ${v.examLinks.map(el=>`
+        <div class="exam-link-row">
+          <div class="el-info">
+            <div class="el-year">${el.year} — ${v.name}</div>
+            <div class="el-sub">${el.label} · examenblad.nl</div>
+          </div>
+          <a href="${el.url}" target="_blank" rel="noopener">Open examen →</a>
+        </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- SCORE LOGGER -->
+  <div class="oef-section">
+    <h3>📊 Score bijhouden${avg!==null?` <span style="font-size:.75rem;font-weight:400;color:var(--muted)">— gemiddelde: <span class="${scoreColor(avg)}">${avg}</span></span>`:''}</h3>
+    <div class="score-form">
+      <div>
+        <label>Jaar examen</label>
+        <input type="text" id="sf-jaar" placeholder="2024" style="width:80px">
+      </div>
+      <div>
+        <label>Score (1–10)</label>
+        <input type="number" id="sf-score" placeholder="6.5" min="1" max="10" step="0.5" style="width:80px">
+      </div>
+      <div class="grow">
+        <label>Notitie (wat ging fout?)</label>
+        <textarea id="sf-notes" style="height:36px;width:100%" placeholder="bv: vraag 3 verkeerd, begrip inflatie niet begrepen"></textarea>
+      </div>
+      <button onclick="logScore('${v.id}')">+ Log score</button>
+    </div>
+    <div class="score-history" id="score-hist-${v.id}"></div>
+  </div>
+
+  <!-- AI TUTOR -->
+  <div class="oef-section">
+    <h3>🤖 AI-tutor — ${v.name}</h3>
+    <div class="ai-controls">
+      <button onclick="startAI('${v.id}','nieuw')" class="${chatHistory[v.id].length===0?'active-mode':''}">✨ Nieuwe sessie</button>
+      <button onclick="startAI('${v.id}','doorgaan')" class="${chatHistory[v.id].length>0?'active-mode':''}">▶ Doorgaan</button>
+      <button onclick="clearChat('${v.id}')">🗑 Leeg chat</button>
+    </div>
+    <div class="chat-container" id="chat-${v.id}"></div>
+    <div class="ai-input-row">
+      <textarea id="ai-input-${v.id}" placeholder="Typ je antwoord hier..." onkeydown="aiEnter(event,'${v.id}')"></textarea>
+      <button id="ai-send-${v.id}" onclick="sendAI('${v.id}')">Stuur →</button>
+    </div>
+  </div>
+  `;
+
+  renderScoreHistory(v.id);
+  renderChatHistory(v.id);
+
+  if(chatHistory[v.id].length===0){
+    setTimeout(()=>startAI(v.id,'nieuw'),100);
+  }
+}
+
+function logScore(vakId){
+  const jaar=document.getElementById('sf-jaar').value.trim()||'?';
+  const score=parseFloat(document.getElementById('sf-score').value);
+  const notes=document.getElementById('sf-notes').value.trim();
+  if(isNaN(score)||score<1||score>10){toastMsg('Voer een geldige score in (1–10)');return;}
+  S.scores[vakId].push({date:todayStr,jaar,score,notes});
+  save();
+  document.getElementById('sf-jaar').value='';
+  document.getElementById('sf-score').value='';
+  document.getElementById('sf-notes').value='';
+  renderOefenContent(); // re-render to update avg
+  toastMsg('📊 Score opgeslagen!');
+}
+
+function deleteScore(vakId,idx){
+  S.scores[vakId].splice(idx,1);
+  save();renderOefenContent();
+}
+
+function renderScoreHistory(vakId){
+  const con=document.getElementById('score-hist-'+vakId);
+  if(!con)return;
+  const scores=S.scores[vakId]||[];
+  if(!scores.length){con.innerHTML='<div style="color:var(--muted);font-size:.74rem;padding:6px 0">Nog geen scores gelogd.</div>';return;}
+  con.innerHTML=scores.slice().reverse().map((s,ri)=>{
+    const i=scores.length-1-ri;
+    return`<div class="score-row">
+      <span class="sr-date">${s.date} · ${s.jaar}</span>
+      <div class="sr-info" style="flex:1"><div class="sr-name">${vak(vakId)?vak(vakId).name:vakId}</div>${s.notes?`<div class="sr-notes">${s.notes}</div>`:''}</div>
+      <span class="sr-score ${scoreColor(s.score)}">${s.score}</span>
+      <button class="sr-del" onclick="deleteScore('${vakId}',${i})">✕</button>
+    </div>`;
+  }).join('');
+}
+
+// ── AI CHAT ──────────────────────────────────
+function renderChatHistory(vakId){
+  const con=document.getElementById('chat-'+vakId);
+  if(!con)return;
+  con.innerHTML='';
+  (chatHistory[vakId]||[]).forEach(m=>appendBubble(vakId,m.role,m.content,false));
+  con.scrollTop=con.scrollHeight;
+}
+
+function appendBubble(vakId,role,text,scroll=true){
+  const con=document.getElementById('chat-'+vakId);
+  if(!con)return;
+  const wrap=document.createElement('div');
+  wrap.className='ai-msg '+(role==='assistant'?'ai':'user');
+  const html=role==='assistant'
+    ?`<div class="avatar">🤖</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div>`
+    :`<div class="bubble">${text.replace(/\n/g,'<br>')}</div><div class="avatar">👤</div>`;
+  wrap.innerHTML=html;
+  con.appendChild(wrap);
+  if(scroll)con.scrollTop=con.scrollHeight;
+}
+
+function showTyping(vakId){
+  const con=document.getElementById('chat-'+vakId);
+  if(!con)return;
+  const d=document.createElement('div');
+  d.className='ai-msg ai';d.id='typing-'+vakId;
+  d.innerHTML=`<div class="avatar">🤖</div><div class="typing"><span></span><span></span><span></span></div>`;
+  con.appendChild(d);con.scrollTop=con.scrollHeight;
+}
+function hideTyping(vakId){const t=document.getElementById('typing-'+vakId);if(t)t.remove();}
+
+async function startAI(vakId,mode){
+  const v=vak(vakId);if(!v)return;
+  if(mode==='nieuw'){
+    chatHistory[vakId]=[];
+    renderChatHistory(vakId);
+  }
+  if(chatHistory[vakId].length>0&&mode==='doorgaan')return;
+
+  const sys=v.aiPrompt;
+  const firstMsg={role:'user',content:'Start de oefensessie voor '+v.name+'. Geef een welkomstbericht en stel meteen de eerste vraag.'};
+
+  setSendDisabled(vakId,true);
+  showTyping(vakId);
+
+  try{
+    const reply=await callClaude(sys,[firstMsg]);
+    chatHistory[vakId]=[firstMsg,{role:'assistant',content:reply}];
+    hideTyping(vakId);
+    appendBubble(vakId,'assistant',reply);
+  }catch(e){
+    hideTyping(vakId);
+    appendBubble(vakId,'assistant','⚠️ Kon de AI niet bereiken. Controleer je internetverbinding.');
+  }
+  setSendDisabled(vakId,false);
+}
+
+function clearChat(vakId){
+  chatHistory[vakId]=[];
+  renderChatHistory(vakId);
+  toastMsg('Chat leeggemaakt');
+}
+
+function aiEnter(e,vakId){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendAI(vakId);}}
+
+async function sendAI(vakId){
+  const input=document.getElementById('ai-input-'+vakId);
+  const text=input.value.trim();
+  if(!text)return;
+  const v=vak(vakId);if(!v)return;
+
+  input.value='';
+  chatHistory[vakId].push({role:'user',content:text});
+  appendBubble(vakId,'user',text);
+  setSendDisabled(vakId,true);
+  showTyping(vakId);
+
+  // keep last 20 messages to avoid token overflow
+  const msgs=chatHistory[vakId].slice(-20);
+
+  try{
+    const reply=await callClaude(v.aiPrompt,msgs);
+    chatHistory[vakId].push({role:'assistant',content:reply});
+    hideTyping(vakId);
+    appendBubble(vakId,'assistant',reply);
+  }catch(e){
+    hideTyping(vakId);
+    appendBubble(vakId,'assistant','⚠️ Kon de AI niet bereiken. Probeer opnieuw.');
+  }
+  setSendDisabled(vakId,false);
+}
+
+function setSendDisabled(vakId,dis){
+  const btn=document.getElementById('ai-send-'+vakId);
+  const inp=document.getElementById('ai-input-'+vakId);
+  if(btn)btn.disabled=dis;
+  if(inp)inp.disabled=dis;
+}
+
+async function callClaude(systemPrompt, messages){
+  const key=localStorage.getItem('anthropic_api_key')||'';
+  if(!key){openApiSettings();throw new Error('Geen API key ingesteld');}
+  const resp=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':key,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body:JSON.stringify({
+      model:'claude-sonnet-4-6',
+      max_tokens:1000,
+      system:systemPrompt,
+      messages:messages.map(m=>({role:m.role,content:m.content}))
+    })
+  });
+  if(!resp.ok){
+    if(resp.status===401){openApiSettings();throw new Error('Ongeldige API key (401)');}
+    throw new Error('API error '+resp.status);
+  }
+  const data=await resp.json();
+  return data.content.map(b=>b.type==='text'?b.text:'').join('');
+}
+
+// ═══════════════════════════════════════════
+// API KEY MANAGEMENT
+// ═══════════════════════════════════════════
+function openApiSettings(){
+  const existing=localStorage.getItem('anthropic_api_key')||'';
+  const inp=document.getElementById('api-key-input');
+  inp.value=existing?'sk-ant-…(opgeslagen)':'';
+  inp.placeholder=existing?'Laat leeg om huidige te bewaren':'sk-ant-api03-…';
+  // Only show cancel button if a key already exists
+  document.getElementById('api-cancel-btn').style.display=existing?'':'none';
+  document.getElementById('api-overlay').classList.add('open');
+  setTimeout(()=>inp.focus(),80);
+}
+function closeApiSettings(){
+  document.getElementById('api-overlay').classList.remove('open');
+}
+function saveApiKey(){
+  const val=document.getElementById('api-key-input').value.trim();
+  if(!val||val.startsWith('sk-ant-…')){
+    // Nothing changed — close if key already exists
+    if(localStorage.getItem('anthropic_api_key')){closeApiSettings();return;}
+    toastMsg('Voer een geldige API key in');return;
+  }
+  if(!val.startsWith('sk-')){toastMsg('Key moet beginnen met sk-…');return;}
+  localStorage.setItem('anthropic_api_key',val);
+  closeApiSettings();
+  toastMsg('🔑 API key opgeslagen!');
+}
+
+// Show settings on first visit (no key stored)
+if(!localStorage.getItem('anthropic_api_key')){
+  document.addEventListener('DOMContentLoaded',()=>openApiSettings(),{once:true});
+  // Also open immediately if DOM is already loaded
+  if(document.readyState!=='loading')openApiSettings();
+}
+
+// ═══════════════════════════════════════════
+// VOORTGANG
+// ═══════════════════════════════════════════
+const P_START=new Date('2026-03-30'),P_END=new Date('2026-05-26');
+function allTasksCount(){let n=0;for(let d=new Date(P_START);d<=P_END;d.setDate(d.getDate()+1))n+=getDayTasks(ds(new Date(d))).length;return n;}
+function allDoneCount(){return Object.values(S.done).filter(Boolean).length;}
+function vakStats(vakId){
+  let total=0,done=0;
+  for(let d=new Date(P_START);d<=P_END;d.setDate(d.getDate()+1)){
+    const dStr=ds(new Date(d));const tasks=getDayTasks(dStr).filter(t=>t.vak===vakId);
+    total+=tasks.length;tasks.forEach(t=>{if(S.done[tkey(dStr,t.id)])done++;});
+  }return{total,done};
+}
+function streak14(vakId){
+  const out=[];
+  for(let i=13;i>=0;i--){const d=new Date(TODAY);d.setDate(TODAY.getDate()-i);const dStr=ds(d);
+    const tasks=getDayTasks(dStr).filter(t=>t.vak===vakId);
+    if(!tasks.length){out.push(null);continue;}
+    out.push(tasks.some(t=>S.done[tkey(dStr,t.id)]));}
+  return out;
+}
+function renderVoortgang(){
+  const doneAll=allDoneCount(),totalAll=allTasksCount();
+  const pA=totalAll?Math.round(doneAll/totalAll*100):0;
+  document.getElementById('g-pct').textContent=pA+'%';
+  document.getElementById('g-bar').style.width=pA+'%';
+  document.getElementById('g-done').textContent=doneAll+' taken gedaan';
+  document.getElementById('g-tot').textContent='van '+totalAll+' gepland (30 mrt – 26 mei)';
+  const con=document.getElementById('vak-cards');con.innerHTML='';
+  VAKKEN.forEach(v=>{
+    const{total,done}=vakStats(v.id);const pct=total?Math.round(done/total*100):0;
+    const scores=S.scores[v.id]||[];
+    const avg=scores.length?Math.round(scores.reduce((a,s)=>a+(s.score||0),0)/scores.length*10)/10:null;
+    const streak=streak14(v.id);
+    const sessions=(S.sessions[v.id]||[]).filter(s=>!s.auto);
+    const card=document.createElement('div');card.className='vak-card';
+    card.innerHTML=`
+      <div class="vc-top">
+        <div class="vc-name" style="color:${v.color}">${v.name}</div>
+        <div class="vc-badges">
+          <span class="badge">SE: ${v.cijfer.toFixed(1)}</span>
+          <span class="badge">${done}/${total} taken</span>
+          ${avg!==null?`<span class="badge ${scoreColor(avg)}">gem. ${avg}</span>`:''}
+          <span class="badge">${pct}%</span>
+        </div>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:${v.color}"></div></div>
+      <div class="bar-lbl"><span>${pct}% van geplande taken</span><span>examen ${new Date(v.examen+'T00:00:00').toLocaleDateString('nl-NL',{day:'numeric',month:'short'})}</span></div>
+      <div style="font-size:.68rem;color:var(--muted);margin-top:5px;font-style:italic">💡 ${v.tip}</div>
+      <div style="font-size:.57rem;color:var(--muted);margin-top:9px;margin-bottom:3px;text-transform:uppercase;letter-spacing:.1em;font-weight:700">Activiteit – laatste 14 dagen</div>
+      <div class="streak-row">${streak.map(h=>h===null?`<div class="sdot skip">–</div>`:`<div class="sdot ${h?'hit':''}">${h?'✓':''}</div>`).join('')}</div>
+      <textarea class="log-area" id="log-${v.id}" placeholder="Notities, fouten, verbeterpunten...">${S.logs[v.id]||''}</textarea>
+      <br><button class="save-btn" onclick="saveLog('${v.id}')">Notities opslaan</button>
+      ${sessions.length?`<div style="margin-top:9px;font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:4px">Extra sessies</div>
+      ${sessions.slice(-3).reverse().map(s=>`<div style="font-size:.7rem;color:var(--muted);margin-bottom:4px;padding:5px 9px;background:var(--surface2);border-radius:6px"><span style="font-family:'DM Mono',monospace">${s.date}</span>${s.mins?' — '+s.mins+' min':''}${s.notes?`<br><span style="color:var(--text)">${s.notes}</span>`:''}</div>`).join('')}`:''}
+    `;
+    con.appendChild(card);
+  });
+}
+function saveLog(vid){S.logs[vid]=document.getElementById('log-'+vid).value;save();toastMsg('📝 Notities opgeslagen!');}
+
+// ═══════════════════════════════════════════
+// ROOSTER
+// ═══════════════════════════════════════════
+function renderRooster(){
+  const tbody=document.getElementById('r-body');tbody.innerHTML='';
+  ROOSTER.forEach(r=>{
+    const dl=daysUntil(r.date);const isJouw=r.vakken.some(v=>MINE[v]);
+    const tr=document.createElement('tr');if(isJouw)tr.className='jrow';
+    const cls=dl<0?'':dl<=7?'hot':dl<=21?'warm':'ok';
+    const txt=dl<0?'geweest':dl===0?'VANDAAG 🔥':dl+' d';
+    tr.innerHTML=`<td class="dcell">${r.dag}</td><td style="font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted)">${r.tijd}</td><td>${r.vakken.map(v=>`<span class="vpill ${MINE[v]?'mine':''}">${v}</span>`).join('')}</td><td class="dl ${cls}">${txt}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ═══════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════
+let _mDate=todayStr;
+function openModal(dStr,preVak){
+  _mDate=dStr||todayStr;
+  const sel=document.getElementById('m-vak');
+  sel.innerHTML=VAKKEN.map(v=>`<option value="${v.id}" ${v.id===preVak?'selected':''}>${v.name}</option>`).join('');
+  document.getElementById('m-notes').value='';document.getElementById('m-mins').value=45;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+function saveSession(){
+  const vid=document.getElementById('m-vak').value;
+  const mins=parseInt(document.getElementById('m-mins').value)||30;
+  const notes=document.getElementById('m-notes').value.trim();
+  if(!S.sessions[vid])S.sessions[vid]=[];
+  S.sessions[vid].push({date:_mDate,mins,notes,auto:false});
+  save();closeModal();toastMsg('✅ Sessie opgeslagen!');
+  if(document.getElementById('panel-voortgang').classList.contains('active'))renderVoortgang();
+}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
+
+// ═══════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelectorAll('nav button').forEach((b,i)=>{
+    b.classList.toggle('active',['vandaag','week','oefenen','voortgang','rooster'][i]===id);
+  });
+  if(id==='week')renderWeek();
+  if(id==='oefenen'){renderOefenTabs();renderOefenContent();}
+  if(id==='voortgang')renderVoortgang();
+  if(id==='rooster')renderRooster();
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+renderVandaag();
+renderWeek();
+</script>
+</body>
+</html>
