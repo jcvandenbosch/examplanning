@@ -265,6 +265,30 @@ tr.jrow td{background:rgba(245,200,66,.05);}
 .u-restart{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-weight:700;font-size:.8rem;padding:10px 22px;border-radius:9px;cursor:pointer;transition:border-color .13s;}
 .u-restart:hover{border-color:var(--accent);}
 
+.ai-attach-row{display:flex;gap:6px;margin-top:5px;}
+.ai-attach-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-family:'Syne',sans-serif;font-size:.75rem;padding:5px 11px;border-radius:7px;cursor:pointer;transition:all .13s;}
+.ai-attach-btn:hover,.ai-attach-btn.active{border-color:var(--accent);color:var(--accent);}
+.ai-preview{display:flex;align-items:center;gap:7px;padding:6px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;margin-top:5px;}
+.ai-preview img{width:48px;height:36px;object-fit:cover;border-radius:5px;border:1px solid var(--border);}
+.ai-preview-label{font-size:.72rem;color:var(--muted);flex:1;}
+.ai-preview-rm{background:none;border:none;color:var(--muted);font-size:.9rem;cursor:pointer;padding:2px 5px;}
+.ai-preview-rm:hover{color:var(--red);}
+.draw-panel{display:none;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:8px;}
+.draw-panel.open{display:block;}
+.draw-toolbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:9px 10px;border-bottom:1px solid var(--border);background:var(--surface2);}
+.draw-tool{background:var(--bg);border:1px solid var(--border);color:var(--muted);font-size:.72rem;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:'Syne',sans-serif;}
+.draw-tool.active{background:rgba(245,200,66,.15);border-color:var(--accent);color:var(--accent);}
+.draw-color{width:18px;height:18px;border-radius:50%;border:2px solid transparent;cursor:pointer;flex-shrink:0;}
+.draw-color.active{border-color:var(--accent);}
+.draw-size{background:var(--bg);border:1px solid var(--border);color:var(--muted);font-size:.7rem;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:'DM Mono',monospace;}
+.draw-size.active{border-color:var(--accent);color:var(--accent);}
+.draw-sep{width:1px;height:20px;background:var(--border);margin:0 2px;}
+.draw-clear{background:none;border:1px solid var(--border);color:var(--muted);font-size:.7rem;padding:3px 9px;border-radius:6px;cursor:pointer;margin-left:auto;}
+.draw-clear:hover{border-color:var(--red);color:var(--red);}
+.draw-canvas-wrap{position:relative;background:#fff;}
+.draw-canvas-wrap canvas{display:block;width:100%;cursor:crosshair;}
+.draw-footer{padding:8px 10px;display:flex;justify-content:flex-end;border-top:1px solid var(--border);}
+.draw-add-btn{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;padding:7px 18px;border-radius:7px;cursor:pointer;}
 .key-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-size:.82rem;padding:5px 10px;border-radius:7px;cursor:pointer;margin-left:auto;}
 .key-btn:hover{border-color:var(--accent);color:var(--text);}
 .nk-section{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:16px 18px;margin-bottom:12px;}
@@ -545,15 +569,16 @@ Geef na elk antwoord kort feedback: wat was goed, wat kon beter, en waarom.
 Stel één vraag tegelijk. Begin met een korte, toegankelijke tekst (max 100 woorden) en stel daar 2 vragen over.
 Spreek de leerling aan als 'jij'. Wees motiverend.`,
    examLinks:[
-     {year:'2024',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2024/vmbo-gl/vakken/talen/engels-vmbo-gl-tl'},
-     {year:'2023',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2023/vmbo-gl/vakken/talen/engels-vmbo-gl-tl'},
-     {year:'2022',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2022/vmbo-gl/vakken/talen/engels-vmbo-gl-tl'},
-     {year:'2021',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2021/vmbo-gl/vakken/talen/engels-vmbo-gl-tl'},
-     {year:'2019',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2019/vmbo-gl/vakken/talen/engels-vmbo-gl-tl'},
+     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
+     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
+     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
+     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
+     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
    ]},
   {id:'eco',     name:'Economie',  cijfer:5.5,  color:'#e07040', examen:'2026-05-13', etijd:'13:30–15:30',
    tip:'Begrippen hardop uitleggen = leren.',
    aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Economie.
+De leerling kan grafieken en formules als tekening of foto sturen. Als je een afbeelding ziet, analyseer die eerst voordat je feedback geeft.
 De leerling heeft dyslexie — schrijf helder en beknopt.
 Focus op: begrippen uitleggen, vraag en aanbod, kosten/opbrengsten, inflatie, arbeidsmarkt, overheid.
 Oefen zoals het VMBO-TL examen: begrip uitleggen, grafieken interpreteren, situaties analyseren.
@@ -561,15 +586,16 @@ Stel één vraag tegelijk. Geef na elk antwoord feedback: goed/fout en waarom, p
 Begin met: "Noem een oud examen dat je wilt oefenen, of zeg 'willekeurig' dan kies ik een begrip."
 Spreek de leerling aan als 'jij'. Wees motiverend.`,
    examLinks:[
-     {year:'2024',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2024/vmbo-gl/vakken/maatschappijvakken/economie-vmbo-gl-tl'},
-     {year:'2023',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2023/vmbo-gl/vakken/maatschappijvakken/economie-vmbo-gl-tl'},
-     {year:'2022',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2022/vmbo-gl/vakken/maatschappijvakken/economie-vmbo-gl-tl'},
-     {year:'2021',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2021/vmbo-gl/vakken/maatschappijvakken/economie-vmbo-gl-tl'},
-     {year:'2019',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2019/vmbo-gl/vakken/maatschappijvakken/economie-vmbo-gl-tl'},
+     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
+     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
+     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
+     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
+     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
    ]},
   {id:'nask',    name:'Nask',      cijfer:6.35, color:'#4494e8', examen:'2026-05-18', etijd:'13:30–15:30',
    tip:'Alleen oude examens. Stappen opschrijven, niet gokken.',
    aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Natuur- en Scheikunde 1 (NaSk1).
+De leerling kan grafieken en formules als tekening of foto sturen. Als je een afbeelding ziet, analyseer die eerst voordat je feedback geeft.
 De leerling heeft dyslexie — schrijf formules en stappen heel duidelijk.
 Focus op: formules (v=s/t, F=m·a, P=F/A, E=P·t, etc.), eenheden, rekenstappen, begrippen.
 Oefen zoals het examen: geef een situatie of rekenvraag, laat de leerling stap voor stap redeneren.
@@ -577,25 +603,26 @@ Stel één vraag tegelijk. Na het antwoord: corrigeer stap voor stap, leg uit wa
 Gebruik emoji's om formules duidelijk te maken (bv. ⚡ voor elektra, 🔧 voor kracht).
 Begin met vragen over recente examens. Spreek de leerling aan als 'jij'. Wees positief.`,
    examLinks:[
-     {year:'2024',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2024/vmbo-gl/vakken/exacte-vakken/nask-1-vmbo-gl-tl'},
-     {year:'2023',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2023/vmbo-gl/vakken/exacte-vakken/nask-1-vmbo-gl-tl'},
-     {year:'2022',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2022/vmbo-gl/vakken/exacte-vakken/nask-1-vmbo-gl-tl'},
-     {year:'2021',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2021/vmbo-gl/vakken/exacte-vakken/nask-1-vmbo-gl-tl'},
-     {year:'2019',label:'NaSk1 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2019/vmbo-gl/vakken/exacte-vakken/nask-1-vmbo-gl-tl'},
+     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
+     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
+     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
+     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
+     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
    ]},
   {id:'nask2',   name:'Nask 2',    cijfer:6.4,  color:'#40b4e8', examen:'2026-05-21', etijd:'13:30–15:30',
    tip:'Alleen oude examens. Stappen opschrijven, niet gokken.',
    aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Natuur- en Scheikunde 2 (NaSk2).
+De leerling kan grafieken en formules als tekening of foto sturen. Als je een afbeelding ziet, analyseer die eerst voordat je feedback geeft.
 De leerling heeft dyslexie — schrijf formules en stappen heel duidelijk.
 Focus op: scheikunde begrippen, atomen, moleculen, reacties, zuren en basen, periodiek systeem.
 Stel één vraag tegelijk. Na het antwoord: corrigeer stap voor stap, leg uit wat er mis ging.
 Spreek de leerling aan als 'jij'. Wees positief.`,
    examLinks:[
-     {year:'2024',label:'NaSk2 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2024/vmbo-gl/vakken/exacte-vakken/nask-2-vmbo-gl-tl'},
-     {year:'2023',label:'NaSk2 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2023/vmbo-gl/vakken/exacte-vakken/nask-2-vmbo-gl-tl'},
-     {year:'2022',label:'NaSk2 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2022/vmbo-gl/vakken/exacte-vakken/nask-2-vmbo-gl-tl'},
-     {year:'2021',label:'NaSk2 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2021/vmbo-gl/vakken/exacte-vakken/nask-2-vmbo-gl-tl'},
-     {year:'2019',label:'NaSk2 Tijdvak 1 + 2',url:'https://www.examenblad.nl/2019/vmbo-gl/vakken/exacte-vakken/nask-2-vmbo-gl-tl'},
+     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
+     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
+     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
+     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
+     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
    ]},
   {id:'nl',      name:'Nederlands',cijfer:6.7,  color:'#3ecf78', examen:'2026-05-11', etijd:'13:30–15:30',
    tip:'Signaalwoorden + vraagtype herkennen.',
@@ -607,15 +634,16 @@ Stel één vraag tegelijk. Geef na elk antwoord feedback over de inhoud (niet sp
 Begin met een korte tekst (max 80 woorden) en één vraag over het teksttype of de hoofdgedachte.
 Spreek de leerling aan als 'jij'. Wees bemoedigend.`,
    examLinks:[
-     {year:'2024',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2024/vmbo-gl/vakken/talen/nederlands-vmbo-gl-tl'},
-     {year:'2023',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2023/vmbo-gl/vakken/talen/nederlands-vmbo-gl-tl'},
-     {year:'2022',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2022/vmbo-gl/vakken/talen/nederlands-vmbo-gl-tl'},
-     {year:'2021',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2021/vmbo-gl/vakken/talen/nederlands-vmbo-gl-tl'},
-     {year:'2019',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2019/vmbo-gl/vakken/talen/nederlands-vmbo-gl-tl'},
+     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
+     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
+     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
+     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
+     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
    ]},
   {id:'wisk',    name:'Wiskunde',  cijfer:8.2,  color:'#9060e0', examen:'2026-05-08', etijd:'13:30–15:30',
    tip:'Bijhouden. Slordigheidsfouten voorkomen.',
    aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Wiskunde.
+De leerling kan grafieken en formules als tekening of foto sturen. Als je een afbeelding ziet, analyseer die eerst voordat je feedback geeft.
 De leerling is goed in wiskunde (8,2) — doel is bijhouden en slordigheidsfouten elimineren.
 Stel gerichte rekenvragen op VMBO-TL niveau: algebra, meetkunde, statistiek, verbanden.
 Focus extra op stappen netjes opschrijven, eenheden vermelden, antwoord controleren.
@@ -623,46 +651,46 @@ Stel één opgave tegelijk. Na het antwoord: check elke stap, geef aan waar even
 Begin met: "Wil je algebra, meetkunde, statistiek of een mix oefenen?"
 Spreek de leerling aan als 'jij'.`,
    examLinks:[
-     {year:'2024',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2024/vmbo-gl/vakken/exacte-vakken/wiskunde-vmbo-gl-tl'},
-     {year:'2023',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2023/vmbo-gl/vakken/exacte-vakken/wiskunde-vmbo-gl-tl'},
-     {year:'2022',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2022/vmbo-gl/vakken/exacte-vakken/wiskunde-vmbo-gl-tl'},
-     {year:'2021',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2021/vmbo-gl/vakken/exacte-vakken/wiskunde-vmbo-gl-tl'},
-     {year:'2019',label:'Tijdvak 1 + 2',url:'https://www.examenblad.nl/2019/vmbo-gl/vakken/exacte-vakken/wiskunde-vmbo-gl-tl'},
+     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
+     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
+     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
+     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
+     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
    ]},
 ];
 
 const WEEK_PLAN = [
   {dow:0,tasks:[
-    {id:'E',vak:'engels', label:'Engels – 1 tekst uit examen 2024', mins:30, tip:'Stap 1: lees de vragen. Stap 2: lees de tekst. Stap 3: beantwoord. Stap 4: nakijken.'},
-    {id:'A',vak:'eco',    label:'Eco – 3 begrippen uitleggen',      mins:30, tip:'Kies 3 begrippen (bijv. inflatie, vraag, aanbod). Schrijf op: wat betekent het? Geef een voorbeeld.'},
+    {id:'E',vak:'engels',  label:'Engels – 1 tekst uit examen 2024',    mins:30, tip:'Stap 1: lees de vragen. Stap 2: lees de tekst. Stap 3: beantwoord. Stap 4: nakijken.'},
+    {id:'A',vak:'eco',     label:'Eco – 3 begrippen uitleggen',          mins:30, tip:'Kies 3 begrippen. Schrijf op: wat betekent het? Geef een voorbeeld uit het dagelijks leven.'},
   ]},
   {dow:1,tasks:[
-    {id:'E',vak:'engels', label:'Engels – 1 tekst uit examen 2023', mins:30, tip:'Zelfde aanpak: vragen eerst, dan tekst. Na nakijken: wat ging beter dan gisteren?'},
-    {id:'A',vak:'nl',     label:'NL – 1 leestekst + 3 vragen',     mins:60, tip:'Open NL examen 2024. Lees tekst 1. Beantwoord de vragen. Nakijken: welk vraagtype was het?'},
-    {id:'B',vak:'nask',   label:'Nask – 5 vragen uit examen 2024', mins:45, tip:'Schrijf elke stap op. Niet gokken. Na nakijken: welke formule was je vergeten?'},
+    {id:'E',vak:'engels',  label:'Engels – 1 tekst uit examen 2023',    mins:30, tip:'Zelfde aanpak: vragen eerst, dan tekst. Wat ging beter dan gisteren?'},
+    {id:'A',vak:'nl',      label:'NL – 1 leestekst + 3 vragen',         mins:60, tip:'Open NL examen 2024. Lees tekst 1. Nakijken: welk vraagtype was het?'},
+    {id:'B',vak:'nask',    label:'Nask1 – 5 vragen uit examen 2024',    mins:45, tip:'Schrijf elke stap op. Niet gokken. Welke formule was je vergeten?'},
   ]},
   {dow:2,tasks:[
-    {id:'E',vak:'engels', label:'Engels – fouten vergelijken',      mins:30, tip:'Gebruik hetzelfde examen als maandag. Kijk terug naar je fouten. Snap je nu waarom het fout was?'},
-    {id:'A',vak:'eco',    label:'Eco – 5 vragen uit examen 2024',  mins:60, tip:'Open Eco examen 2024 tijdvak 1. Nakijken: schrijf per fout welk begrip je niet snapte.'},
-    {id:'B',vak:'wisk',   label:'Wiskunde – 4 opgaven mix',        mins:30, tip:'Open Wiskunde examen 2024. Maak 4 opgaven. Controleer elke stap na het uitwerken.'},
+    {id:'E',vak:'engels',  label:'Engels – fouten vergelijken',          mins:30, tip:'Gebruik hetzelfde examen als maandag. Snap je nu waarom het fout was?'},
+    {id:'A',vak:'eco',     label:'Eco – 5 vragen uit examen 2024',      mins:60, tip:'Open Eco examen 2024 tijdvak 1. Schrijf per fout welk begrip je niet snapte.'},
+    {id:'B',vak:'nask2',   label:'Nask2 – 5 vragen uit examen 2024',    mins:45, tip:'Schrijf elke stap op. Welke begrippen waren nieuw?'},
   ]},
   {dow:3,tasks:[
-    {id:'E',vak:'engels', label:'Engels – 1 tekst uit examen 2022', mins:30, tip:'Nieuw examen, zelfde methode. Tel: hoeveel vragen goed? Vergelijk met maandag.'},
-    {id:'A',vak:'nask',   label:'Nask – formules + 3 sommen',      mins:60, tip:'Schrijf eerst alle formules op. Dan 3 rekenvragen maken. Klopten je eenheden?'},
-    {id:'B',vak:'nl',     label:'NL – teksttype oefenen',          mins:45, tip:'Open NL examen 2023. Lees 1 tekst. Vraag: wat is het doel van deze tekst?'},
+    {id:'E',vak:'engels',  label:'Engels – 1 tekst uit examen 2022',    mins:30, tip:'Nieuw examen, zelfde methode. Hoeveel vragen goed? Vergelijk met maandag.'},
+    {id:'A',vak:'nask',    label:'Nask1 – formules + 3 sommen',         mins:60, tip:'Schrijf eerst alle formules op. Dan 3 rekenvragen. Klopten je eenheden?'},
+    {id:'B',vak:'nl',      label:'NL – teksttype oefenen',              mins:45, tip:'Open NL examen 2023. Wat is het doel van deze tekst?'},
   ]},
   {dow:4,tasks:[
-    {id:'E',vak:'engels', label:'Engels – 2 teksten uit examen 2023', mins:30, tip:'Iets meer dan eerder. Let op de tijd: max 15 min per tekst.'},
-    {id:'A',vak:'eco',    label:'Eco – begrippen hardop uitleggen', mins:60, tip:'Pak 5 begrippen die je eerder fout had. Leg elk hardop uit alsof je het aan een vriend uitlegt.'},
-    {id:'B',vak:'nask',   label:'Nask – nakijken + foutenlijst',   mins:45, tip:'Pak je gemaakte Nask werk van deze week. Welke fouten komen steeds terug?'},
+    {id:'E',vak:'engels',  label:'Engels – 2 teksten uit examen 2023',  mins:30, tip:'Iets meer dan eerder. Max 15 min per tekst.'},
+    {id:'A',vak:'eco',     label:'Eco – begrippen hardop uitleggen',    mins:60, tip:'Pak 5 begrippen die je eerder fout had. Leg elk hardop uit alsof je het aan een vriend uitlegt.'},
+    {id:'B',vak:'nask2',   label:'Nask2 – nakijken + foutenlijst',      mins:45, tip:'Welke fouten komen steeds terug?'},
   ]},
   {dow:5,tasks:[
-    {id:'E',vak:'engels', label:'Engels – volledig examen 2021',   mins:60, tip:'Doe alsof het echt is. Geen pauzes. Score opschrijven in de app na nakijken.'},
-    {id:'A',vak:'eco',    label:'Eco – 10 vragen mix oud examen',  mins:45, tip:'Open Eco 2023. Maak de eerste 10 vragen. Score noteren in de app.'},
+    {id:'E',vak:'engels',  label:'Engels – volledig examen 2021',       mins:60, tip:'Doe alsof het echt is. Geen pauzes. Score opschrijven in de app.'},
+    {id:'A',vak:'eco',     label:'Eco – 10 vragen mix oud examen',      mins:45, tip:'Open Eco 2023. Maak de eerste 10 vragen. Score noteren.'},
   ]},
   {dow:6,tasks:[
-    {id:'A',vak:'nask',   label:'Nask – volledig oud examen',      mins:45, tip:'Maak Nask 2023 tijdvak 1. Score noteren. Schrijf op: welk onderwerp was het moeilijkst?'},
-    {id:'B',vak:'wisk',   label:'Wiskunde – slordigheidscheck',    mins:30, tip:'Pak werk van deze week terug. Zoek slordigheidsfouten: rekenfout, eenheid vergeten?'},
+    {id:'A',vak:'nask',    label:'Nask1 – volledig oud examen',         mins:45, tip:'Maak Nask1 2023 tijdvak 1. Score noteren. Welk onderwerp was het moeilijkst?'},
+    {id:'B',vak:'nask2',   label:'Nask2 – volledig oud examen',         mins:30, tip:'Maak Nask2 2023 tijdvak 1. Score noteren.'},
   ]},
 ];
 
@@ -1081,6 +1109,186 @@ function nkEnter(e,vakId){
 }
 
 // ═══════════════════════════════════════════
+// TEKENMODULE + FOTO UPLOAD
+// ═══════════════════════════════════════════
+const drawState={}; // per vakId
+
+function initCanvas(vakId){
+  if(drawState[vakId])return;
+  const canvas=document.getElementById('draw-canvas-'+vakId);
+  if(!canvas)return;
+  // Set physical size
+  canvas.width=canvas.offsetWidth||600;
+  canvas.height=300;
+  const ctx=canvas.getContext('2d');
+  // White background + grid
+  drawGridAndBg(ctx,canvas.width,canvas.height);
+  drawState[vakId]={ctx,canvas,tool:'pen',color:'#111',size:2,drawing:false,startX:0,startY:0,snapshot:null};
+  canvas.addEventListener('mousedown',e=>startDraw(e,vakId));
+  canvas.addEventListener('mousemove',e=>moveDraw(e,vakId));
+  canvas.addEventListener('mouseup',e=>endDraw(e,vakId));
+  canvas.addEventListener('mouseleave',e=>endDraw(e,vakId));
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();startDraw(e.touches[0],vakId);},{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();moveDraw(e.touches[0],vakId);},{passive:false});
+  canvas.addEventListener('touchend',e=>{e.preventDefault();endDraw(e.changedTouches[0],vakId);},{passive:false});
+}
+
+function drawGridAndBg(ctx,w,h){
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='#e8e8e8';ctx.lineWidth=1;
+  for(let x=0;x<=w;x+=20){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<=h;y+=20){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+}
+
+function getPos(e,canvas){
+  const r=canvas.getBoundingClientRect();
+  const scaleX=canvas.width/r.width;
+  const scaleY=canvas.height/r.height;
+  return{x:(e.clientX-r.left)*scaleX,y:(e.clientY-r.top)*scaleY};
+}
+
+function startDraw(e,vakId){
+  const ds=drawState[vakId];if(!ds)return;
+  const {x,y}=getPos(e,ds.canvas);
+  ds.drawing=true;ds.startX=x;ds.startY=y;
+  if(ds.tool==='axes'){drawAxes(vakId);return;}
+  if(ds.tool==='text'){
+    const txt=prompt('Tekst:');
+    if(txt){ds.ctx.font='14px DM Mono, monospace';ds.ctx.fillStyle=ds.color;ds.ctx.fillText(txt,x,y);}
+    ds.drawing=false;return;
+  }
+  ds.snapshot=ds.ctx.getImageData(0,0,ds.canvas.width,ds.canvas.height);
+  if(ds.tool==='pen'||ds.tool==='eraser'){
+    ds.ctx.beginPath();ds.ctx.moveTo(x,y);
+  }
+}
+
+function moveDraw(e,vakId){
+  const ds=drawState[vakId];if(!ds||!ds.drawing)return;
+  const {x,y}=getPos(e,ds.canvas);
+  if(ds.tool==='pen'){
+    ds.ctx.lineCap='round';ds.ctx.lineJoin='round';
+    ds.ctx.strokeStyle=ds.color;ds.ctx.lineWidth=ds.size;
+    ds.ctx.lineTo(x,y);ds.ctx.stroke();
+  } else if(ds.tool==='eraser'){
+    ds.ctx.strokeStyle='#fff';ds.ctx.lineWidth=ds.size*4;
+    ds.ctx.lineCap='round';ds.ctx.lineTo(x,y);ds.ctx.stroke();
+  } else if(ds.tool==='line'){
+    ds.ctx.putImageData(ds.snapshot,0,0);
+    ds.ctx.beginPath();ds.ctx.moveTo(ds.startX,ds.startY);ds.ctx.lineTo(x,y);
+    ds.ctx.strokeStyle=ds.color;ds.ctx.lineWidth=ds.size;ds.ctx.stroke();
+  }
+}
+
+function endDraw(e,vakId){
+  const ds=drawState[vakId];if(!ds)return;
+  ds.drawing=false;
+  if(ds.tool==='pen'||ds.tool==='eraser'){ds.ctx.beginPath();}
+}
+
+function drawAxes(vakId){
+  const ds=drawState[vakId];if(!ds)return;
+  const {ctx,canvas}=ds;
+  const cx=canvas.width/2,cy=canvas.height/2;
+  ctx.strokeStyle=ds.color;ctx.lineWidth=2;
+  // x-as
+  ctx.beginPath();ctx.moveTo(10,cy);ctx.lineTo(canvas.width-10,cy);ctx.stroke();
+  // y-as
+  ctx.beginPath();ctx.moveTo(cx,canvas.height-10);ctx.lineTo(cx,10);ctx.stroke();
+  // pijlen
+  ctx.beginPath();ctx.moveTo(canvas.width-10,cy);ctx.lineTo(canvas.width-18,cy-5);ctx.lineTo(canvas.width-18,cy+5);ctx.closePath();ctx.fillStyle=ds.color;ctx.fill();
+  ctx.beginPath();ctx.moveTo(cx,10);ctx.lineTo(cx-5,18);ctx.lineTo(cx+5,18);ctx.closePath();ctx.fill();
+  // labels
+  ctx.font='12px DM Mono, monospace';ctx.fillStyle=ds.color;
+  ctx.fillText('x',canvas.width-8,cy-6);ctx.fillText('y',cx+6,12);
+  ds.drawing=false;
+}
+
+function clearCanvas(vakId){
+  const ds=drawState[vakId];if(!ds)return;
+  drawGridAndBg(ds.ctx,ds.canvas.width,ds.canvas.height);
+}
+
+function setDrawTool(vakId,tool,btn){
+  const ds=drawState[vakId];if(!ds)return;
+  ds.tool=tool;
+  document.querySelectorAll(`#draw-tb-${vakId} .draw-tool`).forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function setDrawColor(vakId,color,el){
+  const ds=drawState[vakId];if(!ds)return;
+  ds.color=color;
+  document.querySelectorAll(`#draw-tb-${vakId} .draw-color`).forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function setDrawSize(vakId,size,btn){
+  const ds=drawState[vakId];if(!ds)return;
+  ds.size=size;
+  document.querySelectorAll(`#draw-tb-${vakId} .draw-size`).forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function toggleDrawPanel(vakId){
+  const panel=document.getElementById('draw-panel-'+vakId);
+  const btn=document.getElementById('draw-btn-'+vakId);
+  if(!panel)return;
+  const open=panel.classList.toggle('open');
+  btn.classList.toggle('active',open);
+  if(open){
+    // Small delay so canvas is visible before we measure width
+    setTimeout(()=>initCanvas(vakId),50);
+  }
+}
+
+function addDrawingToMessage(vakId){
+  const ds=drawState[vakId];if(!ds)return;
+  const dataUrl=ds.canvas.toDataURL('image/png');
+  const b64=dataUrl.split(',')[1];
+  setAiImage(vakId,b64,'image/png','Tekening');
+  // Close panel
+  document.getElementById('draw-panel-'+vakId)?.classList.remove('open');
+  document.getElementById('draw-btn-'+vakId)?.classList.remove('active');
+}
+
+function triggerPhotoUpload(vakId){
+  document.getElementById('photo-input-'+vakId)?.click();
+}
+
+function handlePhotoUpload(e,vakId){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const dataUrl=ev.target.result;
+    const b64=dataUrl.split(',')[1];
+    const mime=file.type||'image/jpeg';
+    setAiImage(vakId,b64,mime,'📷 '+file.name);
+  };
+  reader.readAsDataURL(file);
+  e.target.value=''; // reset so same file can be re-selected
+}
+
+function setAiImage(vakId,b64,mime,label){
+  if(!window.aiImages)window.aiImages={};
+  window.aiImages[vakId]={b64,mime};
+  const prev=document.getElementById('ai-img-preview-'+vakId);
+  const thumb=document.getElementById('ai-img-thumb-'+vakId);
+  const lbl=document.getElementById('ai-img-label-'+vakId);
+  if(prev&&thumb&&lbl){
+    thumb.src='data:'+mime+';base64,'+b64;
+    lbl.textContent=label;
+    prev.style.display='flex';
+  }
+}
+
+function clearAiImage(vakId){
+  if(window.aiImages)delete window.aiImages[vakId];
+  const prev=document.getElementById('ai-img-preview-'+vakId);
+  if(prev)prev.style.display='none';
+}
+
+// ═══════════════════════════════════════════
 // OEFENEN
 // ═══════════════════════════════════════════
 let activeVakId = VAKKEN[0].id;
@@ -1118,9 +1326,9 @@ function renderOefenContent(){
         <div class="exam-link-row">
           <div class="el-info">
             <div class="el-year">${el.year} — ${v.name}</div>
-            <div class="el-sub">${el.label} · examenblad.nl</div>
+            <div class="el-sub">${el.label}</div>
           </div>
-          <a href="${el.url}" target="_blank" rel="noopener">Open examen →</a>
+          <a href="${el.url}" target="_blank" rel="noopener">Open op examengemak.nl →</a>
         </div>`).join('')}
     </div>
   </div>
@@ -1158,9 +1366,43 @@ function renderOefenContent(){
       <button onclick="clearChat('${v.id}')">🗑 Leeg chat</button>
     </div>
     <div class="chat-container" id="chat-${v.id}"></div>
+    <div id="ai-img-preview-${v.id}" style="display:none" class="ai-preview">
+      <img id="ai-img-thumb-${v.id}" src="" alt="bijlage">
+      <span class="ai-preview-label" id="ai-img-label-${v.id}">Afbeelding gereed</span>
+      <button class="ai-preview-rm" onclick="clearAiImage('${v.id}')" title="Verwijder">✕</button>
+    </div>
+    <div class="draw-panel" id="draw-panel-${v.id}">
+      <div class="draw-toolbar" id="draw-tb-${v.id}">
+        <button class="draw-tool active" data-tool="pen" onclick="setDrawTool('${v.id}','pen',this)">✏️ Potlood</button>
+        <button class="draw-tool" data-tool="line" onclick="setDrawTool('${v.id}','line',this)">📏 Lijn</button>
+        <button class="draw-tool" data-tool="axes" onclick="setDrawTool('${v.id}','axes',this)">📊 Assen</button>
+        <button class="draw-tool" data-tool="text" onclick="setDrawTool('${v.id}','text',this)">T Tekst</button>
+        <button class="draw-tool" data-tool="eraser" onclick="setDrawTool('${v.id}','eraser',this)">🧹 Gum</button>
+        <div class="draw-sep"></div>
+        <div class="draw-color active" style="background:#111" title="Zwart" onclick="setDrawColor('${v.id}','#111',this)"></div>
+        <div class="draw-color" style="background:#e05060" title="Rood" onclick="setDrawColor('${v.id}','#e05060',this)"></div>
+        <div class="draw-color" style="background:#4494e8" title="Blauw" onclick="setDrawColor('${v.id}','#4494e8',this)"></div>
+        <div class="draw-sep"></div>
+        <button class="draw-size active" onclick="setDrawSize('${v.id}',2,this)">dun</button>
+        <button class="draw-size" onclick="setDrawSize('${v.id}',4,this)">normaal</button>
+        <button class="draw-size" onclick="setDrawSize('${v.id}',8,this)">dik</button>
+        <button class="draw-clear" onclick="clearCanvas('${v.id}')">Leeg maken</button>
+      </div>
+      <div class="draw-canvas-wrap">
+        <canvas id="draw-canvas-${v.id}" height="300"></canvas>
+      </div>
+      <div class="draw-footer">
+        <button class="draw-add-btn" onclick="addDrawingToMessage('${v.id}')">📎 Voeg tekening toe aan bericht</button>
+      </div>
+    </div>
     <div class="ai-input-row">
       <textarea id="ai-input-${v.id}" placeholder="Typ je antwoord hier..." onkeydown="aiEnter(event,'${v.id}')"></textarea>
       <button id="ai-send-${v.id}" onclick="sendAI('${v.id}')">Stuur →</button>
+    </div>
+    <div class="ai-attach-row">
+      <button class="ai-attach-btn" id="draw-btn-${v.id}" onclick="toggleDrawPanel('${v.id}')">✏️ Tekening</button>
+      <button class="ai-attach-btn" onclick="triggerPhotoUpload('${v.id}')">📷 Foto</button>
+      <input type="file" id="photo-input-${v.id}" accept="image/*" capture="environment" style="display:none" onchange="handlePhotoUpload(event,'${v.id}')">
     </div>
   </div>
   `;
@@ -1215,16 +1457,30 @@ function renderChatHistory(vakId){
   con.innerHTML='';
   (chatHistory[vakId]||[]).forEach(m=>appendBubble(vakId,m.role,m.content,false));
   con.scrollTop=con.scrollHeight;
+  con.scrollTop=con.scrollHeight;
 }
 
-function appendBubble(vakId,role,text,scroll=true){
+function appendBubble(vakId,role,content,scroll=true){
   const con=document.getElementById('chat-'+vakId);
   if(!con)return;
   const wrap=document.createElement('div');
   wrap.className='ai-msg '+(role==='assistant'?'ai':'user');
+  // content may be string or array (when image attached)
+  let displayHtml='';
+  if(Array.isArray(content)){
+    content.forEach(block=>{
+      if(block.type==='image'){
+        displayHtml+=`<img src="data:${block.source.media_type};base64,${block.source.data}" style="max-width:160px;max-height:120px;border-radius:6px;display:block;margin-bottom:4px;">`;
+      } else if(block.type==='text'&&block.text){
+        displayHtml+=`<span>${block.text.replace(/\n/g,'<br>')}</span>`;
+      }
+    });
+  } else {
+    displayHtml=(content||'').replace(/\n/g,'<br>');
+  }
   const html=role==='assistant'
-    ?`<div class="avatar">🤖</div><div class="bubble">${text.replace(/\n/g,'<br>')}</div>`
-    :`<div class="bubble">${text.replace(/\n/g,'<br>')}</div><div class="avatar">👤</div>`;
+    ?`<div class="avatar">🤖</div><div class="bubble">${displayHtml}</div>`
+    :`<div class="bubble">${displayHtml}</div><div class="avatar">👤</div>`;
   wrap.innerHTML=html;
   con.appendChild(wrap);
   if(scroll)con.scrollTop=con.scrollHeight;
@@ -1277,12 +1533,26 @@ function aiEnter(e,vakId){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();se
 async function sendAI(vakId){
   const input=document.getElementById('ai-input-'+vakId);
   const text=input.value.trim();
-  if(!text)return;
+  if(!text&&!(window.aiImages&&window.aiImages[vakId]))return;
   const v=vak(vakId);if(!v)return;
 
+  const imgData=window.aiImages?window.aiImages[vakId]:null;
   input.value='';
-  chatHistory[vakId].push({role:'user',content:text});
-  appendBubble(vakId,'user',text);
+
+  // Build user message content
+  let userContent;
+  if(imgData){
+    userContent=[
+      {type:'image',source:{type:'base64',media_type:imgData.mime,data:imgData.b64}},
+      {type:'text',text:text||'Zie de afbeelding hierboven.'}
+    ];
+    clearAiImage(vakId);
+  } else {
+    userContent=text;
+  }
+
+  chatHistory[vakId].push({role:'user',content:userContent});
+  appendBubble(vakId,'user',imgData?'📎 [afbeelding] '+(text||''):text);
   setSendDisabled(vakId,true);
   showTyping(vakId);
 
