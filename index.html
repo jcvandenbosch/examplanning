@@ -134,15 +134,6 @@ tr.jrow td{background:rgba(212,160,23,.06);}
 .oef-section{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:16px 18px;margin-bottom:12px;}
 .oef-section h3{font-size:.82rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 
-/* exam links */
-.exam-links{display:flex;flex-direction:column;gap:7px;}
-.exam-link-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 13px;}
-.exam-link-row .el-info{flex:1;}
-.exam-link-row .el-year{font-weight:700;font-size:.82rem;}
-.exam-link-row .el-sub{font-size:.68rem;color:var(--muted);margin-top:1px;}
-.exam-link-row a{background:var(--accent);color:#000;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.7rem;padding:6px 12px;border-radius:6px;white-space:nowrap;transition:opacity .12s;}
-.exam-link-row a:hover{opacity:.85;}
-
 /* score logger */
 .score-form{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-top:10px;}
 .score-form label{font-size:.68rem;color:var(--muted);display:block;margin-bottom:3px;}
@@ -459,12 +450,12 @@ tr.jrow td{background:rgba(212,160,23,.06);}
       <div class="uitleg-step-header">
         <div class="uitleg-step-icon" style="background:rgba(158,96,224,.15)">🧠</div>
         <div class="uitleg-step-title">Oefenen per vak</div>
-        <div class="uitleg-step-sub">Ga naar het tabblad Oefenen. Kies een vak. Je ziet drie dingen: oude examens, scores bijhouden, en de AI-tutor.</div>
+        <div class="uitleg-step-sub">Ga naar het tabblad Oefenen. Kies een vak. Je ziet drie dingen: oefenen met echt examen (nakijkcoach), scores bijhouden, en de AI-tutor.</div>
       </div>
       <div class="uitleg-step-body">
-        <div class="u-action"><div class="u-num">1</div><div class="u-txt">Klik op <strong>🔗 Oude examens</strong> — open een examen van examenblad.nl en maak het op papier.</div></div>
-        <div class="u-action"><div class="u-num">2</div><div class="u-txt">Nakijken? Klik op <strong>Antwoordmodel</strong> op dezelfde pagina van examenblad.nl.</div></div>
-        <div class="u-action"><div class="u-num">3</div><div class="u-txt">Daarna: ga terug naar de app en log je score (volgende stap).</div></div>
+        <div class="u-action"><div class="u-num">1</div><div class="u-txt">Klik op <strong>📄 Oefenen met echt examen</strong> — kies een jaar en tijdvak, maak het examen en laat de nakijkcoach je helpen.</div></div>
+        <div class="u-action"><div class="u-num">2</div><div class="u-txt">Log daarna je score zodat je je voortgang kunt bijhouden.</div></div>
+        <div class="u-action"><div class="u-num">3</div><div class="u-txt">Gebruik de <strong>🤖 AI-tutor</strong> om begrippen te oefenen of vragen te stellen.</div></div>
         <div class="u-tip"><span class="u-tip-icon">💡</span><span><strong>Begin met Engels</strong> — dat heeft de laagste score. Elke dag 30 minuten Engels is het plan.</span></div>
       </div>
     </div>
@@ -594,13 +585,7 @@ Oefen ALLEEN op basis van VMBO-TL stijl: begrijpend lezen (teksten met vragen), 
 Geef na elk antwoord kort feedback: wat was goed, wat kon beter, en waarom.
 Stel één vraag tegelijk. Begin met een korte, toegankelijke tekst (max 100 woorden) en stel daar 2 vragen over.
 Spreek de leerling aan als 'jij'. Wees motiverend.`,
-   examLinks:[
-     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
-     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
-     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
-     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
-     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/29'},
-   ]},
+  },
   {id:'eco',     name:'Economie',  cijfer:5.5,  color:'#c45e10', examen:'2026-05-13', etijd:'13:30–15:30',
    tip:'Begrippen hardop uitleggen = leren.',
    aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Economie.
@@ -611,13 +596,7 @@ Oefen zoals het VMBO-TL examen: begrip uitleggen, grafieken interpreteren, situa
 Stel één vraag tegelijk. Geef na elk antwoord feedback: goed/fout en waarom, plus de juiste uitleg.
 Begin met: "Noem een oud examen dat je wilt oefenen, of zeg 'willekeurig' dan kies ik een begrip."
 Spreek de leerling aan als 'jij'. Wees motiverend.`,
-   examLinks:[
-     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
-     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
-     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
-     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
-     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/27'},
-   ]},
+  },
   {id:'nask',    name:'Nask',      cijfer:6.35, color:'#1a5fa8', examen:'2026-05-18', etijd:'13:30–15:30',
    tip:'Alleen oude examens. Stappen opschrijven, niet gokken.',
    aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Natuur- en Scheikunde 1 (NaSk1).
@@ -628,13 +607,7 @@ Oefen zoals het examen: geef een situatie of rekenvraag, laat de leerling stap v
 Stel één vraag tegelijk. Na het antwoord: corrigeer stap voor stap, leg uit wat er mis ging.
 Gebruik emoji's om formules duidelijk te maken (bv. ⚡ voor elektra, 🔧 voor kracht).
 Begin met vragen over recente examens. Spreek de leerling aan als 'jij'. Wees positief.`,
-   examLinks:[
-     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
-     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
-     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
-     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
-     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/35'},
-   ]},
+  },
   {id:'nask2',   name:'Nask 2',    cijfer:6.4,  color:'#1a7fa8', examen:'2026-05-21', etijd:'13:30–15:30',
    tip:'Alleen oude examens. Stappen opschrijven, niet gokken.',
    aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Natuur- en Scheikunde 2 (NaSk2).
@@ -643,13 +616,7 @@ De leerling heeft dyslexie — schrijf formules en stappen heel duidelijk.
 Focus op: scheikunde begrippen, atomen, moleculen, reacties, zuren en basen, periodiek systeem.
 Stel één vraag tegelijk. Na het antwoord: corrigeer stap voor stap, leg uit wat er mis ging.
 Spreek de leerling aan als 'jij'. Wees positief.`,
-   examLinks:[
-     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
-     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
-     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
-     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
-     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/36'},
-   ]},
+  },
   {id:'nl',      name:'Nederlands',cijfer:6.7,  color:'#1a8a4a', examen:'2026-05-11', etijd:'13:30–15:30',
    tip:'Signaalwoorden + vraagtype herkennen.',
    aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Nederlands.
@@ -659,13 +626,7 @@ Oefen zoals het examen: korte tekst + vragen over tekstbegrip en structuur.
 Stel één vraag tegelijk. Geef na elk antwoord feedback over de inhoud (niet spelling).
 Begin met een korte tekst (max 80 woorden) en één vraag over het teksttype of de hoofdgedachte.
 Spreek de leerling aan als 'jij'. Wees bemoedigend.`,
-   examLinks:[
-     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
-     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
-     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
-     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
-     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/28'},
-   ]},
+  },
   {id:'wisk',    name:'Wiskunde',  cijfer:8.2,  color:'#6a3db8', examen:'2026-05-08', etijd:'13:30–15:30',
    tip:'Bijhouden. Slordigheidsfouten voorkomen.',
    aiPrompt:`Je bent een vriendelijke Nederlandse examentrainer voor VMBO-TL Wiskunde.
@@ -676,13 +637,7 @@ Focus extra op stappen netjes opschrijven, eenheden vermelden, antwoord controle
 Stel één opgave tegelijk. Na het antwoord: check elke stap, geef aan waar eventuele slordigheidsfouten zitten.
 Begin met: "Wil je algebra, meetkunde, statistiek of een mix oefenen?"
 Spreek de leerling aan als 'jij'.`,
-   examLinks:[
-     {year:'2024',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
-     {year:'2023',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
-     {year:'2022',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
-     {year:'2021',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
-     {year:'2019',label:'Kies jaar + tijdvak op de site zelf',url:'https://examengemak.nl/examens/30'},
-   ]},
+  },
 ];
 
 const FASES = [
@@ -1522,21 +1477,6 @@ function renderOefenContent(){
 
   const con=document.getElementById('oef-content');
   con.innerHTML=`
-  <!-- LINKS -->
-  <div class="oef-section">
-    <h3>🔗 Oude examens — ${v.name}</h3>
-    <div class="exam-links">
-      ${v.examLinks.map(el=>`
-        <div class="exam-link-row">
-          <div class="el-info">
-            <div class="el-year">${el.year} — ${v.name}</div>
-            <div class="el-sub">${el.label}</div>
-          </div>
-          <a href="${el.url}" target="_blank" rel="noopener">Open op examengemak.nl →</a>
-        </div>`).join('')}
-    </div>
-  </div>
-
   <!-- SCORE LOGGER -->
   <div class="oef-section">
     <h3>📊 Score bijhouden${avg!==null?` <span style="font-size:.75rem;font-weight:400;color:var(--muted)">— gemiddelde: <span class="${scoreColor(avg)}">${avg}</span></span>`:''}</h3>
