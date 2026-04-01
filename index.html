@@ -102,7 +102,7 @@ main{padding:18px 22px;max-width:1060px;margin:0 auto;}
 .sdot{width:20px;height:20px;border-radius:4px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.54rem;transition:background .15s;}
 .sdot.hit{background:#1a8a4a;border-color:#1a8a4a;}
 .sdot.skip{background:#e0e0d8;opacity:.7;}
-.log-area{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Mono',monospace;font-size:.72rem;padding:8px 10px;resize:vertical;min-height:48px;outline:none;margin-top:9px;transition:border-color .15s;}
+.log-area{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'DM Mono',monospace;font-size:.82rem;padding:8px 10px;resize:vertical;min-height:100px;outline:none;margin-top:9px;transition:border-color .15s;line-height:1.8;letter-spacing:.01em;}
 .log-area:focus{border-color:var(--accent);}
 .log-area::placeholder{color:var(--muted);}
 .save-btn{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.73rem;padding:6px 14px;border-radius:6px;cursor:pointer;margin-top:6px;transition:opacity .12s;}
@@ -140,7 +140,7 @@ tr.jrow td{background:rgba(212,160,23,.06);}
 .score-form input,.score-form select,.score-form textarea{background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Syne',sans-serif;font-size:.78rem;padding:7px 10px;outline:none;transition:border-color .13s;}
 .score-form input:focus,.score-form select:focus,.score-form textarea:focus{border-color:var(--accent);}
 .score-form input[type=number]{width:70px;}
-.score-form textarea{width:100%;resize:vertical;min-height:44px;}
+.score-form textarea{width:100%;resize:vertical;min-height:80px;line-height:1.8;letter-spacing:.01em;}
 .score-form .grow{flex:1;min-width:160px;}
 .score-form button{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;padding:8px 15px;border-radius:6px;cursor:pointer;white-space:nowrap;}
 
@@ -168,7 +168,7 @@ tr.jrow td{background:rgba(212,160,23,.06);}
 .ai-msg.user{justify-content:flex-end;}
 .avatar{width:28px;height:28px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;}
 .ai-input-row{display:flex;gap:8px;margin-top:4px;}
-.ai-input-row textarea{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Syne',sans-serif;font-size:.8rem;padding:10px 12px;resize:none;height:60px;outline:none;transition:border-color .13s;}
+.ai-input-row textarea{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Syne',sans-serif;font-size:.9rem;padding:14px 16px;resize:none;height:120px;outline:none;transition:border-color .13s;line-height:1.8;letter-spacing:.01em;}
 .ai-input-row textarea:focus{border-color:var(--accent);}
 .ai-input-row button{background:var(--accent);color:#000;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.76rem;padding:0 16px;border-radius:8px;cursor:pointer;flex-shrink:0;transition:opacity .12s;}
 .ai-input-row button:hover{opacity:.85;}
@@ -190,7 +190,8 @@ tr.jrow td{background:rgba(212,160,23,.06);}
 .modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;width:90%;max-width:380px;}
 .modal h3{font-size:.9rem;margin-bottom:12px;}
 .modal select,.modal input,.modal textarea{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Syne',sans-serif;font-size:.78rem;padding:8px 10px;margin-bottom:7px;outline:none;}
-.modal select:focus,.modal input:focus{border-color:var(--accent);}
+.modal textarea{min-height:100px;font-size:.84rem;resize:vertical;line-height:1.8;letter-spacing:.01em;}
+.modal select:focus,.modal input:focus,.modal textarea:focus{border-color:var(--accent);}
 .mbts{display:flex;gap:7px;justify-content:flex-end;}
 .mbts button{background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:'Syne',sans-serif;font-size:.76rem;font-weight:600;padding:7px 14px;border-radius:6px;cursor:pointer;}
 .mbts .ok{background:var(--accent);color:#000;border-color:var(--accent);}
@@ -305,6 +306,13 @@ tr.jrow td{background:rgba(212,160,23,.06);}
 .nk-badge.ok{background:rgba(62,207,120,.1);border-color:var(--green);color:var(--green);}
 .nk-badge.loading{background:rgba(212,160,23,.08);border-color:var(--accent);color:var(--accent);animation:pulse 1s infinite;}
 .nk-badge.err{background:rgba(224,80,96,.1);border-color:var(--red);color:var(--red);}
+.nk-pdf-btns-row{display:flex;gap:7px;flex-wrap:wrap;margin:4px 0 10px;}
+.nk-pdf-btn{padding:6px 14px;border-radius:7px;font-size:.78rem;font-weight:700;border:1px solid;cursor:pointer;font-family:'Syne',sans-serif;transition:opacity .12s;background:transparent;}
+.nk-pdf-btn:hover:not(:disabled){opacity:.75;}
+.nk-pdf-blue{background:rgba(26,95,168,.1);border-color:#1a5fa8;color:#1a5fa8;}
+.nk-pdf-orange{background:rgba(196,94,16,.1);border-color:#c45e10;color:#c45e10;}
+.nk-pdf-green{background:rgba(26,138,74,.1);border-color:#1a8a4a;color:#1a8a4a;}
+.nk-pdf-dis{opacity:.4 !important;cursor:not-allowed;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 #toast{position:fixed;bottom:16px;right:16px;background:#ffffff;border:1px solid var(--accent);color:#1a1a1a;font-size:.78rem;padding:10px 15px;border-radius:8px;z-index:400;opacity:0;transform:translateY(8px);transition:all .22s;pointer-events:none;box-shadow:0 2px 12px rgba(0,0,0,.12);}
 #toast.show{opacity:1;transform:translateY(0);}
@@ -1081,13 +1089,14 @@ function renderNakijkControls(vakId){
   <div class="nk-section">
     <h3>📄 Oefenen met echt examen — ${vak(vakId).name}</h3>
     <div class="nk-controls">
-      <select class="nk-select" id="nk-jaar-${vakId}">${jaarOpts}</select>
-      <select class="nk-select" id="nk-tv-${vakId}">
+      <select class="nk-select" id="nk-jaar-${vakId}" onchange="renderPdfBtns('${vakId}')">${jaarOpts}</select>
+      <select class="nk-select" id="nk-tv-${vakId}" onchange="renderPdfBtns('${vakId}')">
         <option value="1">Tijdvak 1</option>
         <option value="2">Tijdvak 2</option>
       </select>
       <button class="nk-start" onclick="startNakijkSessie('${vakId}')">▶ Start nakijksessie</button>
     </div>
+    <div class="nk-pdf-btns-row" id="nk-pdf-btns-${vakId}"></div>
     <div class="nk-badges" id="nk-badges-${vakId}"></div>
     <div class="chat-container" id="nk-chat-${vakId}" style="display:none"></div>
     <div class="ai-input-row" id="nk-input-row-${vakId}" style="display:none">
@@ -1095,6 +1104,38 @@ function renderNakijkControls(vakId){
       <button id="nk-send-${vakId}" onclick="sendNakijk('${vakId}')">Stuur →</button>
     </div>
   </div>`;
+}
+
+const NK_PDF_DEFS=[
+  {rollen:['opgaven'],                             label:'📄 Opgaven',          kleur:'blue'},
+  {rollen:['bijlage','opgaven_text'],               label:'📎 Bijlage',          kleur:'orange'},
+  {rollen:['uitwerkbijlage'],                       label:'📎 Bijlage invullen', kleur:'orange'},
+  {rollen:['antwoorden','uitwerking','correctie'],  label:'✅ Antwoorden',       kleur:'green'},
+];
+
+function renderPdfBtns(vakId){
+  const container=document.getElementById('nk-pdf-btns-'+vakId);
+  if(!container)return;
+  const nm=NK_VAK_MAP[vakId];
+  const jaarEl=document.getElementById('nk-jaar-'+vakId);
+  const tvEl=document.getElementById('nk-tv-'+vakId);
+  const tvData=(nm&&jaarEl&&tvEl)?EXAMEN_INDEX[nm]?.[jaarEl.value]?.[tvEl.value]:null;
+  container.innerHTML=NK_PDF_DEFS.map(def=>{
+    const matchRol=tvData?def.rollen.find(r=>tvData[r]):null;
+    const url=matchRol?tvData[matchRol]:null;
+    const dis=!url;
+    return `<button class="nk-pdf-btn nk-pdf-${def.kleur}${dis?' nk-pdf-dis':''}"${dis?' disabled':` onclick="openPdfInTab('${url}')"`}>${def.label}</button>`;
+  }).join('');
+}
+
+async function openPdfInTab(url){
+  try{
+    const resp=await fetch(url);
+    if(!resp.ok)throw new Error('HTTP '+resp.status);
+    const blob=await resp.blob();
+    const blobUrl=URL.createObjectURL(blob);
+    window.open(blobUrl,'_blank');
+  }catch(e){toastMsg('Kon PDF niet openen: '+e.message);}
 }
 
 async function fetchPdfBase64(url){
@@ -1553,6 +1594,7 @@ function renderOefenContent(){
 
   renderScoreHistory(v.id);
   renderChatHistory(v.id);
+  renderPdfBtns(v.id);
 
   if(chatHistory[v.id].length===0){
     setTimeout(()=>startAI(v.id,'nieuw'),100);
